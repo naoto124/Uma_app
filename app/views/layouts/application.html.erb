@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>UmaApuri</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <header>
+        <span><a href="#">新規登録</a></span>
+        <span><a href="#">ログイン</a></span>
+     <div class="header_title">
+        <h1>馬アプリ</h1>
+      </div>
+    </header>
+   <%= yield %>
+
+    <div class="list">
+    <%# <%=リスト%>
+    <br>  "ア"のname一覧とか
+    </div>
+
+    <span class="gyou">
+      <div>
+        <ul>
+        <li>ア</li>
+        <li>イ</li>
+        <li>ウ</li>
+        <li>エ</li>
+        <li>オ</li>
+        </ul>
+      </div>
+            <div>
+        <ul>
+        <li>カ</li>
+        <li>キ</li>
+        <li>ク</li>
+        <li>ケ</li>
+        <li>コ</li>
+        </ul>
+      </div>
+      <div>
+        <ul>
+        <li>サ</li>
+        <li>シ</li>
+        <li>ス</li>
+        <li>セ</li>
+        <li>ソ</li>
+        </ul>
+      </div>
+      <div>
+        <ul>
+        <li>タ</li>
+        <li>チ</li>
+        <li>ツ</li>
+        <li>テ</li>
+        <li>ト</li>
+        </ul>
+      </div>
+      <div>
+        <ul>
+        <li>ナ</li>
+        <li>ニ</li>
+        <li>ヌ</li>
+        <li>ネ</li>
+        <li>ノ</li>
+        </ul>
+      </div>
+      <div>
+        <ul>
+        <li>ハ</li>
+        <li>ヒ</li>
+        <li>フ</li>
+        <li>ヘ</li>
+        <li>ホ</li>
+        </ul>
+      </div>
+      <div>
+        <ul>
+        <li>マ</li>
+        <li>ミ</li>
+        <li>ム</li>
+        <li>メ</li>
+        <li>モ</li>
+        </ul>
+      </div>
+      <div>
+        <ul>
+        <li>ヤ</li>
+        <li></li>
+        <li>ユ</li>
+        <li></li>
+        <li>ヨ</li>
+        </ul>
+      </div>
+      <div>
+        <ul>
+        <li>ラ</li>
+        <li>リ</li>
+        <li>ル</li>
+        <li>レ</li>
+        <li>ロ</li>
+        </ul>
+      </div>
+      <div>
+        <ul>
+        <li></li>
+        <li>ワ</li>
+        <li></li>
+        <li>ン</li>
+        <li></li>
+        </ul>
+        <%# <%= form_for @user_serect  アイウエオ　のデータベース？%>
+      </div>
+
+    </span>
+
+    <div class="coment">
+    <h3>管理人から一言</h3>
+    <p>毎週更新する<br>･･････かも </p>
+    </div>
+
+  </body>
+</html>

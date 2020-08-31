@@ -1,0 +1,2 @@
+class Uma < ApplicationRecord
+end
