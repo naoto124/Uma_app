@@ -9,13 +9,6 @@
   </head>
 
   <body>
-    <header>
-        <span><a href="#">新規登録</a></span>
-        <span><a href="#">ログイン</a></span>
-     <div class="header_title">
-        <h1>馬アプリ</h1>
-      </div>
-    </header>
    <%= yield %>
 
     <div class="list">
@@ -117,6 +110,23 @@
       </div>
 
     </span>
+
+    <div class="ranking">
+<%# userから受け取った投票を判定してポイントの高い上位３人を表示 %>
+<h1>User_Ranking</h1>
+  <div>
+    <h2>User_Name1</h2>
+    <p>Text_Content1</p>
+  </div>
+  <div>
+    <h2>User_Name2</h2>
+    <p>Text_Content2</p>
+  </div>
+  <div>
+    <h2>User_Name3</h2>
+    <p>Text_Content3</p>
+  </div>
+</div>
 
     <div class="coment">
     <h3>管理人から一言</h3>
