@@ -1,2 +1,13 @@
 <h2>新規登録</h2>
+<%= form_for @user , url: create_path do |f| %>
+<%= f.label :name, "name" %>
+<%= f.text_field :name %><br />
+<%= f.label :email, "email" %>
+<%= f.text_field :email %><br />
+<%= f.label :password, "password" %>
+<%= f.text_field :password %><br />
+<%= f.label :password_confirmation, "password_confirmation" %>
+<%= f.text_field :password_confirmation %><br />
+<%= f.submit "会員登録" %><br />
+<% end %>
 <%= link_to("TOP",root_path)%>

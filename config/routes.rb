@@ -3,5 +3,6 @@ Rails.application.routes.draw do
 root "home#top"
 
 get "signup", to:"user#new", as:"singup"
+post "signup", to: "user#create", as: "create"
 
 end
