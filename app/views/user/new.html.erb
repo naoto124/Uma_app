@@ -1,2 +1,15 @@
 <h2>新規登録</h2>
 <%= link_to("TOP",root_path)%>
+<div class="new_user">
+<%= form_for @user, url: create_path do |f| %>
+<%= f.label :name%>
+<%= f.text_area :name%>
+<%= f.label :email%>
+<%= f.text_area :email%>
+<%= f.label :password%>
+<%= f.text_area :password%>
+<%= f.label :password_confirmation%>
+<%= f.text_area :password_confirmation%>
+<%= f.submit ("送信")%>
+<%end%>
+</div>
