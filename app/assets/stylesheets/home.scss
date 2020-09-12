@@ -1,55 +1,19 @@
 // Place all the styles related to the home controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-a {
-  text-decoration: none;
-}
 
- header {
-   width: 600px;
-   height: 150px;
-   margin: 20px 10px;
-   background-color: ivory;
-   border-radius: 5%;
-   margin: auto;
-   position: relative;
- }
-  .header_title {
-    text-align: center;
-    clear: right;
-    color: #333;
- } 
-
- header > span{
-   display: inline-block;
-   font-size: 12px;
-   /* color: rgb(71, 116, 101); */
-   background-color: rgba(214, 245, 189, 0.7);
-   padding-left: 10px;
-   padding-right: 10px;
-   margin: 15px 10px 15px;
-   /* border: 1px solid #9aad90; */
-   border-radius: 2px;
-   float: right;
- }
- header > span :hover{
-   background-color: rgba(214, 245, 189, 1);
- }
-
- header span a{
-   color: rgb(71, 116, 101);
- }
+//  @import "bootstrap";
 
 
-.gest {
-  background-color: olivedrab;
-  width: 320px;
-  height: 270px;
-  border: 1px solid olive;
-  border-radius: 5%;
-  text-align: center;
-  color: #333;
-  position: absolute;
-  top:200px; left: 100px;
-}
+// .gest {
+//   background-color: olivedrab;
+//   width: 320px;
+//   height: 270px;
+//   border: 1px solid olive;
+//   border-radius: 5%;
+//   text-align: center;
+//   color: #333;
+//   position: absolute;
+//   top:200px; left: 100px;
+// }
 

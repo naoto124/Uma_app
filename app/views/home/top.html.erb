@@ -1,13 +1,15 @@
-
-    <header>
-        <span><%= link_to("新規登録",singup_path) %></span>
-        <span><%= link_to("ログイン","#")%></span>
-     <div class="header_title">
-        <h1>馬アプリ</h1>
+<div class="row">
+  <div class="col-lg-6 m-2">
+    <% if logged_in? %>
+      <div class="user">
+        <h1><%= @current_user.name %><h1>
+        <p>競走馬の能力と<br>その日走る条件を掛け合わせて<br>着順を予想するアプリです</p>
       </div>
-    </header>
-<div class="gest">
-<h1>ゲストさん</h1>
-<p>競走馬の能力と<br>その日走る条件を掛け合わせて<br>着順を予想するアプリです</p>
+      <% else %>
+      <div class="gest">
+        <h1>ゲストさん</h1>
+        <p>競走馬の能力と<br>その日走る条件を掛け合わせて<br>着順を予想するアプリです</p>
+      </div>
+    <%end%>
+  </div>
 </div>
-
