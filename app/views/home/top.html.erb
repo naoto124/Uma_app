@@ -1,39 +1,33 @@
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+  <h1 class="navbar-brand">Uma</h1>
+      <span class="navbar-nav  text-secondary ml-2">
 
-<header>
-  <div class="container">
-
-    <div class="row">
-     <div class="col-md-2 offset-md-8 mb-5">
-      <% if flash[:notice] %>
-        <div class="flash">
-          <%= flash[:notice] %>
-        </div>
-      <% end %>
-     </div>
-    </div>
-    <div class="row bg-info">
-        <div class="col-md-8">
-          <h1>Uma</h1>
-        </div>
           <% if logged_in? %>
-            <span><%= @current_user.name%></span>
-            <span><%= link_to(":ログアウト",logout_path,method: :delete)%></span>
+            <p class="nav-item mr-2"><%= @current_user.name%>:</p>
+            <div class="nav-item"><%= link_to("ログアウト",logout_path,method: :delete)%></div>
 
           <% else %>
-          <span><%= link_to("新規登録",singup_path) %></span>
-          <span><%= link_to("ログイン",login_path)%></span>
+          <div class="nav-item mr-2"><%= link_to("新規登録",singup_path) %></div>
+          <div class="nav-item"><%= link_to("ログイン",login_path)%></div>
           <%end%>
-      </div>
-  </div>
 
-</header>
+      </span>
+</nav>
+
+  <% if flash[:notice] %>
+    <div class="flash">
+      <%= flash[:notice] %>
+    </div>
+  <% end %>
 
 
-<div class="container mt-2 mb-2">
-  <div class="row">
+
+
+<div class="jumbotron">
+    <div class="row">
     <div class="col-md">
       <% if logged_in? %>
-        <div class="user bg-warning">
+        <div class="display-4">
           <h1><%= @current_user.name %><h1>
         <div class="row">
           <div class="col-md-3 offset-md-2">
@@ -47,10 +41,10 @@
                     <a class="dropdown-item dropdown-toggle" href="#" data-toggle="dropdown">パラメータを設定する馬を検索</a>
                     <ul class="dropdown-menu">
                       <li>
-                        <a class="dropdown-item" href="#">今週のレースから馬を検索</a>
+                        <a class="dropdown-item" href="#">今週のレースから検索</a>
                       </li>
                       <li>
-                        <a class="dropdown-item" href="#">お気に入り検索</a>
+                        <a class="dropdown-item" href="#">お気に入り馬を検索</a>
                       </li>
                     </ul>
                   </li>
@@ -63,21 +57,51 @@
             <div class="couse_search">
               <div class="dropdown drop-hover">
                 <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">
-                  馬パラメータ
+                  couseパラメータ
                 </button>
-                <ul class="dropdown-menu">
+                 <ul class="dropdown-menu">
                   <li class="dropright drop-hover">
-                    <a class="dropdown-item dropdown-toggle" href="#" data-toggle="dropdown">パラメータを設定する馬を検索</a>
-                    <ul class="dropdown-menu">
-                      <li>
-                        <a class="dropdown-item" href="#">今週のレースから馬を検索</a>
-                      </li>
-                      <li>
-                        <a class="dropdown-item" href="#">お気に入り検索</a>
-                      </li>
-                    </ul>
+                    <a class="dropdown-item dropdown-toggle" href="#" data-toggle="dropdown">各条件・各開催</a>
+                      <ul class="dropdown-menu">
+                        <li class="dropright drop-hover">
+                          <a class="dropdown-item dropdown-toggle" href="#" data-toggle="dropdown">芝</a>
+                             <ul class="dropdown-menu">
+                               <li>
+                                <a class="dropdown-item" href="#">東京</a>
+                                <a class="dropdown-item" href="#">京都</a>
+                                <a class="dropdown-item" href="#">阪神</a>
+                                <a class="dropdown-item" href="#">中山</a>
+                                <a class="dropdown-item" href="#">札幌</a>
+                                <a class="dropdown-item" href="#">新潟</a>
+                                <a class="dropdown-item" href="#">小倉</a>
+                                <a class="dropdown-item" href="#">函館</a>
+                                <a class="dropdown-item" href="#">中京</a>
+                                <a class="dropdown-item" href="#">福島</a>
+                               </li>
+                              </ul>
+                        </li>
+
+                        <li class="dropright drop-hover">
+                          <a class="dropdown-item dropdown-toggle" href="#" data-toggle="dropdown">ダート</a>
+                             <ul class="dropdown-menu">
+                               <li>
+                                <a class="dropdown-item" href="#">東京</a>
+                                <a class="dropdown-item" href="#">京都</a>
+                                <a class="dropdown-item" href="#">阪神</a>
+                                <a class="dropdown-item" href="#">中山</a>
+                                <a class="dropdown-item" href="#">札幌</a>
+                                <a class="dropdown-item" href="#">新潟</a>
+                                <a class="dropdown-item" href="#">小倉</a>
+                                <a class="dropdown-item" href="#">函館</a>
+                                <a class="dropdown-item" href="#">中京</a>
+                                <a class="dropdown-item" href="#">福島</a>
+                               </li>
+                              </ul>
+                        </li>
+                      </ul>
                   </li>
                 </ul>
+
               </div>
             </div>
           </div>
@@ -86,19 +110,19 @@
             <div class="expect">
               <div class="dropdown drop-hover">
                 <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">
-                  馬パラメータ
+                  予想
                 </button>
                 <ul class="dropdown-menu">
                   <li class="dropright drop-hover">
-                    <a class="dropdown-item dropdown-toggle" href="#" data-toggle="dropdown">パラメータを設定する馬を検索</a>
+                    <a class="dropdown-item dropdown-toggle" href="#" data-toggle="dropdown">今週のレース</a>
                     <ul class="dropdown-menu">
                       <li>
-                        <a class="dropdown-item" href="#">今週のレースから馬を検索</a>
-                      </li>
-                      <li>
-                        <a class="dropdown-item" href="#">お気に入り検索</a>
+                        <a class="dropdown-item" href="#">レース一覧</a>
                       </li>
                     </ul>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#">過去の予想・ポイント</a>
                   </li>
                 </ul>
               </div>
@@ -116,18 +140,25 @@
       </div>
       <% else %>
         <div class="gest">
-          <h1>ゲストさん</h1>
+          <h1 class="display-4">ゲストさん</h1>
           <p>競走馬の能力と<br>その日走る条件を掛け合わせて<br>着順を予想するアプリです</p>
         </div>
       <%end%>
     </div>
   </div>
 
+  <%# <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a> %>
+</div>
+
+  <%# <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+  <hr class="my-4">
+ %>
+<div class="container mt-2 mb-2">
+
 
   <div class="row">
 
-      <div class="col-md-4 col-sm-12 col-xs-10 offset-md-1">
-
+      <div class="col-12 col-md-6 col-sm-12">
         <table class="table table-secondary">
           <thead>
             <tr>
@@ -222,15 +253,14 @@
           </tbody>
         </table>
             <%# <%= form_for @user_serect  アイウエオ　のデータベース？%>
+    </div>
 
-      </div>
 
-      <%# <div class="col-auto"></div> %>
-
-        <div class="col-md-4  col-sm-12 col-xs-10 offset-md-1 text-center bg-info">
-          <div class="ranking">
-            <%# userから受け取った投票を判定してポイントの高い上位３人を表示 %>
-            <h1>User_Ranking</h1>
+      <div class="card text-white bg-dark mb-3 col-12 col-md-6  col-sm-12" style="max-width: 80rem;">
+        <div class="card-header">Header</div>
+        <div class="card-body">
+          <h5 class="card-title">User_Ranking</h5>
+            <div class="card-text"> 
               <div>
                 <h2>User_Name1</h2>
                 <p>Text_Content1</p>
@@ -243,15 +273,19 @@
                 <h2>User_Name3</h2>
                 <p>Text_Content3</p>
               </div>
+            </div>
+
+          </div>
         </div>
       </div>
 
-      <div class="col-md-4  col-sm-10 col-xs-10 ofset-md-2">
-          <div class="coment">
-            <h3 class="text-center">管理人から一言</h3>
-            <p class="text-center">毎週更新する<br>･･････かも </p>
-          </div>
+      <div class="card bg-light mb-3 col-12" style="max-width: 80rem;">
+        <div class="card-header">Header</div>
+        <div class="card-body">
+          <h5 class="card-title">管理人から一言</h5>
+          <p class="card-text">毎週更新する<br>･･････かも </p>
+        </div>
       </div>
 
-  </div>
+
 </div>

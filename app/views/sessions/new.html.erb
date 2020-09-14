@@ -1,9 +1,6 @@
 <%= link_to("TOP",root_path)%>
-<div class="new_title">
-  <h2>ログイン</h2>
-</div>
 
-<div class="new_user">
+<div class="login_user">
   <%= form_for :session, url: login_path do |f| %>
   <%= f.label :email%>
   <%= f.text_field :email%><br>
