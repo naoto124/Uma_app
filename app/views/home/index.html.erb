@@ -1,17 +1,6 @@
-
-  <% if flash[:notice] %>
-    <div class="flash">
-      <%= flash[:notice] %>
-    </div>
-  <% end %>
-
-
-
-
 <div class="jumbotron">
     <div class="row">
     <div class="col-md">
-      <% if logged_in? %>
         <div class="display-4">
           <h1><%= @current_user.name %><h1>
         <div class="row">
@@ -26,7 +15,7 @@
                     <a class="dropdown-item dropdown-toggle" href="#" data-toggle="dropdown">パラメータを設定する馬を検索</a>
                     <ul class="dropdown-menu">
                       <li>
-                        <a class="dropdown-item" href="<%= race_index_path%>">今週のレースから検索</a>
+                        <a class="dropdown-item" href="#">今週のレースから検索</a>
                       </li>
                       <li>
                         <a class="dropdown-item" href="#">お気に入り馬を検索</a>
@@ -123,154 +112,7 @@
         </div>
 
       </div>
-      <% else %>
-        <div class="gest">
-          <h1 class="display-4">ゲストさん</h1>
-          <p>競走馬の能力と<br>その日走る条件を掛け合わせて<br>着順を予想するアプリです</p>
-        </div>
-      <%end%>
     </div>
   </div>
-
-  <%# <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a> %>
-</div>
-
-  <%# <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-  <hr class="my-4">
- %>
-<div class="container mt-2 mb-2">
-
-
-  <div class="row">
-
-      <div class="col-12 col-md-6 col-sm-12">
-        <table class="table table-secondary">
-          <thead>
-            <tr>
-              <th scope="col"></th>
-              <th scope="col"></th>
-              <th scope="col"></th>
-              <th scope="col"></th>
-              <th scope="col"></th>
-              <th scope="col"></th>
-            </tr>
-          </thead>
-          <tbody>
-            <th scope="row">ア行</th>
-            <td>ア</td>
-            <td>イ</td>
-            <td>ウ</td>
-            <td>エ</td>
-            <td>オ</td>
-          </tbody>
-          <tbody>
-            <th scope="row">カ行</th>
-            <td>カ</td>
-            <td>キ</td>
-            <td>ク</td>
-            <td>ケ</td>
-            <td>コ</td>
-          </tbody>
-          <tbody>
-            <th scope="row">サ行</th>
-            <td>サ</td>
-            <td>シ</td>
-            <td>ス</td>
-            <td>セ</td>
-            <td>ソ</td>
-
-          </tbody>
-          <tbody>
-            <th scope="row">タ行</th>
-            <td>タ</td>
-            <td>チ</td>
-            <td>ツ</td>
-            <td>テ</td>
-            <td>ト</td>
-          </tbody>
-          <tbody>
-            <th scope="row">ナ行</th>
-            <td>ナ</td>
-            <td>ニ</td>
-            <td>ヌ</td>
-            <td>ネ</td>
-            <td>ノ</td>
-          </tbody>
-          <tbody>
-            <th scope="row">ハ行</th>
-            <td>ハ</td>
-            <td>ヒ</td>
-            <td>フ</td>
-            <td>ヘ</td>
-            <td>ホ</td>
-          </tbody>
-          <tbody>
-            <th scope="row">マ行</th>
-            <td>マ</td>
-            <td>ミ</td>
-            <td>ム</td>
-            <td>メ</td>
-            <td>モ</td>
-          </tbody>
-          <tbody>
-            <th scope="row">ヤ行</th>
-            <td>ヤ</td>
-            <td></td>
-            <td>ユ</td>
-            <td></td>
-            <td>ヨ</td>
-          </tbody>
-          <tbody>
-            <th scope="row">ラ行</th>
-            <td>ラ</td>
-            <td>リ</td>
-            <td>ル</td>
-            <td>レ</td>
-            <td>ロ</td>
-          </tbody>
-          <tbody>
-            <th scope="row">ワ行</th>
-            <td></td>
-            <td></td>
-            <td>ワ</td>
-            <td></td>
-            <td></td>
-          </tbody>
-        </table>
-            <%# <%= form_for @user_serect  アイウエオ　のデータベース？%>
-    </div>
-
-
-      <div class="card text-white bg-dark mb-3 col-12 col-md-6  col-sm-12" style="max-width: 80rem;">
-        <div class="card-header">Header</div>
-        <div class="card-body">
-          <h5 class="card-title">User_Ranking</h5>
-            <div class="card-text"> 
-              <div>
-                <h2>User_Name1</h2>
-                <p>Text_Content1</p>
-              </div>
-              <div>
-                <h2>User_Name2</h2>
-                <p>Text_Content2</p>
-              </div>
-              <div>
-                <h2>User_Name3</h2>
-                <p>Text_Content3</p>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </div>
-
-      <div class="card bg-light mb-3 col-12" style="max-width: 80rem;">
-        <div class="card-header">Header</div>
-        <div class="card-body">
-          <h5 class="card-title">管理人から一言</h5>
-          <p class="card-text">毎週更新する<br>･･････かも </p>
-        </div>
-      </div>
-
 
 </div>
