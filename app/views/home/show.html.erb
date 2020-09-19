@@ -1,121 +1,28 @@
 <div class="jumbotron m-1">
-    <div class="row">
-    <div class="col-md">
-        <div class="display-4">
-          <h1><%= @current_user.name %><h1>
-        <div class="row">
-          <div class="col-md-3 offset-md-2">
-            <div class="uma_search">
-              <div class="dropdown drop-hover">
-                <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">
-                  馬パラメータ
-                </button>
-                <ul class="dropdown-menu">
-                  <li class="dropright drop-hover">
-                    <a class="dropdown-item dropdown-toggle" href="#" data-toggle="dropdown">パラメータを設定する馬を検索</a>
-                    <ul class="dropdown-menu">
-                      <li>
-                        <a class="dropdown-item" href="#">今週のレースから検索</a>
-                      </li>
-                      <li>
-                        <a class="dropdown-item" href="#">お気に入り馬を検索</a>
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-3">
-            <div class="couse_search">
-              <div class="dropdown drop-hover">
-                <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">
-                  couseパラメータ
-                </button>
-                 <ul class="dropdown-menu">
-                  <li class="dropright drop-hover">
-                    <a class="dropdown-item dropdown-toggle" href="#" data-toggle="dropdown">各条件・各開催</a>
-                      <ul class="dropdown-menu">
-                        <li class="dropright drop-hover">
-                          <a class="dropdown-item dropdown-toggle" href="#" data-toggle="dropdown">芝</a>
-                             <ul class="dropdown-menu">
-                               <li>
-                                <a class="dropdown-item" href="#">東京</a>
-                                <a class="dropdown-item" href="#">京都</a>
-                                <a class="dropdown-item" href="#">阪神</a>
-                                <a class="dropdown-item" href="#">中山</a>
-                                <a class="dropdown-item" href="#">札幌</a>
-                                <a class="dropdown-item" href="#">新潟</a>
-                                <a class="dropdown-item" href="#">小倉</a>
-                                <a class="dropdown-item" href="#">函館</a>
-                                <a class="dropdown-item" href="#">中京</a>
-                                <a class="dropdown-item" href="#">福島</a>
-                               </li>
-                              </ul>
-                        </li>
-
-                        <li class="dropright drop-hover">
-                          <a class="dropdown-item dropdown-toggle" href="#" data-toggle="dropdown">ダート</a>
-                             <ul class="dropdown-menu">
-                               <li>
-                                <a class="dropdown-item" href="#">東京</a>
-                                <a class="dropdown-item" href="#">京都</a>
-                                <a class="dropdown-item" href="#">阪神</a>
-                                <a class="dropdown-item" href="#">中山</a>
-                                <a class="dropdown-item" href="#">札幌</a>
-                                <a class="dropdown-item" href="#">新潟</a>
-                                <a class="dropdown-item" href="#">小倉</a>
-                                <a class="dropdown-item" href="#">函館</a>
-                                <a class="dropdown-item" href="#">中京</a>
-                                <a class="dropdown-item" href="#">福島</a>
-                               </li>
-                              </ul>
-                        </li>
-                      </ul>
-                  </li>
-                </ul>
-
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-3">
-            <div class="expect">
-              <div class="dropdown drop-hover">
-                <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">
-                  予想
-                </button>
-                <ul class="dropdown-menu">
-                  <li class="dropright drop-hover">
-                    <a class="dropdown-item dropdown-toggle" href="#" data-toggle="dropdown">今週のレース</a>
-                    <ul class="dropdown-menu">
-                      <li>
-                        <a class="dropdown-item" href="#">レース一覧</a>
-                      </li>
-                    </ul>
-                  </li>
-                  <li>
-                    <a class="dropdown-item" href="#">過去の予想・ポイント</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-            <style>
-            .drop-hover:hover > .dropdown-menu {
-                display: block !important;
-            }
-
-            </style>
-          </div>
-        </div>
-
-      </div>
-    </div>
+      <div class="display-4">
+        <h1>選択した競馬場とレース番号<h1>
+        <ul>
+          <li>
+            そのレースに出走する馬の名前と番号
+          </li>
+          <li>
+            そのレースに出走する馬の名前と番号
+          </li>
+          <li>
+            そのレースに出走する馬の名前と番号
+          </li>
+        </ul>
+          <style>
+        .drop-hover:hover > .dropdown-menu {
+            display: block !important;
+        }
+        </style>
+        <button class="btn btn-secondary">前のレース</button>
+        <button class="btn btn-secondary">次のレース</button>
   </div>
-
 </div>
+
+
 
 <div class="jumbotron jumbotron-fluid jumbotron-a h-100 m-1 rounded" style="background-color: #e3f2fd"　>
     <span class="container navbar-text">
@@ -132,7 +39,7 @@
                 <div class="row">
                   <div class="col-3 col-md-3 col-lg-3">
                     <ul class="nav flex-column">
-                      <li class="nav-item"><a href="<%= index_show_path%>" class="nav-link">1R</a></li>
+                      <li class="nav-item"><a href="#" class="nav-link">1R</a></li>
                       <li class="nav-item"><a href="#" class="nav-link">2R</a></li>
                       <li class="nav-item"><a href="#" class="nav-link">3R</a></li>
                       <li class="nav-item"><a href="#" class="nav-link">4R</a></li><br>

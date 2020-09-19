@@ -10,5 +10,8 @@ Rails.application.routes.draw do
 
 
   get "/index", to:"home#index",as:"race_index"
+  get "/index/1", to:"home#show",as:"index_show"
+  # get"/post/from/race_id",to:"post#show",as:"index_show"
+
   root "home#top"  
 end
