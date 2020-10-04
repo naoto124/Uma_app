@@ -1,0 +1,33 @@
+// Place all the styles related to the Uma controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+ body {
+   background-color:rgb(62, 93, 197);
+ }
+
+
+.box{
+  width: 200px;
+  height: 300px;
+  background-color: cornsilk;
+  color: rgba(166, 175, 174, 0.467);
+}
+
+
+/*ページネーション自体のデザイン*/
+.pagination>li>a {          
+  border: none;     /*枠線をなくす*/
+  color: #696969;   /*文字の色を変える*/
+}
+
+/* 表示しているページ番号のデザイン */
+.pagination>.active>a {     
+  background: #ddf1ef;     /*背景の色を変える*/
+  border-radius: 15px;     /*角を丸くする*/
+}
+
+/*ホバー時のデザイン*/
+.pagination>li>a:hover {        
+  border-radius: 15px;    /*角を丸くする*/
+}

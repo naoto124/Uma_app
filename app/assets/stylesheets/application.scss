@@ -11,44 +11,15 @@
  * It is generally better to create a new file per style scope.
  *
  */
+
  @import "bootstrap";
 
-html, body { height: 100%; }
 
-
-.flash {
-  padding: 10px 0;
-  color: white;
-  background: rgb(251, 170, 88);
-  text-align: center;
-  position: absolute;
-  top: 64px;
-  z-index: 10;
-  width: 100%;
-  border-radius: 0 0 2px 2px;
-  font-size: 14px;
+.jumbotron-a {
+   height: 100vh;
+   position: relative;
 }
 
- body {
-   background-color:rgb(62, 93, 197);
- }
-
-
-//  header {
-//    width: 1280px;
-//    height: 80px;
-//    margin: 20px 10px;
-//    background-color: ivory;
-//    border-radius: 5%;
-//    margin: auto;
-//    position: relative;
-//  }
-//   .header_title {
-//     clear: right;
-//     float: left;
-//     color: #333;
-//     font-size: 10px;
-//  } 
 
 //  header > span{
 //    display: inline-block;

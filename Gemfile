@@ -59,3 +59,5 @@ gem 'jquery-rails'
  gem 'mechanize'
 
  gem 'pry-rails'
+
+ gem 'kaminari'
