@@ -1,10 +1,9 @@
 <h1>ア一覧</h1>
-<span class="box" style="color:green">
   <ul>
     <% @umas.each do |uma| %>
       <li><%= uma.name %></li>
     <% end %>
   </ul>
-
-</span>
+<div class="paginate">
   <%= paginate @umas %>
+</div>

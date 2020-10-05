@@ -15,110 +15,20 @@
 @import "bootstrap";
 @import "partials/*";
 
+.navbar {
+  user-select: none;
+}
+
 .jumbotron-a {
    height: 100vh;
    position: relative;
 }
 
-
-//  header > span{
-//    display: inline-block;
-//    font-size: 12px;
-//    /* color: rgb(71, 116, 101); */
-//    background-color: rgba(214, 245, 189, 0.7);
-//    padding-left: 10px;
-//    padding-right: 10px;
-//    margin: 15px 10px 15px;
-//    /* border: 1px solid #9aad90; */
-//    border-radius: 2px;
-//    float: right;
-//  }
-//  header > span :hover{
-//    background-color: rgba(214, 245, 189, 1);
-//  }
-
-//  header span a{
-//    color: rgb(71, 116, 101);
-//  }
-
-
-
-
-//  .list {
-//    width: 440px;
-//    height: 220px;
-//    background-color:palegoldenrod;
-//    border-radius: 5%;
-//    position: absolute;
-//    top:220px; left: 430px;
-//   }
-
  ul {
    list-style: none;
  }
-//  .gyou{
-//    width: 240px;
-//    margin: 10px;
-//    display: flex;
-//    justify-content: center;
-//    flex-wrap: wrap;
-//    background-color: rgb(248, 194, 124);
-//    font-size: 8px;
-//    /* border: 1px solid #333; */
-//    border-radius: 2px;
-//    position: absolute;
-//    top: 210px; left: 620px;
-   
-//  }
 
-//  .gyou ul {
-//    margin: 2px;
-//    padding: 2px;
-//    display: flex;
-//    justify-content: left;
-//    /* flex-wrap: wrap; */
-//  }
-
-
-//   .ranking {
-//   background-color: whitesmoke;
-//   width: 440px;
-//   border: 1px solid olive;
-//   border-radius: 5%;
-//   position: absolute;
-//   top:500px; left: 840px;
-
-// }
-
-// .ranking h1 {
-//   font-size: 20px;
-//   text-align: center;
-// }
-
-// .ranking h2{
-//   font-size: 15px;
-//   padding-left: 5px;
-// }
-
-// .ranking  p {
-//   font-size: 10px;
-//   padding-left: 12px;
-// }
-
-//   .coment {
-//     width: 460px;
-//     height: 240px;
-//     background-color: cornsilk;
-//     /* border: 1px solid #9aad90; */
-//     border-radius: 2%;
-//     position: absolute;
-//     top: 500px; left: 100px;
-//   }
-//     .coment h3 {
-//       text-align: center;
-//     }
-//     .coment p {
-//     margin-left: 15px;
-//     padding: 2px;
-//     }
-
+.nav-item a {
+  text-decoration: none;
+  color: rgb(228, 238, 241);
+}
