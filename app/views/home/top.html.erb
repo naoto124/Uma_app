@@ -157,13 +157,14 @@
           </thead>
           <tbody>
             <th scope="row">ア行</th>
-            <%= form_for (@uma, url: create_path) do |f|%>
-              <td name="name"><%=f.submit("ア")%></td>
+            <%# <%= form_for (:uma, url: create_path) do |f|%> %>
+              <%# <td ><%=f.submit("ア")%></td> %>>
+              <td ><%= link_to("ア",uma_index_path)%><td>
               <td>イ</td>
               <td>ウ</td>
               <td>エ</td>
               <td>オ</td>
-            <%end%>
+            <%# <%end%> %>
           </tbody>
           <tbody>
             <th scope="row">カ行</th>
