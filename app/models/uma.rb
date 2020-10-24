@@ -255,4 +255,9 @@ class Uma < ApplicationRecord
     end
   end
 
+  # def self.search(search)
+  #   return Uma.all unless search
+  #   Uma.where(['name LIKE ?', "%#{search}%"])
+  # end
+
 end

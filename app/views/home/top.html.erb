@@ -157,11 +157,13 @@
           </thead>
           <tbody>
             <th scope="row">ア行</th>
-            <td><a href="<%=uma_index_path%>">ア</a></td>
-            <td>イ</td>
-            <td>ウ</td>
-            <td>エ</td>
-            <td>オ</td>
+            <%= form_for (@uma, url: create_path) do |f|%>
+              <td name="name"><%=f.submit("ア")%></td>
+              <td>イ</td>
+              <td>ウ</td>
+              <td>エ</td>
+              <td>オ</td>
+            <%end%>
           </tbody>
           <tbody>
             <th scope="row">カ行</th>
