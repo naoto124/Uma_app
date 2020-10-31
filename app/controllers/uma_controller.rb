@@ -2,12 +2,15 @@
 class UmaController < ApplicationController
 
   def index
-    @umas = Uma.where('name like ?',"ア%").page(params[:page]).per(80)
-
+    uma = Uma.all
   end
 
-  def create 
-    # @keyword = params[:name]
+  def create
+  end
 
+
+  def show
+    keyword = params[:link]
+    @uma = Uma.where('name like ?',"#{keyword}%").page(params[:page]).per(80)
   end
 end

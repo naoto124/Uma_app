@@ -157,90 +157,66 @@
           </thead>
           <tbody>
             <th scope="row">ア行</th>
-            <%# <%= form_for (:uma, url: create_path) do |f|%> %>
-              <%# <td ><%=f.submit("ア")%></td> %>>
-              <td ><%= link_to("ア",uma_index_path)%><td>
-              <td>イ</td>
-              <td>ウ</td>
-              <td>エ</td>
-              <td>オ</td>
-            <%# <%end%> %>
+              <%= links[:a].each do |link|%>
+                <td><a href="uma_show/<%=link%>" name="<%= link%>"><%= link%></a></td>
+              <%end%>
           </tbody>
           <tbody>
             <th scope="row">カ行</th>
-            <td>カ</td>
-            <td>キ</td>
-            <td>ク</td>
-            <td>ケ</td>
-            <td>コ</td>
+              <%= links[:ka].each do |link|%>
+                <td><a href="uma_show/<%=link%>" name="<%= link%>"><%= link%></a></td>
+              <%end%>
           </tbody>
           <tbody>
             <th scope="row">サ行</th>
-            <td>サ</td>
-            <td>シ</td>
-            <td>ス</td>
-            <td>セ</td>
-            <td>ソ</td>
+              <%= links[:sa].each do |link|%>
+                <td><a href="uma_show/<%=link%>" name="<%= link%>"><%= link%></a></td>
+              <%end%>
 
           </tbody>
           <tbody>
             <th scope="row">タ行</th>
-            <td>タ</td>
-            <td>チ</td>
-            <td>ツ</td>
-            <td>テ</td>
-            <td>ト</td>
+              <%= links[:ta].each do |link|%>
+                <td><a href="uma_show/<%=link%>" name="<%= link%>"><%= link%></a></td>
+              <%end%>
           </tbody>
           <tbody>
             <th scope="row">ナ行</th>
-            <td>ナ</td>
-            <td>ニ</td>
-            <td>ヌ</td>
-            <td>ネ</td>
-            <td>ノ</td>
+              <%= links[:na].each do |link|%>
+                <td><a href="uma_show/<%=link%>" name="<%= link%>"><%= link%></a></td>
+              <%end%>
           </tbody>
           <tbody>
             <th scope="row">ハ行</th>
-            <td>ハ</td>
-            <td>ヒ</td>
-            <td>フ</td>
-            <td>ヘ</td>
-            <td>ホ</td>
+              <%= links[:ha].each do |link|%>
+                <td><a href="uma_show/<%=link%>" name="<%= link%>"><%= link%></a></td>
+              <%end%>
           </tbody>
           <tbody>
             <th scope="row">マ行</th>
-            <td>マ</td>
-            <td>ミ</td>
-            <td>ム</td>
-            <td>メ</td>
-            <td>モ</td>
+              <%= links[:ma].each do |link|%>
+                <td><a href="uma_show/<%=link%>" name="<%= link%>"><%= link%></a></td>
+              <%end%>
           </tbody>
           <tbody>
             <th scope="row">ヤ行</th>
-            <td>ヤ</td>
-            <td></td>
-            <td>ユ</td>
-            <td></td>
-            <td>ヨ</td>
+              <%= links[:ya].each do |link|%>
+                <td><a href="uma_show/<%=link%>" name="<%= link%>"><%= link%></a></td>
+              <%end%>
           </tbody>
           <tbody>
             <th scope="row">ラ行</th>
-            <td>ラ</td>
-            <td>リ</td>
-            <td>ル</td>
-            <td>レ</td>
-            <td>ロ</td>
+              <%= links[:ra].each do |link|%>
+                <td><a href="uma_show/<%=link%>" name="<%= link%>"><%= link%></a></td>
+              <%end%>
           </tbody>
           <tbody>
             <th scope="row">ワ行</th>
-            <td></td>
-            <td></td>
-            <td>ワ</td>
-            <td></td>
-            <td></td>
+              <%= links[:wa].each do |link|%>
+                <td><a href="uma_show/<%=link%>" name="<%= link%>"><%= link%></a></td>
+              <%end%>
           </tbody>
         </table>
-            <%# <%= form_for @user_serect  アイウエオ　のデータベース？%>
     </div>
 
 
@@ -274,6 +250,5 @@
           <p class="card-text">毎週更新する<br>･･････かも </p>
         </div>
       </div>
-
 
 </div>

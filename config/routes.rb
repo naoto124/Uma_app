@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   resources:user
 
   get '/uma_index',to:'uma#index',as:'uma_index'
-  post'/uma_index',to:'uma#create',as:'uma_create'
+  get '/uma_show/:link',to:'uma#show',as:'uma_show'
   resources:uma
 
   root "home#top"  

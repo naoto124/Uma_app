@@ -1,0 +1,9 @@
+<h1></h1>
+  <ul>
+    <% @uma.each do |u| %>
+      <li><%= u.name %></li>
+    <% end %>
+  </ul>
+<div class="paginate">
+  <%= paginate @uma %>
+</div>
