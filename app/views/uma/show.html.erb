@@ -1,7 +1,8 @@
-<h1></h1>
+<h1><%= @keyword%>行</h1>
   <ul>
     <% @uma.each do |u| %>
-      <li><%= u.name %></li>
+      <li><a href="uma_detail/<%=u.name%>" name="<%= u.name%>"><%= u.name%></a></li>
+
     <% end %>
   </ul>
 <div class="paginate">

@@ -11,7 +11,8 @@ Rails.application.routes.draw do
 
   get '/uma_index',to:'uma#index',as:'uma_index'
   get '/uma_show/:link',to:'uma#show',as:'uma_show'
-  resources:uma
+  get '/uma_show/uma_detail/:name',to:'uma#detail',as:'uma_detail'
+  resources:uma, params: :name
 
   root "home#top"  
 end

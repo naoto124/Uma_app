@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
 
   include SessionsHelper
   include HomeHelper
+  include UmaHelper
 
   private
     def logged_in_user

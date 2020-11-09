@@ -1,0 +1,104 @@
+<h1><%= @uma.name%>詳細ページ</h1>
+<table class="uma_prof">
+  <tbody>
+    <tr class="birthday">
+      <th>
+      生年月日
+      </th>
+      <td>
+        <% @prof_tds.each do |td|%>
+          <%if td.inner_text == td.inner_text.delete("^年 月 日 0-9")%>
+          <%= td.inner_text%>
+          <%end%>
+        <%end%>
+
+      </td>
+    </tr>
+
+    <tr>
+      <th>
+        性別・歳
+      </th>
+      <td>
+        <%= @sex_age.inner_text.delete("^牡 牝 セ 0-9")%>
+      </td>
+    </tr>
+
+    <tr>
+      <th>
+      調教師
+      </th>
+      <td>
+      <%# <%@prof_tds_a.each do |td_a|%>
+        <%# <%if td_a.get_attribute('href').include?("trainer")%>
+          <%# <%= td_a.inner_text%>
+        <%# <%end%>
+      <%# <%end%> 
+
+        <% @prof_tds.each do |td|%>
+          <%if td.inner_text.include?("美浦") || td.inner_text.include?("栗東")%>
+          <%= td.inner_text%>
+          <%end%>
+        <%end%>
+      </td>
+    </tr>
+
+    <tr>
+      <th>
+      馬主
+      </th>
+      <td>
+      <%@prof_tds_a.each do |td_a|%>
+      <%if td_a.get_attribute('href').include?("owner/")%>
+          <%= td_a.inner_text%>
+        <%end%>
+      <%end%>
+      </td>
+    </tr>
+
+    <tr>
+      <th>
+      生産者
+      </th>
+      <td>
+      <%@prof_tds_a.each do |td_a|%>
+      <%if td_a.get_attribute('href').include?("breeder")%>
+          <%= td_a.inner_text%>
+        <%end%>
+      <%end%>
+      </td>
+    </tr>
+    
+    <tr>
+      <th>
+      獲得賞金
+      </th>
+      <td>
+        <% @prof_tds.each do |td|%>
+          <%if td.inner_text.include?("中央") || td.inner_text.include?("地方")%>
+            <%= td.inner_text%>
+          <%end%>
+        <%end%>
+
+      </td>
+    </tr>
+
+    <tr>
+      <th>
+      通算成績
+      </th>
+      <td>
+      <%@prof_tds_a.each do |td_a|%>
+      <%if td_a.get_attribute('href').include?("horse/result")%>
+          <%= td_a.inner_text%>
+        <%end%>
+      <%end%>
+
+      </td>
+    </tr>
+
+  </tbody>
+</table>
+<div>
+  <%= @pedigree.inner_text%>
+</div>
