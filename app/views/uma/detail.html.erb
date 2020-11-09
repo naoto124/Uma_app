@@ -99,6 +99,44 @@
 
   </tbody>
 </table>
-<div>
-  <%= @pedigree.inner_text%>
-</div>
+
+<table>
+  <tbody>
+    <tr>
+      血統
+    </tr>
+      <%pd = []%>
+      <% @pedigree.each do |ped|%>
+        <% pd << ped%>
+      <%end%>
+    <tr>
+      <td class="fa">
+        <%= pd[0].inner_text%><br>
+      </td>
+      <td class="mo">
+        <%= pd[2].inner_text%>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="fa">
+        <%= pd[3].inner_text%><br>
+      </td>
+    </tr>
+
+          <td class="mo">
+        <%= pd[1].inner_text%><br>
+      </td>
+      <td class="fa">
+        <%= pd[4].inner_text%>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="mo">
+        <%= pd[5].inner_text%><br>
+      </td>
+    </tr>
+
+  </tbody>
+</table>
