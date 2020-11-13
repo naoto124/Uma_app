@@ -39,7 +39,7 @@ class Uma < ApplicationRecord
 
   def self.umas_index_link
     agent = Mechanize.new
-    is = (1..9).to_a
+    is = (0..8).to_a
     is.each do |i|
       c = 0
       next_url = 0

@@ -10,17 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20201107095636) do
+ActiveRecord::Schema.define(version: 20201113100629) do
+
+  create_table "races", force: :cascade do |t|
+    t.integer "code"
+    t.string "name"
+    t.string "distance"
+    t.string "type"
+    t.string "condition"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "umas", force: :cascade do |t|
     t.string "name"
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "age"
-    t.string "sex"
-    t.string "father"
-    t.string "mother"
     t.string "code"
   end
 

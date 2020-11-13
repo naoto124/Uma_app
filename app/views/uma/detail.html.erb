@@ -1,142 +1,317 @@
 <h1><%= @uma.name%>詳細ページ</h1>
-<table class="uma_prof">
-  <tbody>
-    <tr class="birthday">
-      <th>
-      生年月日
-      </th>
-      <td>
-        <% @prof_tds.each do |td|%>
-          <%if td.inner_text == td.inner_text.delete("^年 月 日 0-9")%>
-          <%= td.inner_text%>
-          <%end%>
-        <%end%>
 
-      </td>
-    </tr>
-
-    <tr>
-      <th>
-        性別・歳
-      </th>
-      <td>
-        <%= @sex_age.inner_text.delete("^牡 牝 セ 0-9")%>
-      </td>
-    </tr>
-
-    <tr>
-      <th>
-      調教師
-      </th>
-      <td>
-      <%# <%@prof_tds_a.each do |td_a|%>
-        <%# <%if td_a.get_attribute('href').include?("trainer")%>
-          <%# <%= td_a.inner_text%>
-        <%# <%end%>
-      <%# <%end%> 
-
-        <% @prof_tds.each do |td|%>
-          <%if td.inner_text.include?("美浦") || td.inner_text.include?("栗東")%>
-          <%= td.inner_text%>
-          <%end%>
-        <%end%>
-      </td>
-    </tr>
-
-    <tr>
-      <th>
-      馬主
-      </th>
-      <td>
-      <%@prof_tds_a.each do |td_a|%>
-      <%if td_a.get_attribute('href').include?("owner/")%>
-          <%= td_a.inner_text%>
-        <%end%>
-      <%end%>
-      </td>
-    </tr>
-
-    <tr>
-      <th>
-      生産者
-      </th>
-      <td>
-      <%@prof_tds_a.each do |td_a|%>
-      <%if td_a.get_attribute('href').include?("breeder")%>
-          <%= td_a.inner_text%>
-        <%end%>
-      <%end%>
-      </td>
-    </tr>
-    
-    <tr>
-      <th>
-      獲得賞金
-      </th>
-      <td>
-        <% @prof_tds.each do |td|%>
-          <%if td.inner_text.include?("中央") || td.inner_text.include?("地方")%>
+<div class="col-12 col-md-6 col-sm-12 prof"> 
+  <table class="uma_prof">
+    <tbody>
+      <tr class="birthday">
+        <th>
+        生年月日
+        </th>
+        <td>
+          <% @prof_tds.each do |td|%>
+            <%if td.inner_text == td.inner_text.delete("^年 月 日 0-9")%>
             <%= td.inner_text%>
+            <%end%>
+          <%end%>
+
+        </td>
+      </tr>
+
+      <tr>
+        <th>
+          性別・歳
+        </th>
+        <td>
+          <%= @sex_age.inner_text.delete("^牡 牝 セ 0-9")%>
+        </td>
+      </tr>
+
+      <tr>
+        <th>
+        調教師
+        </th>
+        <td>
+        <%# <%@prof_tds_a.each do |td_a|%>
+          <%# <%if td_a.get_attribute('href').include?("trainer")%>
+            <%# <%= td_a.inner_text%>
+          <%# <%end%>
+        <%# <%end%> 
+
+          <% @prof_tds.each do |td|%>
+            <%if td.inner_text.include?("美浦") || td.inner_text.include?("栗東")%>
+            <%= td.inner_text%>
+            <%end%>
+          <%end%>
+        </td>
+      </tr>
+
+      <tr>
+        <th>
+        馬主
+        </th>
+        <td>
+        <%@prof_tds_a.each do |td_a|%>
+        <%if td_a.get_attribute('href').include?("owner/")%>
+            <%= td_a.inner_text%>
+          <%end%>
+        <%end%>
+        </td>
+      </tr>
+
+      <tr>
+        <th>
+        生産者
+        </th>
+        <td>
+        <%@prof_tds_a.each do |td_a|%>
+        <%if td_a.get_attribute('href').include?("breeder")%>
+            <%= td_a.inner_text%>
+          <%end%>
+        <%end%>
+        </td>
+      </tr>
+      
+      <tr>
+        <th>
+        獲得賞金
+        </th>
+        <td>
+          <% @prof_tds.each do |td|%>
+            <%if td.inner_text.include?("中央") || td.inner_text.include?("地方")%>
+              <%= td.inner_text%>
+            <%end%>
+          <%end%>
+
+        </td>
+      </tr>
+
+      <tr>
+        <th>
+        通算成績
+        </th>
+        <td>
+        <%@prof_tds_a.each do |td_a|%>
+        <%if td_a.get_attribute('href').include?("horse/result")%>
+            <%= td_a.inner_text%>
           <%end%>
         <%end%>
 
-      </td>
-    </tr>
+        </td>
+      </tr>
 
-    <tr>
-      <th>
-      通算成績
-      </th>
-      <td>
-      <%@prof_tds_a.each do |td_a|%>
-      <%if td_a.get_attribute('href').include?("horse/result")%>
-          <%= td_a.inner_text%>
+    </tbody>
+  </table>
+
+  <div class="ped">
+    <table>
+      <tbody>
+        <tr class="ped_title">
+          血統
+        </tr>
+          <%pd = []%>
+          <% @pedigree.each do |ped|%>
+            <% pd << ped%>
+          <%end%>
+
+        <tr>
+          <td class="fa table-info">
+            <%= pd[0].inner_text%><br>
+          </td>
+          <td class="fa table-info">
+            <%= pd[1].inner_text%>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="fa table-info">
+          </td>
+          <td class="mo table-danger">
+            <%= pd[2].inner_text%>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="mo table-danger">
+            <%= pd[3].inner_text%><br>
+          </td>
+          <td class="fa table-info">
+            <%= pd[4].inner_text%><br>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="mo table-danger">
+          </td>
+          <td class="mo table-danger">
+            <%= pd[5].inner_text%><br>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="col-12 col-md-6 col-sm-12 race_info">
+  <table>
+    <thead>
+      <tr> 
+        <th>
+        日
+        </th>
+
+        <th>
+        開催
+        </th>
+
+        <th>
+        レース名
+        </th>
+
+        <th>
+        頭数
+        </th>
+
+        <th>
+        枠
+        </th>
+
+        <th>
+        馬番
+        </th>
+
+        <th>
+        人気
+        </th>
+
+        <th>
+        オッズ
+        </th>
+
+        <th>
+        距離
+        </th>
+
+        <th>
+        馬場
+        </th>
+
+        <th>
+        騎手
+        </th>
+
+        <th>
+        着順
+        </th>
+
+        <th>
+        通過
+        </th>
+
+        <th>
+        上がり
+        </th>
+
+        <th>
+        タイム
+        </th>
+
+        <th>
+        着差
+        </th>
+
+        <th>
+        馬体
+        </th>
+
+        <th>
+        勝馬
+        </th>
+      </tr>
+
+    </thead>
+    <tbody>
+        <td>
+        <%# 日 %>
+        </td>
+
+        <td>
+        <%# 開催 %>
+        </td>
+
+        <td>
+        <%# レース名 %>
+        </td>
+
+        <%r = []%>
+        <%@uma_race_right.each do |right|%>
+        <%r << right.inner_text%>
         <%end%>
-      <%end%>
+        <td>
+        <%# 頭数 %>
+          <%=r[1]%>
+        </td>
 
-      </td>
-    </tr>
+        <td>
+        <%# 枠 %>
+          <%=r[2]%>
+        </td>
 
-  </tbody>
-</table>
+        <td>
+        <%# 馬番 %>
+          <%=r[3]%>
+        </td>
 
-<table>
-  <tbody>
-    <tr>
-      血統
-    </tr>
-      <%pd = []%>
-      <% @pedigree.each do |ped|%>
-        <% pd << ped%>
-      <%end%>
-    <tr>
-      <td class="fa">
-        <%= pd[0].inner_text%><br>
-      </td>
-      <td class="mo">
-        <%= pd[2].inner_text%>
-      </td>
-    </tr>
+        <td>
+        <%# 人気 %>
+          <%=r[5]%>
+        </td>
 
-    <tr>
-      <td class="fa">
-        <%= pd[3].inner_text%><br>
-      </td>
-    </tr>
+        <td>
+        <%# オッズ %>
+          <%=r[4]%>
+        </td>
 
-          <td class="mo">
-        <%= pd[1].inner_text%><br>
-      </td>
-      <td class="fa">
-        <%= pd[4].inner_text%>
-      </td>
-    </tr>
+        <td>
+        <%# 距離 %>
+        </td>
 
-    <tr>
-      <td class="mo">
-        <%= pd[5].inner_text%><br>
-      </td>
-    </tr>
+        <td>
+        <%# 馬場 %>
+        </td>
 
-  </tbody>
-</table>
+        <td>
+        <%# 騎手 %>
+        </td>
+
+        <td>
+        <%# 着順 %>
+        </td>
+
+        <td>
+        <%# 通過 %>
+        </td>
+
+        <td>
+        <%# 上がり %>
+        </td>
+
+        <td>
+        <%# タイム %>
+          <%=r[8]%>
+        </td>
+
+        <td>
+        <%# 着差 %>
+          <%=r[9]%>
+        </td>
+
+        <td>
+        <%# 馬体 %>
+        </td>
+
+        <td>
+        <%# 勝馬 %>
+        </td>
+    </tbody>
+  </table>
+</div>

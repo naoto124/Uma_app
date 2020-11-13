@@ -18,6 +18,9 @@ class UmaController < ApplicationController
   end
 
   def detail
+
+    # プロフィール用
+
     @uma = Uma.find_by(name: params[:name])
     @code = @uma.code
 
@@ -30,6 +33,11 @@ class UmaController < ApplicationController
 
     @pedigree = page.search('table.blood_table a')
     # @race = page.at()
+
+    # レース情報用
+
+    @uma_race_a = page.search('table.db_h_race_results td a')
+    @uma_race_right = page.search('td.txt_right')
 
   end
 

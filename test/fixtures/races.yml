@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  code: 1
+  name: MyString
+  distance: MyString
+  type: 
+  condition: MyString
+
+two:
+  code: 1
+  name: MyString
+  distance: MyString
+  type: 
+  condition: MyString
