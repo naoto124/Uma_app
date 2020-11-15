@@ -64,7 +64,27 @@ ul li {
   padding-left: 28px;
   background-color: whitesmoke;
   border: solid 2px skyblue;
-  border-radius: 10%;
+  border-radius: 2%;
+}
+
+.uma_race_info {
+  background-color: whitesmoke;
+  border: solid 2px skyblue;
+  border-radius: 2%;
+  margin: 5px;
+}
+
+.uma_race_info thead {
+  writing-mode: vertical-lr;
+  white-space: nowrap;
+  margin: 0;
+  font-size: 15px;
+}
+
+.uma_race_info thead th {
+  height: 50px;
+  line-height:120%;
+
 }
 
 .ped {

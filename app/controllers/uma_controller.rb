@@ -70,18 +70,21 @@ class UmaController < ApplicationController
       @winner = []
       ]
 
-
+      # tdの塊を所得
       elements = page.search('table.racedata_race_chart_table td')
       elements.each do |element|
         @race_info << element.inner_text
       end
 
+      # 22個のtitleにいれる22個の要素を1として所得
       @race_info.delete_at(0)
       @race_info.each_slice(23) do |i|
         i.delete_at(12)
         @new_race_info << i
       end
-      new_race_info.each do |n|
+
+      # titleの別に要素を変数にいれる
+      @new_race_info.each do |n|
         m = 0
         for m in 0..21 do
           @table[m] << n[m]
