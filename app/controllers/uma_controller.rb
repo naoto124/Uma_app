@@ -25,20 +25,75 @@ class UmaController < ApplicationController
     @code = @uma.code
 
     agent = Mechanize.new
-    page = agent.get("https://db.netkeiba.com/horse/" + @code.to_s)
+    page = agent.get("https://umanity.jp/racedata/db/horse_top.php?code=" + @code.to_s)
 
-    @sex_age = page.at('p.txt_01')
-    @prof_tds = page.search('table.db_prof_table td')
-    @prof_tds_a = page.search('table.db_prof_table td a')
+    # 馬の情報
 
-    @pedigree = page.search('table.blood_table a')
-    # @race = page.at()
+    @text_right = page.search('div.text_right')
+    @birth = elements_disassemble(@text_right).inner_text[14..31].delete('^年 月 日 0-9')
+    @sex_age = elements_disassemble(@text_right).inner_text[8..13].delete('^牡 牝 セ 0-9')
 
-    # レース情報用
+    @uma_info = []
+    @profs = page.search('table.race_prof_table td')
+    # @uma_info << elements_disassemble(@profs)
+    @profs.each do |prof|
+      @uma_info << prof.inner_text
+    end
 
-    @uma_race_a = page.search('table.db_h_race_results td a')
-    @uma_race_right = page.search('td.txt_right')
+      # 大元のテーブル
+      @race_info = []
+      @new_race_info = []
 
+      # 分解したテーブル
+      @table = [
+      @days = [],
+      @places = [],
+      @r = [],
+      @race_names = [],
+      @couses = [],
+      @conditions = [],
+      @uma_participations = [],
+      @boxes = [],
+      @uma_numbers = [],
+      @ozzus = [],
+      @populars = [],
+      @races_ranking = [],
+      @sex_ages = [],
+      @load_weights = [],
+      @jockeys = [],
+      @trainers = [],
+      @weights = [],
+      @times = [],
+      @margins = [],
+      @spurts = [],
+      @passings = [],
+      @winner = []
+      ]
+
+
+      elements = page.search('table.racedata_race_chart_table td')
+      elements.each do |element|
+        @race_info << element.inner_text
+      end
+
+      @race_info.delete_at(0)
+      @race_info.each_slice(23) do |i|
+        i.delete_at(12)
+        @new_race_info << i
+      end
+      new_race_info.each do |n|
+        m = 0
+        for m in 0..21 do
+          @table[m] << n[m]
+        end
+      end
+
+  end
+
+  def elements_disassemble(e)
+    e.each do |element|
+      element.inner_text
+    end
   end
 
 end
