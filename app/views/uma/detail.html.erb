@@ -90,13 +90,23 @@
       </tr>
     </thead>
     <tbody>
-      <%@new_race_info.each do |r|%>
-    <tr class ="col-xs-3 col-ms-3 col-md-4 col-lg-6">
-      <% for i in 0..21 do%>
-        <td><%=r[i]%></td>
-      <%end%>
-    </tr>
-    <%end%>
+      <%for m in 0..30 do%>
+          <tr class ="col-xs-3 col-ms-3 col-md-4 col-lg-6">
+            <%for i in 0..21 do%>
+              <% if i == 3%>
+                <td>
+                  <a href="/uma_show/uma_detail/race_show/<%= @table[22][m]%>" name="<%=@table[22][m]%>">
+                    <%= @table[i][m]%>
+                  </a>
+                </td>
+              <% elsif %>
+                  <td>
+                    <%= @table[i][m]%>
+                  </td>
+              <%end%>
+            <%end%>
+          </tr>
+          <%end%>
     </tbody>
   </table>
 </span>
