@@ -1,0 +1,2 @@
+class CouseController < ApplicationController
+end

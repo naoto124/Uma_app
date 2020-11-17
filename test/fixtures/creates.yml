@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  Couse: MyString
+  couse_id: 1
+  couse_name: MyString
+
+two:
+  Couse: MyString
+  couse_id: 1
+  couse_name: MyString
