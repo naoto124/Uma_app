@@ -52,15 +52,16 @@ class Race < ApplicationRecord
     page = agent.get(te)
     elements = page.search('h2.racecard')
     elements.each do |element|
-      if element.inner_text.split.length < 3
+      if element.inner_text.split.length <= 3
         race = Race.find_by(code: @c)
           race.name = element.inner_text.split[1]
           race.save
-      elsif 
+      elsif element.inner_text.split.length > 3
         race = Race.find_by(code: @c)
             race.name = element.inner_text.split[2]
             race.save
-
+      else next
+        
       end
     end
     
