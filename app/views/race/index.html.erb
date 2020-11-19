@@ -1,0 +1,8 @@
+<span>
+  <ul>
+    <li><%= @now%></li>
+  <% @next.each_with_index do |n,i|%>
+    <li><a href="/race_index/<%= @url[i]%>" name="<%= @url[i]%>"><%= n%></a></li>
+  <%end%>
+  </ul>
+</span>

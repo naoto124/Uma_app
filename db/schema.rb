@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20201117061428) do
+ActiveRecord::Schema.define(version: 20201118113828) do
 
   create_table "couses", force: :cascade do |t|
     t.integer "couse_id"
@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 20201117061428) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "place"
-    t.string "type"
+    t.string "stage"
     t.string "distance"
     t.integer "speed", default: 1, null: false
     t.integer "power", default: 1, null: false
