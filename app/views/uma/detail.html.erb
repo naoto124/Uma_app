@@ -80,7 +80,7 @@
 </div>
 
 
-<span class="table-responsive-sm md lg">
+<span class="table-responsive-sm md lg main">
   <table class="uma_race_info table">
     <thead>
       <tr class ="col-xs-3 col-ms-3 col-md-4 col-lg-6">
@@ -90,18 +90,19 @@
       </tr>
     </thead>
     <tbody>
-      <%for m in 0..30 do%>
+      <%@n.each_with_index do |m,n|%>
           <tr class ="col-xs-3 col-ms-3 col-md-4 col-lg-6">
-            <%for i in 0..21 do%>
-              <% if i == 3%>
+            <%@n.each_with_index do |t,i|%>
+
+              <% if i == 3 && @n[i][n] != nil && @code_link[n] != nil%>
                 <td>
-                  <a href="/uma_show/uma_detail/race_show/<%= @table[22][m]%>" name="<%=@table[22][m]%>">
-                    <%= @table[i][m]%>
+                  <a href="<%=race_run_path(name:@code_link[n])%>" name="<%=@code_link[n]%>">
+                    <%= @n[i][n]%>
                   </a>
                 </td>
-              <% elsif %>
+              <% elsif @n[i][n] != nil%>
                   <td>
-                    <%= @table[i][m]%>
+                    <%= @n[i][n]%>
                   </td>
               <%end%>
             <%end%>

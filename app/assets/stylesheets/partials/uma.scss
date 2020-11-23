@@ -59,18 +59,29 @@ ul li {
   // width: 380px;
   margin-left: 10px;
   margin-top: 50px;
+  margin-bottom: 50px;
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 28px;
   background-color: whitesmoke;
   border: solid 2px skyblue;
-  border-radius: 2%;
+  border-radius: 1%;
+}
+
+.main {
+  // margin-left: 10px;
+  // padding-top: 8px;
+  // padding-bottom: 8px;
+  // padding-left: 28px;
+  background-color: whitesmoke;
+  padding: 0;
 }
 
 .uma_race_info {
   background-color: whitesmoke;
-  border: solid 2px skyblue;
+  border: none 2px rgb(243, 247, 248);
   border-radius: 2%;
+
   margin: 5px;
 }
 

@@ -1,4 +1,3 @@
-<div><a href="<%=race_run_path(name:@code)%>">出走馬</a></div>
 <div class="col-12 col-md-6 col-sm-12 prof"> 
   <table class="race_prof table">
     <tbody>
@@ -17,16 +16,18 @@
   </table>
 </div>
 
-<div class="col-12 col-md-6 col-sm-12 prof"> 
-  <table class="race_prof table">
+<span class="table-responsive-sm md lg main">
+  <table class="uma_race_info table">
+    <thead>
+      <tr class ="col-xs-3 col-ms-3 col-md-4 col-lg-6">
+        <% @race_head.each do |head|%>
+        <th class ="col-xs-1"><%=head%></th>
+        <%end%>
+      </tr>
+    </thead>
     <tbody>
-    <tr class="table-dark"><h3>特別登録</h3></tr>
-    <%@race_text.zip(@race_uma_code) do |r,i|%>
-        <tr class="birthday table">
-          <td><a href="<%=uma_detail_path(name:r)%>" name="<%=r%>"><%=r%></a></td>
-        </tr>
-    <%end%>
+      <%# <tr class ="col-xs-3 col-ms-3 col-md-4 col-lg-6">
+      </tr> %>
     </tbody>
   </table>
-</div>
-
+</span>

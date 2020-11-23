@@ -11,12 +11,14 @@ Rails.application.routes.draw do
 
   get '/uma_index',to:'uma#index',as:'uma_index'
   get '/uma_show/:link',to:'uma#show',as:'uma_show'
-  get '/uma_show/uma_detail/:name',to:'uma#detail',as:'uma_detail'
+  get '/uma_detail/:name',to:'uma#detail',as:'uma_detail'
   resources:uma, params: :name
 
-  get '/race_index', to:'race#index', as:'race_next'
-  get '/race_index/:name', to:'race#info', as:'race_info'
-  get '/uma_show/uma_detail/race_show/:name', to:'race#show', as:'race_show'
+  get '/race_index', to:'race#index', as:'race_index_next'
+  get '/race_info/:name', to:'race#info', as:'race_info'
+  # get 'race_detail/:name',to:'race#detail',as:'race_detail'
+  get '/race_show/:name', to:'race#show', as:'race_show'
+  get '/race_run/:name', to:'race#run', as:'race_run'
   resources:race, params: :name
 
 

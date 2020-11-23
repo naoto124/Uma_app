@@ -20,7 +20,7 @@ class UmaController < ApplicationController
   def detail
 
     # プロフィール用
-
+    p params[:name]
     @uma = Uma.find_by(name: params[:name])
     @code = @uma.code
 
@@ -43,33 +43,8 @@ class UmaController < ApplicationController
       # 大元のテーブル
       @race_info = []
       @new_race_info = []
-
+      @code_link = []
       # 分解したテーブル
-      @table = [
-      days = [],
-      places = [],
-      r = [],
-      race_names = [],
-      couses = [],
-      conditions = [],
-      uma_participations = [],
-      boxes = [],
-      uma_numbers = [],
-      ozzus = [],
-      populars = [],
-      races_ranking = [],
-      sex_ages = [],
-      load_weights = [],
-      jockeys = [],
-      trainers = [],
-      weights = [],
-      times = [],
-      margins = [],
-      spurts = [],
-      passings = [],
-      winner = [],
-      race_code_link = []
-      ]
 
       # tdの塊を所得
       elements = page.search('table.racedata_race_chart_table td')
@@ -81,28 +56,37 @@ class UmaController < ApplicationController
 
       elements_a.each do |element|
         if element.get_attribute('href').include?('//umanity.jp/racedata/race_21.php?code')
-          @table[22] << element.get_attribute('href')[39..55].to_s
+          @code_link << element.get_attribute('href')[39..55].to_s
         end
       end
-
       
-
+      @code_link = @code_link.uniq
       # 22個のtitleにいれる22個の要素を1として所得
+
+      # pが出力されない
+
+      # @race_infoは配列でdeleteやsliceは無視してください
       @race_info.delete_at(0)
       @race_info.each_slice(23) do |i|
         i.delete_at(12)
         @new_race_info << i
       end
 
-      # titleの別に要素を変数にいれる
-      @new_race_info.each do |n|
-        m = 0
-        for m in 0..21 do
-          @table[m] << n[m].to_s
-        end
-      end
+      # pが出力される
+      p @new_race_info[0]
+      p @code_link[0]
+      @n = @new_race_info.transpose
 
-      @new_race_info_a
+
+
+      # titleの別に要素を変数にいれる
+      # @new_race_info.each do |n|
+      #   m = 0
+      #   for m in 0..21 do
+      #  @table[m] << n[m].to_s
+      #   end
+      # end
+
 
   end
 

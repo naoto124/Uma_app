@@ -1,8 +1,40 @@
 <span>
   <ul>
-    <li><%= @now%></li>
   <% @next.each_with_index do |n,i|%>
-    <li><a href="/race_index/<%= @url[i]%>" name="<%= @url[i]%>"><%= n%></a></li>
+    <li><a href="<%= race_info_path(name:@url[i])%>" name="<%= @url[i]%>"><%= n%></a></li>
   <%end%>
+    <h2><%= @now%></h2>
   </ul>
+</span>
+
+<span class="table-responsive-sm md lg main">
+  <table class="race_info table table-bordered">
+    <thead>
+        <tr class ="col-xs-3 col-ms-3 col-md-4 col-lg-6 table-primary">
+          <th></th>
+          <% @place.uniq.each do |pn|%>
+            <th class ="col-xs-1"><%= pn%></th>
+          <%end%>
+        </tr>
+    </thead>
+    <tbody>
+        <%c = 0%>
+          <%@num.each do |pl|%>
+      <tr class ="col-xs-3 col-ms-3 col-md-4 col-lg-6 table-dark">
+        <th scope="row"><%= pl%></th>
+      <%@race_name_a.each do |ra|%>
+            <td>
+              <a href="<%=race_run_path(name:@race_name_a[c])%>" name="<%@race_name_a[c]%>">
+                <%= @race_name[c]%>
+              </a>
+            </td> 
+            <% c += 1%>
+            <%if c % @place.count == 0 %>
+              <% break%>
+            <%end%>
+          <%end%>
+      </tr>
+      <%end%>
+    </tbody>
+  </table>
 </span>
