@@ -26,8 +26,13 @@
       </tr>
     </thead>
     <tbody>
-      <%# <tr class ="col-xs-3 col-ms-3 col-md-4 col-lg-6">
-      </tr> %>
+     <% @main.each do |ma|%>
+      <tr class ="col-xs-3 col-ms-3 col-md-4 col-lg-6">
+        <% ma.each_with_index do |m,i|%>
+          <td><%= m%></td>
+      <%end%>
+      </tr>
+     <%end%>
     </tbody>
   </table>
 </span>

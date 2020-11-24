@@ -173,10 +173,11 @@ class RaceController < ApplicationController
 
   end
 
-    def race_main(race)
+  def race_main(race)
     agent = Mechanize.new()
     page = agent.get(race)
     # レース中身
+    # タイトル
     race_f = page.iframe_with(name: 'racecard').click
     race_heads = race_f.search('th.table-title')
 
@@ -184,9 +185,66 @@ class RaceController < ApplicationController
     race_heads.each do |head|
       @race_head << head.inner_text
     end
-    @race_head.slice!(2,3,)
+    @race_head.slice!(2,2)
+    @race_head.slice!(9)
     @race_head[7] = "人気"
 
+
+    # 要素
+    race_odd = race_f.search('tr.odd-row td')
+    race_odd_a = race_f.search('td.odd-row a')
+    race_even = race_f.search('tr.even-row td')
+    race_even_a = race_f.search('td.even-row a')
+    @odd = []
+    @even = []
+    @race_main = []
+    @race_main_a = []
+
+    @main = []
+
+    slices(race_odd,@odd)
+    slices(race_even,@even)
+    @odd.zip(@even) do |o,e|
+      @main << o
+      @main << e
+    end
+    p @main
   end
+
+    def slices(oe,ooee)
+      oeoe = []
+      oe.each do |m|
+        oeoe << m.inner_text
+      end
+
+        oeoe.each_slice(19) do |r|
+        # 1,2走目がない馬でずれる
+        
+        # if r[17].include?()
+        #   r[17] << "出走履歴なし"
+        # elsif r[18].length < 5
+        #   r[18] << "出走履歴なし"
+        # end
+
+        ma = []
+        ma << r
+        ma.each do |m|
+          main = []
+          m.slice!(2,4)
+          main << m
+          main.each do |m|
+            min = []
+            m.slice!(13,14)
+            min << m
+            min.each do |m|
+              m.slice!(11,12)
+              (ooee) << m
+            end
+          end
+        end
+      end
+
+  end
+
 
 end
