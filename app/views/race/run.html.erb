@@ -26,11 +26,14 @@
       </tr>
     </thead>
     <tbody>
-     <% @main.each do |ma|%>
+     <% @main.each_with_index do |m,i|%>
       <tr class ="col-xs-3 col-ms-3 col-md-4 col-lg-6">
-        <% ma.each_with_index do |m,i|%>
-          <td><%= m%></td>
-      <%end%>
+          <td><%= m[0]%></td>
+          <td><%= m[1]%></td>
+          <td><%= @uma_name[i]%></td>
+          <td><%= m[2]%></td>
+          <td><%= @jokey[i]%></td>
+          <td><%= m[3]%></td>
       </tr>
      <%end%>
     </tbody>

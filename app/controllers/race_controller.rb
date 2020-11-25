@@ -185,20 +185,40 @@ class RaceController < ApplicationController
     race_heads.each do |head|
       @race_head << head.inner_text
     end
-    @race_head.slice!(2,2)
-    @race_head.slice!(9)
-    @race_head[7] = "人気"
+    @race_title.slice!(2,2)
+    @race_title.slice!(3)
+    @race_title.slice!(8,10)
+    @race_title.slice!(5)
+    @race_title.slice!(5)
 
+    p @race_title
 
-    # 要素
     race_odd = race_f.search('tr.odd-row td')
-    race_odd_a = race_f.search('td.odd-row a')
     race_even = race_f.search('tr.even-row td')
-    race_even_a = race_f.search('td.even-row a')
+
+    @jokey = []
+    race_f.search('tr.table-frame td a').each do |j|
+      if j[:href].include?('umanity.jp/racedata/database_jockey_1.php?code=')
+        @jokey << j.inner_text
+      end
+    end
+    p @jokey
+
+    @race_a = []
+
+    race_f.links_with(:href => /horse_top/).each do |link|
+      @race_a << link.href[44..53]
+    end
+
+    @uma_name = []
+    @race_a.each do |a|
+      @uma_name << Uma.find_by(code:a)
+    end
+
+    p @race_a
+
     @odd = []
     @even = []
-    @race_main = []
-    @race_main_a = []
 
     @main = []
 
@@ -208,43 +228,25 @@ class RaceController < ApplicationController
       @main << o
       @main << e
     end
+
     p @main
+
   end
 
-    def slices(oe,ooee)
-      oeoe = []
-      oe.each do |m|
+  def slices(oe,ooee)
+    oeoe = []
+    oe.each do |m|
+      if nil != (m.inner_text =~ /\A[0-9.☆▲△★▫️◇]+\z/)
         oeoe << m.inner_text
       end
+    end
 
-        oeoe.each_slice(19) do |r|
-        # 1,2走目がない馬でずれる
-        
-        # if r[17].include?()
-        #   r[17] << "出走履歴なし"
-        # elsif r[18].length < 5
-        #   r[18] << "出走履歴なし"
-        # end
-
-        ma = []
-        ma << r
-        ma.each do |m|
-          main = []
-          m.slice!(2,4)
-          main << m
-          main.each do |m|
-            min = []
-            m.slice!(13,14)
-            min << m
-            min.each do |m|
-              m.slice!(11,12)
-              (ooee) << m
-            end
-          end
-        end
-      end
-
+    oeoe.each_slice(4) do |r|
+      ma = []
+      (ooee) << r
+    end
   end
+
 
 
 end
