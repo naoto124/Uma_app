@@ -10,7 +10,10 @@ class FavoriteController < ApplicationController
   end
 
   def update
-    @favorite = Favorite.find_by(params[:id])
+    @user = current_user
+    @uma = Uma.find(params[:uma_id])
+
+    @favorite = Favorite.find_by(user_id: @user.id,uma_id:@uma.id)
     @favorite.update(parameter)
 
     if @favorite.update(parameter)
