@@ -14,6 +14,14 @@ class UserController < ApplicationController
 
   end
 
+  def show
+    @user = User.find(params[:id])
+    @umas = @user.uma
+
+    favorites = Favorite.where(user_id: current_user.id).pluck(:uma_id)  # ログイン中のユーザーのお気に入りのpost_idカラムを取得
+    @favorite_list = Uma.find(favorites)     # postsテーブルから、お気に入り登録済みのレコードを取得
+  end
+
   private
   def user_params
     params.require(:user).permit(:id,:name,:email,:password,:password_confirmation)

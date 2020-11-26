@@ -185,13 +185,18 @@ class RaceController < ApplicationController
     race_heads.each do |head|
       @race_head << head.inner_text
     end
-    @race_title.slice!(2,2)
-    @race_title.slice!(3)
-    @race_title.slice!(8,10)
-    @race_title.slice!(5)
-    @race_title.slice!(5)
+    @race_head.slice!(2,2)
+    @race_head.slice!(3)
+    @race_head.slice!(8,10)
+    @race_head.slice!(5)
+    @race_head.slice!(5)
+    @race_head.slice!(3)
+    @race_head.slice!(5)
+    @race_head.slice!(4)
+    @race_head.slice!(0..1)
 
-    p @race_title
+    # @race_head
+
 
     race_odd = race_f.search('tr.odd-row td')
     race_even = race_f.search('tr.even-row td')
@@ -210,43 +215,40 @@ class RaceController < ApplicationController
       @race_a << link.href[44..53]
     end
 
-    @uma_name = []
+    @uma = []
     @race_a.each do |a|
-      @uma_name << Uma.find_by(code:a)
-    end
-
-    p @race_a
-
-    @odd = []
-    @even = []
-
-    @main = []
-
-    slices(race_odd,@odd)
-    slices(race_even,@even)
-    @odd.zip(@even) do |o,e|
-      @main << o
-      @main << e
-    end
-
-    p @main
-
-  end
-
-  def slices(oe,ooee)
-    oeoe = []
-    oe.each do |m|
-      if nil != (m.inner_text =~ /\A[0-9.☆▲△★▫️◇]+\z/)
-        oeoe << m.inner_text
+      if Uma.find_by(code:a) != nil
+        @uma << Uma.find_by(code:a)
       end
     end
 
-    oeoe.each_slice(4) do |r|
-      ma = []
-      (ooee) << r
-    end
+    p @race_a
+    p @uma
+    @odd = []
+    @even = []
+
+    # @main = []
+
+    # slices(race_odd,@odd)
+    # slices(race_even,@even)
+    # @odd.zip(@even) do |o,e|
+    #   @main << o
+    #   @main << e
+    # end
+
+    # p @main
+
   end
 
+  # def slices(oe,ooee)
+  #   oeoe = []
+  #   oe.each do |m|
+  #     if nil != (m.inner_text =~ /\A[0-9]+\z/) && m == nil
+  #      oeoe << m.inner_text
+  #     end
+  #   end
+
+  # end
 
 
 end

@@ -21,6 +21,12 @@ Rails.application.routes.draw do
   get '/race_run/:name', to:'race#run', as:'race_run'
   resources:race, params: :name
 
+  resources :uma do
+    post 'add' => 'favorite#create'
+    get '/add' => 'favorite#edit'
+    post '/add' =>'favorite#updete'
+    delete '/add' => 'favorite#destroy'
+  end
 
   root "home#top"  
 end

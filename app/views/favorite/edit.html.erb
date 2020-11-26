@@ -1,0 +1,11 @@
+<%= form_for @uma do |f| %>
+  <p> 
+  <%= f.label(:speed, "speed") %>
+  <%= f.text_field :speed%>
+  </p>
+  <p>
+  <%= f.label :power, "power" %>
+  <%= f.text_field :power%>
+  </p>
+  <%= f.submit "決定" %>
+<% end %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20201118113828) do
+ActiveRecord::Schema.define(version: 20201126130052) do
 
   create_table "couses", force: :cascade do |t|
     t.integer "couse_id"
@@ -22,6 +22,17 @@ ActiveRecord::Schema.define(version: 20201118113828) do
     t.string "distance"
     t.integer "speed", default: 1, null: false
     t.integer "power", default: 1, null: false
+  end
+
+  create_table "favorites", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "uma_id"
+    t.integer "speed", default: 1, null: false
+    t.integer "power", default: 1, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["uma_id"], name: "index_favorites_on_uma_id"
+    t.index ["user_id"], name: "index_favorites_on_user_id"
   end
 
   create_table "races", force: :cascade do |t|

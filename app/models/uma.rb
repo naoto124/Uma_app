@@ -2,6 +2,8 @@ require 'mechanize'
 
 class Uma < ApplicationRecord
   validates :name, {presence: true, uniqueness: true}
+  has_many :favorites, dependent: :destroy
+  has_many :users, through: :favorites
 
 
   def self.get_uma_white(te)
@@ -35,6 +37,22 @@ class Uma < ApplicationRecord
     end
   end
 
+  def self.get_uma(te)
+    agent = Mechanize.new
+    page = agent.get(te)
+
+    elements = page.search('td.border_color a')
+    
+    elements.each do |element|
+      uma = Uma.new
+      uma.name = element.inner_text
+      uma.code = element.get_attribute('href').to_s
+      uma.code = uma.code[44...54].to_s
+
+      uma.save
+    end
+  end
+
 
 
   def self.umas_index_link
@@ -50,8 +68,9 @@ class Uma < ApplicationRecord
           p "=============================================="
           p next_url
           p "=============================================="
-            get_uma_white("https://umanity.jp/racedata/database_search_horse.php?mode=1&c="+ i.to_s + "&page=" + next_url.to_s)
-            get_uma_cream("https://umanity.jp/racedata/database_search_horse.php?mode=1&c="+ i.to_s + "&page=" + next_url.to_s)
+            # get_uma_white("https://umanity.jp/racedata/database_search_horse.php?mode=1&c="+ i.to_s + "&page=" + next_url.to_s)
+            # get_uma_cream("https://umanity.jp/racedata/database_search_horse.php?mode=1&c="+ i.to_s + "&page=" + next_url.to_s)
+            get_uma("https://umanity.jp/racedata/database_search_horse.php?mode=1&c="+ i.to_s + "&page=" + next_url.to_s)
         p "=============================================="
         p c
         p "=============================================="

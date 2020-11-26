@@ -3,6 +3,16 @@
 <div class="col-12 col-md-6 col-sm-12 prof"> 
   <table class="uma_prof table">
     <tbody>
+    <tr>
+      <% if logged_in? %>
+        <% if !Favorite.exists?(user_id:current_user.id,uma_id:@uma.id) %>
+          <%= link_to "お気に入り",uma_add_path(@uma),method: :post %>
+        <% else %>
+          <%= link_to "パラメーターの設定",uma_add_path(@uma) %>
+          <%= link_to "お気に入り解除",uma_add_path(@uma),method: :delete %>
+        <%end%>
+      <%end%>
+    </tr>
       <tr class="birthday">
         <th>
         生年月日
