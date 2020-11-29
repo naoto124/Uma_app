@@ -1,25 +1,31 @@
 class FavoriteController < ApplicationController
   def create
+    p "---------"
+    p params
     @user = current_user
     @uma = Uma.find(params[:uma_id])
     if Favorite.create(user_id: @user.id,uma_id:@uma.id)
       redirect_to uma_detail_path(name:@uma.name)
     else
-      redirect_to root_url
+      render root_url
     end
   end
 
   def update
+    p "---------"
+    p params
     @user = current_user
-    @uma = Uma.find(params[:uma_id])
-
+    @uma = Uma.find_by(params[:uma_id])
+    uma_id = @uma.id
     @favorite = Favorite.find_by(user_id: @user.id,uma_id:@uma.id)
-    @favorite.update(parameter)
-
+    p "---------"
+    p params[:speed]
+    
     if @favorite.update(parameter)
-      redirect_to @uma
+      @favorite.update(parameter)
+      redirect_to uma_detail_path(name:@uma.name)
     else
-      render root_path
+      render root_url
     end
   end
 
@@ -30,6 +36,8 @@ class FavoriteController < ApplicationController
   end
 
   def destroy
+    p "---------"
+    p params
     @user = current_user
     @uma = Uma.find(params[:uma_id])
     @favorite = Favorite.find_by(user_id: @user.id,uma_id:@uma.id)
@@ -37,7 +45,7 @@ class FavoriteController < ApplicationController
       @favorite.delete
       redirect_to uma_detail_path(name:@uma.name)
     else
-      redirect_to root_url
+      render uma_detail_path
     end
   end
 

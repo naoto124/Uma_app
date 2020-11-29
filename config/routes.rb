@@ -22,10 +22,10 @@ Rails.application.routes.draw do
   resources:race, params: :name
 
   resources :uma do
-    post 'add' => 'favorite#create'
-    get '/add' => 'favorite#edit'
-    post '/add' =>'favorite#updete'
-    delete '/add' => 'favorite#destroy'
+    post '/add', to:'favorite#create'
+    put'/add' ,to:'favorite#update'
+    # , as:'favorite_update'
+    delete '/add', to:'favorite#destroy'
   end
 
   root "home#top"  

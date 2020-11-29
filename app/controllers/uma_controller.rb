@@ -77,15 +77,13 @@ class UmaController < ApplicationController
       p @code_link[0]
       @n = @new_race_info.transpose
 
+  # favoriteの変数
 
+  if logged_in?
+    @user = current_user
+    @favorite = Favorite.find_by(user_id: @user.id,uma_id:@uma.id)
+  end
 
-      # titleの別に要素を変数にいれる
-      # @new_race_info.each do |n|
-      #   m = 0
-      #   for m in 0..21 do
-      #  @table[m] << n[m].to_s
-      #   end
-      # end
 
 
   end

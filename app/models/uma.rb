@@ -5,6 +5,10 @@ class Uma < ApplicationRecord
   has_many :favorites, dependent: :destroy
   has_many :users, through: :favorites
 
+  # def favorite_by(user)
+  #   favorite.where(user_id: user.id).exists?
+  # end
+
 
   def self.get_uma_white(te)
     agent = Mechanize.new
