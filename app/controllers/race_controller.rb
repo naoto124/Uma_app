@@ -64,14 +64,23 @@ class RaceController < ApplicationController
   end
 
   def run
-    p params[:name]
-    @race = Race.find_by(code: params[:name])
-    p "------"
-    p @race
     # show_race(@race.code)
-    run_race(params[:name].to_s)
+    if run_race(params[:name].to_s)
+      run_race(params[:name].to_s)
+    elsif show_race(params[:name].to_s)
+      show_race(params[:name].to_s)
+    else redirect_to action: :info
+    end
     p @uma_info[0]
-
+    p "------"
+    p params[:name]
+    if Race.find_by(code: params[:name]) == nil
+      race = Race.new
+      race.code = params[:name]
+      race.name = @race_title
+      race.save ? (redirect_to request.referer) : (render :show)
+    end
+    p "------"
   end
 
   # 処理メソッド
@@ -167,10 +176,17 @@ class RaceController < ApplicationController
 
     elements = page.search('div.race tbody td a')
     elements.each do |ele|
-      if ele.get_attribute('href').include?('//umanity.jp/racedata/db/horse_top.php?code=')
-      @race_text << ele.inner_text
-      @race_uma_code << ele.get_attribute('href')[44..53].to_s
+      if Uma.find_by(code: ele.get_attribute('href')[44..53].to_s == nil)
+        uma = Uma.new
+        uma.code = ele.get_attribute('href')[44..53].to_s
+        uma.name = ele.inner_text
+        uma.save ? (redirect_to request.referer) : (render :show)
       end
+      if ele.get_attribute('href').include?('//umanity.jp/racedata/db/horse_top.php?code=')
+        @race_text << ele.inner_text
+        @race_uma_code << ele.get_attribute('href')[44..53].to_s
+      end
+
     end
 
     @race_text = @race_text
