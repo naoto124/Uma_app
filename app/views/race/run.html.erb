@@ -1,17 +1,14 @@
 <div class="col-12 col-md-6 col-sm-12 prof"> 
   <table class="race_prof table">
     <tbody>
-    <%@race_title.each_with_index do |r,i|%>
-      <%if i == 1%>
         <tr class="birthday">
-          <h2><%=r%></h2><br>
+          <h2><%=@race_title%></h2>
         </tr>
-      <%else%>
-        <tr class="birthday">
-          <td><%=r%></td><br>
-        </tr>
-      <%end%>
-    <%end%>
+        <%@race_title_info.each do |r|%>
+          <tr class="birthday">
+            <td><%=r%></td>
+          </tr>
+        <%end%>
     </tbody>
   </table>
 </div>
@@ -20,16 +17,40 @@
   <table class="uma_race_info table">
     <thead>
       <tr class ="col-xs-3 col-ms-3 col-md-4 col-lg-6">
-        <% @race_head.each do |head|%>
-        <th class ="col-xs-1"><%=head%></th>
-        <%end%>
+        <th class ="col-xs-1">枠</th>
+        <th class ="col-xs-1">馬番</th>
+        <th class ="col-xs-1">馬名</th>
+        <th class ="col-xs-1">性・歳</th>
+        <th class ="col-xs-1">負荷</th>
+        <th class ="col-xs-1">騎手</th>
+        <th class ="col-xs-1">人気</th>
       </tr>
     </thead>
     <tbody>
-    <%@uma.each_with_index do |m,i|%>
+    <%@uma_info.each do |m|%>
       <tr class ="col-xs-3 col-ms-3 col-md-4 col-lg-6">
-          <td><%= @uma[i].name%></td>
-          <td><%= @jokey[i]%></td>
+          <td><%= m[:box]%></td>
+          <td><%= m[:uma_number]%></td>
+          <td>
+            <a href="/uma_detail/<%= m[:uma_name]%>" name="<%= m[:uma_name]%>">
+              <%= m[:uma_name]%>
+            </a>
+          </td>
+          <td><%= m[:sex_age]%></td>
+          <td><%= m[:weight]%></td>
+          <td><%= m[:jokey]%></td>
+          <td><%= m[:popular]%></td>
+            <%# ここから %>
+            <%@favorite.each do |f|%>
+              <%if f.uma_id == m[:uma_id]%>
+              <span>
+                <th>スピード</th>
+                <td><%=f.speed%></td>
+                <th>パワー</th>
+                <td><%=f.power%></td>
+              </span>
+              <%end%>
+            <%end%>
       </tr>
      <%end%>
     </tbody>

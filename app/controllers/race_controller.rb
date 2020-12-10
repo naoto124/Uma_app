@@ -1,5 +1,7 @@
 require 'mechanize'
 require "date"
+require 'active_support/all'
+
 
 class RaceController < ApplicationController
 
@@ -21,7 +23,7 @@ class RaceController < ApplicationController
   def run_race(ru)
     agent = Mechanize.new()
       race_title('https://umanity.jp/racedata/race_8.php?code=' + (ru))
-      race_main('https://umanity.jp/racedata/race_8.php?code=' + (ru))
+      race_uma('https://umanity.jp/racedata/race_8.php?code=' + (ru))
   end
 
   # メインaction
@@ -68,6 +70,7 @@ class RaceController < ApplicationController
     p @race
     # show_race(@race.code)
     run_race(params[:name].to_s)
+    p @uma_info[0]
 
   end
 
@@ -140,12 +143,15 @@ class RaceController < ApplicationController
     agent = Mechanize.new()
     page = agent.get(ra)
     # レースtitle
-    elements = page.search('td.ttl div')
-    @race_title = []
-      elements.each do |ele|
-        @race_title << ele.inner_text.to_s
+    elements = page.search('div.detail div')
+    elements_h = page.at('div.detail h2')
+    @race_title = elements_h.inner_text
+    @race_title_info = []
+      elements .each do |ele|
+        @race_title_info << ele.inner_text.to_s
       end
-    @race_title.slice!(2,2)
+      # p race_title
+    # @race_title.slice!(2,2)
   end
 
   def race_specil(r)
@@ -173,82 +179,72 @@ class RaceController < ApplicationController
 
   end
 
-  def race_main(race)
+  def race_uma(ue)
     agent = Mechanize.new()
-    page = agent.get(race)
-    # レース中身
-    # タイトル
+    page = agent.get(ue)
     race_f = page.iframe_with(name: 'racecard').click
-    race_heads = race_f.search('th.table-title')
 
-    @race_head = []
-    race_heads.each do |head|
-      @race_head << head.inner_text
+    elements = race_f.search ('/html/body/div/form/table/tr/td/table/tr/td[5]/table/tr/td')
+
+    box = race_f.search ('/html/body/div/form/table/tr/td/table/tr/td[1]')
+    box.shift
+    uma_number = race_f.search ('/html/body/div/form/table/tr/td/table/tr/td[2]')
+    sex_age = race_f.search ('/html/body/div/form/table/tr/td/table/tr/td[6]/span')
+    weight = race_f.search ('/html/body/div/form/table/tr/td/table/tr/td[7]')
+    jokey = race_f.search ('/html/body/div/form/table/tr/td/table/tr/td[8]/a')
+    popular = race_f.search ('/html/body/div/form/table/tr/td/table/tr/td[11]')
+
+    @uma_info = []
+    elements.each do |ele|
+      e = ele.children
+      hash = Hash.new{|h,k| h[k] = uu }
+      if e.inner_text.present? && e[0].get_attribute("href") != nil
+        uma = e.inner_text
+        hash[:uma_name] = uma
+        hash.store(:uma_code,e[0].get_attribute("href")[44..53])
+      elsif e.inner_text.present? && e[0].get_attribute("href") == nil
+        ec = e.children
+        uma = ec.inner_text
+        hash[:uma_name] = uma
+        hash.store(:uma_code,ec[0].get_attribute("href")[44..53])
+      else next
+      end
+      if Uma.find_by(code: hash[:uma_code]) == nil
+        uma = Uma.new
+        uma.code = hash[:uma_code]
+        uma.name = hash[:uma_name]
+        uma.save ? (redirect_to request.referer) : (render :show)
+      end
+      @uma_info << hash
     end
-    @race_head.slice!(2,2)
-    @race_head.slice!(3)
-    @race_head.slice!(8,10)
-    @race_head.slice!(5)
-    @race_head.slice!(5)
-    @race_head.slice!(3)
-    @race_head.slice!(5)
-    @race_head.slice!(4)
-    @race_head.slice!(0..1)
-
-    # @race_head
 
 
-    race_odd = race_f.search('tr.odd-row td')
-    race_even = race_f.search('tr.even-row td')
+    disassembly(box,:box)
+    disassembly(uma_number,:uma_number)
+    disassembly(sex_age,:sex_age)
+    disassembly(weight,:weight)
+    disassembly(jokey,:jokey)
+    disassembly(popular,:popular)
 
-    @jokey = []
-    race_f.search('tr.table-frame td a').each do |j|
-      if j[:href].include?('umanity.jp/racedata/database_jockey_1.php?code=')
-        @jokey << j.inner_text
+    @uma_info.each do |u|
+      u_a = Uma.find_by(name: u[:uma_name])
+      if u_a != nil
+        u.store(:uma_id,u_a.id)
       end
     end
-    p @jokey
-
-    @race_a = []
-
-    race_f.links_with(:href => /horse_top/).each do |link|
-      @race_a << link.href[44..53]
-    end
-
-    @uma = []
-    @race_a.each do |a|
-      if Uma.find_by(code:a) != nil
-        @uma << Uma.find_by(code:a)
-      end
-    end
-
-    p @race_a
-    p @uma
-    @odd = []
-    @even = []
-
-    # @main = []
-
-    # slices(race_odd,@odd)
-    # slices(race_even,@even)
-    # @odd.zip(@even) do |o,e|
-    #   @main << o
-    #   @main << e
-    # end
-
-    # p @main
-
+    p @uma_info[0][:uma_id]
+    @favorite = Favorite.where(user_id: current_user.id)
+    p "pppppp"
+    p @favorite[0].uma_id
   end
 
-  # def slices(oe,ooee)
-  #   oeoe = []
-  #   oe.each do |m|
-  #     if nil != (m.inner_text =~ /\A[0-9]+\z/) && m == nil
-  #      oeoe << m.inner_text
-  #     end
-  #   end
+  def disassembly(di,dd)
+    (di).each_with_index do |d,i|
+      @uma_info[i].store((dd),d.inner_text)
+    end
+  end
 
-  # end
+
 
 
 end

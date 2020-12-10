@@ -82,6 +82,10 @@ class UmaController < ApplicationController
   if logged_in?
     @user = current_user
     @favorite = Favorite.find_by(user_id: @user.id,uma_id:@uma.id)
+    p "-------"
+    p @user
+    p @favorite
+    p "-------"
   end
 
 

@@ -23,8 +23,7 @@ Rails.application.routes.draw do
 
   resources :uma do
     post '/add', to:'favorite#create'
-    put'/add' ,to:'favorite#update'
-    # , as:'favorite_update'
+    post'/add/:id' ,to:'favorite#update', as:'favorite_update'
     delete '/add', to:'favorite#destroy'
   end
 

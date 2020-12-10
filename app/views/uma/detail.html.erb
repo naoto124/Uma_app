@@ -10,18 +10,30 @@
         <% else %>
           <%= link_to "お気に入り解除",uma_add_path(@uma),method: :delete %>
           <td>パラメーターの設定</td>
-            <%= form_for uma_add_path(uma_id:@uma.id),method: :put do |f| %>
-            <%# ,uma_favorite_update_path %>
-             <td>
-              <%= f.label :speed%>
-              <%= f.select :speed, [1,2,3], {include_blank: @favorite.speed},class: 'parameter'%>
-             </td>
-             <td>
-              <%= f.label :power%>
-              <%= f.select :power,[1,2,3], {include_blank: @favorite.power},class: 'parameter'%><br>
-             </td><br>
-             <td><%= f.submit ("決定")%></td>
-            <%end%>
+            <form action="/uma/<%=@favorite.uma_id%>/add/<%=@favorite.id%>" method="post">
+            <input type="hidden" name="user_id" value="<%=current_user.id%>">
+              <td>
+                <label for="">speed</label>
+                <select name="speed">
+                <%# javascriptでやる %>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                </select>
+              </td>
+
+              <td>
+                <label for="">power</label>
+                <select name="power">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                </select>
+              </td><br>
+              <td>
+                <input type="submit" value="決定">
+              </td>
+            </form>
         <%end%>
       <%end%>
     </tr>

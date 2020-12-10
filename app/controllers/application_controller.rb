@@ -1,5 +1,8 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery with: :exception
+  # protect_from_forgery with: :exception
+  
+  protect_from_forgery with: :null_session
+  # form_forを使わないため,ブラウザの輻輳などのためのやつ
 
   include SessionsHelper
   include HomeHelper
