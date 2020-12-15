@@ -5,25 +5,50 @@ require 'active_support/all'
 
 class RaceController < ApplicationController
 
+  # elements = page.search('/html/body/div[2]/div[4]/div/div[1]/div[2]/table/tr[2]/td[1]/p[1]/a')
+
+  # @race_n = []
+  #   @race_n_a = []
+  #   elements.each do |e|
+  #     @race_n << e.inner_text
+  #     if e.get_attribute('href').include?('race_21')
+  #       @race_n_a << e.get_attribute('href')[27..42].to_s
+  #     elsif r.get_attribute('href').include?('race_8')
+  #       @race_n_a << e.get_attribute('href')[26..41].to_s
+  #     end
+  #   end
+  #     @race_name_a = @race_name_a.uniq
+
+
   # 実行用
   def next_race(d)
     agent = Mechanize.new()
-      
-      this_day('https://umanity.jp/racedata/race_5.php?date=' + (d))
+      @page_5 = 'https://umanity.jp/racedata/race_5.php?date='
+      this_day(@page_5 + (d))
 
-      next_day('https://umanity.jp/racedata/race_5.php?date=' + (d))
+      next_day(@page_5 + (d))
+  end
+  def judge(j)
+    agent = Mechanize.new()
+      page_8 = 'https://umanity.jp/racedata/race_8.php?code=' + (j)
+      page = agent.get(page_8)
+      @a = page.search('/html/body/div[2]/div[4]/div/div/table[1]/tr/td[1]/table[2]/tr[2]/td/div/div[1]/div[3]').empty?
+      p page.search('/html/body/div[2]/div[4]/div/div/table[1]/tbody/tr/td[1]/table[2]/tbody/tr[2]/td/div/div[1]/div[3]')
+      p @a
   end
 
   def show_race(sh)
     agent = Mechanize.new()
-      race_title('https://umanity.jp/racedata/race_7.php?code=' + (sh))
-      race_specil('https://umanity.jp/racedata/race_7.php?code=' + (sh))
+    @page_7 = 'https://umanity.jp/racedata/race_7.php?code='
+      race_title(@page_7 + (sh))
+      race_specil(@page_7 + (sh))
   end
 
   def run_race(ru)
     agent = Mechanize.new()
-      race_title('https://umanity.jp/racedata/race_8.php?code=' + (ru))
-      race_uma('https://umanity.jp/racedata/race_8.php?code=' + (ru))
+    @page_8 = 'https://umanity.jp/racedata/race_8.php?code='
+      race_title(@page_8 + (ru))
+      race_uma(@page_8 + (ru))
   end
 
   # メインaction
@@ -65,20 +90,23 @@ class RaceController < ApplicationController
 
   def run
     # show_race(@race.code)
-    if run_race(params[:name].to_s)
+    p "kkkkkk"
+    # p judge(params[:name].to_s)
+    if judge(params[:name].to_s) == false
       run_race(params[:name].to_s)
-    elsif show_race(params[:name].to_s)
-      show_race(params[:name].to_s)
-    else redirect_to action: :info
+    elsif judge(params[:name].to_s) == true
+      redirect_to action: :show
+      return
+    else redirect_to action: :info and return
     end
-    p @uma_info[0]
-    p "------"
-    p params[:name]
+    # p run_race(params[:name].to_s)
+
+
     if Race.find_by(code: params[:name]) == nil
       race = Race.new
       race.code = params[:name]
       race.name = @race_title
-      race.save ? (redirect_to request.referer) : (render :show)
+      race.save ? (redirect_to request.referer) : (render :race_info_path) and return
     end
     p "------"
   end
@@ -104,14 +132,8 @@ class RaceController < ApplicationController
     end
 
     # レース日のレース
-    # if page.search('td.td_racenum a')
       @race_nums = page.search('td.td_racenum a')
       @race_names = page.search('td.td_racename a')
-    # else
-    #   @race_nums = page.search('th.th_racenum a')
-    #   @race_names = page.search('a.race_name')
-
-    # end
 
       @race_name = []
       @race_name_a = []
@@ -126,27 +148,65 @@ class RaceController < ApplicationController
 
       @place_num.each do |pln|
         @num << pln.slice(2..4)
-        # p pln.slice(2..4)
       end
 
       @place_num.each do |pln|
         @place << pln.slice(0..1)
-        # p pln.slice(0..1)
       end
 
       @num = @num.uniq
       @place = @place.uniq
-      p @place.count
 
       @race_names.each do |r|
         @race_name << r.inner_text
-        @race_name_a << r.get_attribute('href')[27..42].to_s
+        if r.get_attribute('href').include?('race_21')
+          @race_name_a << r.get_attribute('href')[27..42].to_s
+        elsif r.get_attribute('href').include?('race_8')
+          @race_name_a << r.get_attribute('href')[26..41].to_s
+        end
       end
       @race_name_a = @race_name_a.uniq
-      p @race_name_a[0]
-  
+      p "ooooo"
+      p @place[0]
+
+    if @race_name[0] == nil
+      @race_ple = page.search('th.th_place')
+      @race_nums = page.search('th.th_racenum')
+      @race_names = page.search('a.race_name')
+      @race_name = []
+      @race_name_a = []
+      @ple = [] 
+
+      @race_days_info = []
+      @race_nums.each do |r|
+        n = r.inner_text
+        hash = Hash.new{|h,k| h[k] = n}
+        hash[:n] = n
+        @race_days_info << hash
+        # p r
+      end
+      # p @race_days_info
+      @race_ple.each do |r|
+        @ple << r.inner_text
+      end
+      # p @ple
+
+      @race_names.each_with_index do |r,i|
+        # p r.inner_text
+        @race_days_info[i].store(:race_name,r.inner_text)
+
+        if r.get_attribute('href').include?('race_21')
+        @race_days_info[i].store(:race_name_a,r.get_attribute('href')[27..42].to_s)
+        elsif r.get_attribute('href').include?('race_8')
+          @race_days_info[i].store(:race_name_a,r.get_attribute('href')[26..41].to_s)
+        end
+      end
+      p @race_days_info
+    end
+
 
   end
+
 
   def race_title(ra)
     agent = Mechanize.new()
@@ -167,91 +227,95 @@ class RaceController < ApplicationController
     agent = Mechanize.new()
     page = agent.get(r)
 
+    if page
     # レース中身
-    @race_text = []
-    @race_uma_code = []
-    elements = page.search('div.race tbody td a')
-    @race_text = []
-    @race_uma_code = []
+      @race_text = []
+      @race_uma_code = []
+      elements = page.search('div.race tbody td a')
+      @race_text = []
+      @race_uma_code = []
 
-    elements = page.search('div.race tbody td a')
-    elements.each do |ele|
-      if Uma.find_by(code: ele.get_attribute('href')[44..53].to_s == nil)
-        uma = Uma.new
-        uma.code = ele.get_attribute('href')[44..53].to_s
-        uma.name = ele.inner_text
-        uma.save ? (redirect_to request.referer) : (render :show)
-      end
-      if ele.get_attribute('href').include?('//umanity.jp/racedata/db/horse_top.php?code=')
-        @race_text << ele.inner_text
-        @race_uma_code << ele.get_attribute('href')[44..53].to_s
+      elements = page.search('div.race tbody td a')
+      elements.each do |ele|
+        if Uma.find_by(code: ele.get_attribute('href')[44..53].to_s == nil)
+          uma = Uma.new
+          uma.code = ele.get_attribute('href')[44..53].to_s
+          uma.name = ele.inner_text
+          uma.save ? (redirect_to request.referer) : (render :show)
+        end
+        if ele.get_attribute('href').include?('//umanity.jp/racedata/db/horse_top.php?code=')
+          @race_text << ele.inner_text
+          @race_uma_code << ele.get_attribute('href')[44..53].to_s
+        end
+
       end
 
+      @race_text = @race_text
+      @race_uma_code = @race_uma_code
     end
-
-    @race_text = @race_text
-    @race_uma_code = @race_uma_code
-
 
   end
 
   def race_uma(ue)
     agent = Mechanize.new()
     page = agent.get(ue)
-    race_f = page.iframe_with(name: 'racecard').click
+    if page
+      race_f = page.iframe_with(name: 'racecard').click
 
-    elements = race_f.search ('/html/body/div/form/table/tr/td/table/tr/td[5]/table/tr/td')
+      elements = race_f.search ('/html/body/div/form/table/tr/td/table/tr/td[5]/table/tr/td')
 
-    box = race_f.search ('/html/body/div/form/table/tr/td/table/tr/td[1]')
-    box.shift
-    uma_number = race_f.search ('/html/body/div/form/table/tr/td/table/tr/td[2]')
-    sex_age = race_f.search ('/html/body/div/form/table/tr/td/table/tr/td[6]/span')
-    weight = race_f.search ('/html/body/div/form/table/tr/td/table/tr/td[7]')
-    jokey = race_f.search ('/html/body/div/form/table/tr/td/table/tr/td[8]/a')
-    popular = race_f.search ('/html/body/div/form/table/tr/td/table/tr/td[11]')
+      box = race_f.search ('/html/body/div/form/table/tr/td/table/tr/td[1]')
+      box.shift
+      uma_number = race_f.search ('/html/body/div/form/table/tr/td/table/tr/td[2]')
+      sex_age = race_f.search ('/html/body/div/form/table/tr/td/table/tr/td[6]/span')
+      weight = race_f.search ('/html/body/div/form/table/tr/td/table/tr/td[7]')
+      jokey = race_f.search ('/html/body/div/form/table/tr/td/table/tr/td[8]/a')
+      popular = race_f.search ('/html/body/div/form/table/tr/td/table/tr/td[11]')
 
-    @uma_info = []
-    elements.each do |ele|
-      e = ele.children
-      hash = Hash.new{|h,k| h[k] = uu }
-      if e.inner_text.present? && e[0].get_attribute("href") != nil
-        uma = e.inner_text
-        hash[:uma_name] = uma
-        hash.store(:uma_code,e[0].get_attribute("href")[44..53])
-      elsif e.inner_text.present? && e[0].get_attribute("href") == nil
-        ec = e.children
-        uma = ec.inner_text
-        hash[:uma_name] = uma
-        hash.store(:uma_code,ec[0].get_attribute("href")[44..53])
-      else next
+      @uma_info = []
+      elements.each do |ele|
+        e = ele.children
+        hash = Hash.new{|h,k| h[k] = uu }
+        if e.inner_text.present? && e[0].get_attribute("href") != nil
+          uma = e.inner_text
+          hash[:uma_name] = uma
+          hash.store(:uma_code,e[0].get_attribute("href")[44..53])
+        elsif e.inner_text.present? && e[0].get_attribute("href") == nil
+          ec = e.children
+          uma = ec.inner_text
+          hash[:uma_name] = uma
+          hash.store(:uma_code,ec[0].get_attribute("href")[44..53])
+        else next
+        end
+        if Uma.find_by(code: hash[:uma_code]) == nil
+          uma = Uma.new
+          uma.code = hash[:uma_code]
+          uma.name = hash[:uma_name]
+          uma.save ? (redirect_to request.referer) : (render :show)
+          return
+        end
+        @uma_info << hash
       end
-      if Uma.find_by(code: hash[:uma_code]) == nil
-        uma = Uma.new
-        uma.code = hash[:uma_code]
-        uma.name = hash[:uma_name]
-        uma.save ? (redirect_to request.referer) : (render :show)
+
+
+      disassembly(box,:box)
+      disassembly(uma_number,:uma_number)
+      disassembly(sex_age,:sex_age)
+      disassembly(weight,:weight)
+      disassembly(jokey,:jokey)
+      disassembly(popular,:popular)
+
+      @uma_info.each do |u|
+        u_a = Uma.find_by(name: u[:uma_name])
+        if u_a != nil
+          u.store(:uma_id,u_a.id)
+        end
       end
-      @uma_info << hash
+      # p @uma_info[0][:uma_id]
+      @favorite = Favorite.where(user_id: current_user.id)
+      # p "pppppp"
+      # p @favorite[0].uma_id
     end
-
-
-    disassembly(box,:box)
-    disassembly(uma_number,:uma_number)
-    disassembly(sex_age,:sex_age)
-    disassembly(weight,:weight)
-    disassembly(jokey,:jokey)
-    disassembly(popular,:popular)
-
-    @uma_info.each do |u|
-      u_a = Uma.find_by(name: u[:uma_name])
-      if u_a != nil
-        u.store(:uma_id,u_a.id)
-      end
-    end
-    p @uma_info[0][:uma_id]
-    @favorite = Favorite.where(user_id: current_user.id)
-    p "pppppp"
-    p @favorite[0].uma_id
   end
 
   def disassembly(di,dd)

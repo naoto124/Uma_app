@@ -9,6 +9,29 @@
 
 <span class="table-responsive-sm md lg main">
   <table class="race_info table table-bordered">
+  <% if @place[0] == nil %>
+        <thead>
+        <th class ="col-xs-1">レース　特別登録</th>
+        <tr class ="col-xs-3 col-ms-3 col-md-4 col-lg-6 table-primary">
+        <th></th>
+          <%@ple.each do |pl|%>
+            <th><%=pl%></th>
+          <%end%>
+        </tr>
+    </thead>
+    <tbody>
+      <%@race_days_info.each do |r|%>
+        <tr class ="col-xs-3 col-ms-3 col-md-4 col-lg-6 table-dark">
+          <th scope="row"><%=r[:num]%></th>
+            <td>
+              <a href="<%=race_run_path(name:r[:race_name_a])%>" name="<%r[:race_name_a]%>">
+                <%= r[:race_name]%>
+              </a>
+            </td> 
+        </tr>
+      <%end%>
+    </tbody>
+      <% elsif @place[0] != nil%>
     <thead>
         <tr class ="col-xs-3 col-ms-3 col-md-4 col-lg-6 table-primary">
           <th></th>
@@ -36,5 +59,7 @@
       </tr>
       <%end%>
     </tbody>
+
+  <%end%>
   </table>
 </span>
