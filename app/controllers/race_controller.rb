@@ -183,25 +183,41 @@ class RaceController < ApplicationController
         hash = Hash.new{|h,k| h[k] = n}
         hash[:n] = n
         @race_days_info << hash
-        # p r
       end
-      # p @race_days_info
+      p "eee"
+      p @race_days_info[0]
       @race_ple.each do |r|
         @ple << r.inner_text
       end
       # p @ple
 
-      @race_names.each_with_index do |r,i|
-        # p r.inner_text
-        @race_days_info[i].store(:race_name,r.inner_text)
-
-        if r.get_attribute('href').include?('race_21')
-        @race_days_info[i].store(:race_name_a,r.get_attribute('href')[27..42].to_s)
-        elsif r.get_attribute('href').include?('race_8')
-          @race_days_info[i].store(:race_name_a,r.get_attribute('href')[26..41].to_s)
+      c = 0
+      @race_days_info.each_with_index do |r,i|
+          # p r.inner_text
+        if r[:n].empty?
+          @race_days_info[i].store(:race_name,"-----")
+          @race_days_info[i].store(:race_name_a,"-----")
+        else
+          inner = @race_names[c].inner_text
+          p "rrrrrr"
+          p inner
+          @race_days_info[i].store(:race_name,inner)
+          a = @race_names[c].get_attribute('href')
+          p "wwww"
+          p a
+          if a.include?('race_21')
+          @race_days_info[i].store(:race_name_a,a[27..42].to_s)
+          elsif a.include?('race_8')
+            @race_days_info[i].store(:race_name_a,a[26..41].to_s)
+          elsif a == nil
+            next
+          end
+          c += 1
         end
       end
+      p "qqqqqq"
       p @race_days_info
+      @r = @race_days_info.each_slice(@ple.count).to_a
     end
 
 

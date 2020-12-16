@@ -10,7 +10,7 @@
 <span class="table-responsive-sm md lg main">
   <table class="race_info table table-bordered">
   <% if @place[0] == nil %>
-        <thead>
+    <thead>
         <th class ="col-xs-1">レース　特別登録</th>
         <tr class ="col-xs-3 col-ms-3 col-md-4 col-lg-6 table-primary">
           <%@ple.each do |pl|%>
@@ -19,15 +19,21 @@
         </tr>
     </thead>
     <tbody>
-    <%c = 0%>
-      <%@race_days_info.each do |r|%>
+      <%@r.each_with_index do |ra,i|%>
         <tr class ="col-xs-3 col-ms-3 col-md-4 col-lg-6 table-dark">
-          <td scope="row"><%=r[:n]%></td>
-            <td>
-              <a href="<%=race_run_path(name:r[:race_name_a])%>" name="<%r[:race_name_a]%>">
-                <%= r[:race_name]%>
-              </a>
-            </td> 
+          <%ra.each do |r|%>
+              <td>
+              <%if r[:n].empty?%>
+                <p scope="row"></p>
+                <p></p>
+              <%else%>
+                <p scope="row"><%=r[:n]%>R</p>
+                <p><a href="<%=race_run_path(name:r[:race_name_a])%>" name="<%r[:race_name_a]%>">
+                  <%= r[:race_name]%>
+                </a></p>
+              <%end%>
+              </td> 
+          <%end%>
         </tr>
       <%end%>
     </tbody>
