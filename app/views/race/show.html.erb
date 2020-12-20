@@ -1,13 +1,14 @@
 <div><a href="<%=race_run_path(name:@code)%>">出走馬</a></div>
 <div class="col-12 col-md-6 col-sm-12 prof"> 
+<%=@couse.couse_name%>
   <table class="race_prof table">
     <tbody>
         <tr class="birthday">
-          <h2><%=@race_title%></h2>
+          <h3><%=@race_title%></h3>
         </tr>
     <%@race_title_info.each do |r|%>
         <tr class="birthday">
-          <td><%=r%></td><br>
+          <td><%=r%></td>
         </tr>
     <%end%>
     </tbody>

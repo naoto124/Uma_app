@@ -1,5 +1,5 @@
 <div class="col-12 col-md-6 col-sm-12 prof"> 
-<%=@plece%>
+<%=@couse.couse_name%>
   <table class="race_prof table">
     <tbody>
         <tr class="birthday">
@@ -18,20 +18,28 @@
   <table class="uma_race_info table">
     <thead>
       <tr class ="col-xs-3 col-ms-3 col-md-4 col-lg-6">
+        <th class ="col-xs-1">着順</th>
         <th class ="col-xs-1">枠</th>
         <th class ="col-xs-1">馬番</th>
         <th class ="col-xs-1">馬名</th>
         <th class ="col-xs-1">性・歳</th>
         <th class ="col-xs-1">負荷</th>
         <th class ="col-xs-1">騎手</th>
+        <th class ="col-xs-1">馬体重</th>
+        <th class ="col-xs-1">オッズ</th>
         <th class ="col-xs-1">人気</th>
+        <th class ="col-xs-1">タイム</th>
+        <th class ="col-xs-1">着差</th>
+        <th class ="col-xs-1">３F</th>
+        <th class ="col-xs-1">通過</th>
       </tr>
     </thead>
     <tbody>
-    <%@uma_info.each do |m|%>
+    <%@raceall.each do |m|%>
       <tr class ="col-xs-3 col-ms-3 col-md-4 col-lg-6">
+          <td><%= m[:rank]%></td>
           <td><%= m[:box]%></td>
-          <td><%= m[:uma_number]%></td>
+          <td><%= m[:number]%></td>
           <td>
             <a href="/uma_detail/<%= m[:uma_name]%>" name="<%= m[:uma_name]%>">
               <%= m[:uma_name]%>
@@ -40,18 +48,15 @@
           <td><%= m[:sex_age]%></td>
           <td><%= m[:weight]%></td>
           <td><%= m[:jokey]%></td>
+          <td><%= m[:g]%></td>
+          <td><%= m[:ozz]%></td>
           <td><%= m[:popular]%></td>
+          <td><%= m[:time]%></td>
+          <td><%= m[:space]%></td>
+          <td><%= m[:f3]%></td>
+          <td><%= m[:middle]%></td>
             <%# ここから %>
-            <%@favorite.each do |f|%>
-              <%if f.uma_id == m[:uma_id]%>
-              <span>
-                <th>スピード</th>
-                <td><%=f.speed%></td>
-                <th>パワー</th>
-                <td><%=f.power%></td>
-              </span>
-              <%end%>
-            <%end%>
+
       </tr>
      <%end%>
     </tbody>

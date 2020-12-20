@@ -19,7 +19,10 @@ Rails.application.routes.draw do
   # get 'race_detail/:name',to:'race#detail',as:'race_detail'
   get '/race_show/:name', to:'race#show', as:'race_show'
   get '/race_run/:name', to:'race#run', as:'race_run'
+  get '/race_result/:name', to:'race#result', as:'race_result'
   resources:race, params: :name
+
+  get '/couse_index', to:'couse#index', as:'couse_index'
 
   resources :uma do
     post '/add', to:'favorite#create'
