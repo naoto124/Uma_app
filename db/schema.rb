@@ -10,7 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20201126130052) do
+ActiveRecord::Schema.define(version: 20201222115329) do
+
+  create_table "couse_parameters", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "couse_id"
+    t.integer "speed", default: 1, null: false
+    t.integer "power", default: 1, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["couse_id"], name: "index_couse_parameters_on_couse_id"
+    t.index ["user_id"], name: "index_couse_parameters_on_user_id"
+  end
 
   create_table "couses", force: :cascade do |t|
     t.integer "couse_id"

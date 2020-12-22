@@ -1,5 +1,9 @@
 class Couse < ApplicationRecord
  validates :couse_name, {presence: true, uniqueness: true}
+
+ has_many :couse_parameters, dependent: :destroy
+ has_many :users, through: :couse_parameters
+
  def self.couse_get
     couses =[
 
@@ -39,15 +43,23 @@ class Couse < ApplicationRecord
             "小倉 ダート 1000","小倉 ダート 1700","小倉 ダート 2400"
     ]
 
-    couses.each do |e|
-      r = Couse.new()
-      r.couse_name = e
-      r.place = e.split[0]
-      r.stage = e.split[1]
-      r.distance = e.split[2]
+#     id以外
+#     couses.each_with_index do |e,i|
+#       r = Couse.new()
+#       r.couse_name = e
+#       r.place = e.split[0]
+#       r.stage = e.split[1]
+#       r.distance = e.split[2]
 
-      r.save
-    end
+#       r.save
+#     end
+
+#     couses.each_with_index do |e,i|
+#       r = Couse.find_by(couse_name: e)
+#       r.couse_id = i + 1
+# #       p r
+#       r.save
+#     end
 
 
 

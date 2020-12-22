@@ -30,8 +30,12 @@
       </span>
 
       <span>
+      <% if logged_in? %>
         <p><a href="<%=race_index_next_path%>">今週のレース</a></p>
+        <p><a href="<%=couse_parameter_index_path%>">コース</a></p>
+      <% else %>
         <p><a href="<%=couse_index_path%>">コース</a></p>
+      <%end%>
       </span>
 </nav>
 

@@ -1,16 +1,23 @@
-<div class="col-12 col-md-6 col-sm-12 prof"> 
-  <table class="race_prof table">
+<span class="table-responsive-sm md lg main">
+  <table class="uma_race_info table">
     <tbody>
-        <tr class="birthday">
-          <h3>コース種類</h3>
-        </tr>
-      <%@c.each_with_index do |c,i|%>
-        <tr class="birthday">
-          <td><%=c.couse_name%></td>
-        </tr>
-      <%end%>
+    <tr class="birthday">
+      <h3>コース種類</h3>
+    </tr>
+    <%@ple.each do |pl|%>
+      <tr class ="col-xs-3 col-ms-3 col-md-4 col-lg-6">
+        <th scope="row"><%= pl%></th>
+        <%@name.each_with_index do |n,i|%>
+          <%if !n.include?(pl)%>
+          <%next%>
+          <%else%>
+            <td><%=n%><p>speed: <%=@speed[i]%></p><p>power: <%=@power[i]%></p></td>
+          <%end%>
+        <%end%>
+      </tr>
+     <%end%>
     </tbody>
   </table>
-</div>
+</span>
 
 

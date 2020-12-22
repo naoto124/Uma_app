@@ -1,0 +1,41 @@
+<span class="table-responsive-sm md lg main">
+  <table class="uma_race_info table">
+    <tbody>
+    <tr class="birthday">
+      <h3>コース種類</h3>
+    </tr>
+    <%@ple.each do |pl|%>
+      <tr class ="col-xs-3 col-ms-3 col-md-4 col-lg-6">
+        <th scope="row"><%= pl%></th>
+        <%@name.each_with_index do |n,i|%>
+          <%if !n.include?(pl)%>
+          <%next%>
+          <%else%>
+            <td><%=n%>
+            </td>
+            <%# 普通のs、p（デフォルト１）を出してif文で@couse_parameterが存在するならにする %>
+            <%= form_for @couse_parameter do |f| %>
+              <td>
+                  <%= f.label :speed %>
+                  <%= f.select :speed, {1, 1.1,1.2,1.3}, 
+                  { include_blank: 'speed'}, 
+                  { class: 'form-control' , required: true } %>
+              </td>
+              <td>
+                  <%= f.label :power %>
+                  <%= f.select :power, {1, 1.1,1.2,1.3}, 
+                  { include_blank: 'power'}, 
+                  { class: 'form-control' , required: true } %>
+              </td>
+              <%= f.submit %> 
+            <% end %>
+
+          <%end%>
+        <%end%>
+      </tr>
+     <%end%>
+    </tbody>
+  </table>
+</span>
+
+
