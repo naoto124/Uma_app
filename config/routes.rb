@@ -23,10 +23,10 @@ Rails.application.routes.draw do
   resources:race, params: :name
 
   get '/couse_index', to:'couse#index', as:'couse_index'
-  get '/couse_parameter_index', to:'couse_parameter#index', as:'couse_parameter_index'
-  post '/couse_parameter_create',to:'couse_parameter#create',as:'couse_parameter_create'
-  put '/couse_parameter_index/:id',to:'couse_parameter#update',as:'couse_parameter_put'
-  patch '/couse_parameter_index/:id',to:'couse_parameter#update',as:'couse_parameter_patch'
+  get '/couse_parameter_index', to:'couse_parameter#index'
+  post '/couse_parameter_index',to:'couse_parameter#create'
+  put '/couse_parameter_index/:id',to:'couse_parameter#update'
+  patch '/couse_parameter_index/:id',to:'couse_parameter#update'
   resources :uma do
     post '/add', to:'favorite#create'
     post'/add/:id' ,to:'favorite#update', as:'favorite_update'
