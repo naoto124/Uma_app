@@ -15,6 +15,10 @@
               <%=n%>
             </td>
             <% if logged_in? %>
+            <%# この辺 %>
+            <%# f.fields_for
+            has_many :kids, dependent: :destroy
+             accepts_nested_attributes_for :kids %>
               <%= form_for "/couse/#{@couse_id[i]}/parameter" do |f| %>
                 <%= f.hidden_field :couse_id, value: @couse_id[i]%>
                 <%= f.hidden_field :user_id, value: current_user.id%>
