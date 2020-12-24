@@ -11,7 +11,8 @@
           <%if !n.include?(pl)%>
           <%next%>
           <%else%>
-            <td><%=n%>
+            <td>
+              <%=n%>
             </td>
             <%# 普通のs、p（デフォルト１）を出してif文で@couse_parameterが存在するならにする %>
             <%if @couse_parameter == nil %>

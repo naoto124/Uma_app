@@ -37,13 +37,13 @@ class CouseParameterController < ApplicationController
   def create
     session[:user_id] = params[:user_id]
     @user = params[:user_id]
-    @couse = Couse.find_by(id:params[:id])
+    @couse = Couse.find_by(id:params[:couse_id])
     p "ppppp"
     p @couse
     p session[:user_id]
 
     if @couse_parameter.create(user_id:session[:user_id],couse_id:@couse.id,speed:params[:speed],power:params[:power])
-      redirect_to couse_parameter_path
+      redirect_to couse_index_path
     else
       render root_url
     end
@@ -53,13 +53,13 @@ class CouseParameterController < ApplicationController
   def update
     session[:user_id] = params[:user_id]
     @user = params[:user_id]
-    @couse = Couse.find_by(id:params[:id])
+    @couse = Couse.find_by(id:params[:couse_id])
     @couse_parameter = Couse_parameter.find_by(user_id:session[:user_id],couse_id:@couse.id)
 
     @couse_parameter.speed = params[:speed]
     @couse_parameter.power = params[:power]
     if @couse_parameter.save
-      redirect_to couse_parameter_path
+      redirect_to couse_index_path
     else
       render root_url
     end
