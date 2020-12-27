@@ -45,7 +45,7 @@ ul li {
 /* 表示しているページ番号のデザイン */
 .pagination>.active>a {     
   background: #ddf1ef;     /*背景の色を変える*/
-  border-radius: 15px;     /*角を丸くする*/
+  border-radius: 1%;     /*角を丸くする*/
 }
 
 /*ホバー時のデザイン*/
@@ -80,8 +80,6 @@ ul li {
 .uma_race_info {
   background-color: whitesmoke;
   border: none 2px rgb(243, 247, 248);
-  border-radius: 2%;
-
   margin: 5px;
 }
 
@@ -102,7 +100,7 @@ ul li {
 .ped {
   padding: 0s;
   border: solid 2px rgba(83, 82, 82, 0.2);
-  border-radius: 2%;
+  border-radius: 1%;
 }
 
 .ped_title {

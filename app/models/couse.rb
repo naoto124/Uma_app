@@ -3,6 +3,7 @@ class Couse < ApplicationRecord
 
  has_many :couse_parameters, dependent: :destroy
  has_many :users, through: :couse_parameters
+ accepts_nested_attributes_for :couse_parameters
 
  def self.couse_get
     couses =[

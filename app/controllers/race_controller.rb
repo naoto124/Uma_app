@@ -91,32 +91,35 @@ class RaceController < ApplicationController
   end
 
   def run
-    p "kkkkkk"
-    if judge_result(params[:name].to_s) == false
-      redirect_to action: :result
-    elsif judge_result(params[:name].to_s) == true
-      if judge(params[:name].to_s) == false
-        run_race(params[:name].to_s)
-      elsif judge(params[:name].to_s) == true
-        redirect_to action: :show
-        return
-      else redirect_to action: :info and return
-      end
-    end
-    # p run_race(params[:name].to_s)
-
-    # renderが２つ発生する処理が走るとエラーが起こるかも
-
+    @code = params[:name]
     if Race.find_by(code: params[:name]) == nil
       race = Race.new
       race.code = params[:name]
       race.name = @race_title
       race.save ? (redirect_to request.referer) : (render :race_info_path) and return
     end
+    p "kkkkkk"
+    # if judge_result(params[:name].to_s) == true
+      if judge(params[:name].to_s) == false
+        run_race(params[:name].to_s)
+        return
+      elsif judge(params[:name].to_s) == true
+        redirect_to action: :show
+        return
+      elsif judge_result(params[:name].to_s) == false
+        redirect_to action: :result
+        return
+      else redirect_to action: :info and return
+    end
+    # p run_race(params[:name].to_s)
+
+    # renderが２つ発生する処理が走るとエラーが起こるかも
+
     p "------"
   end
 
   def result
+    @code = params[:name]
     run_result(params[:name].to_s)
   end
 
@@ -343,6 +346,7 @@ class RaceController < ApplicationController
       end
       # p @uma_info[0][:uma_id]
       @favorite = Favorite.where(user_id: current_user.id)
+      @couse_parameter = CouseParameter.where(user_id: current_user.id)
       # p "pppppp"
       # p @favorite[0].uma_id
     end
@@ -365,6 +369,16 @@ class RaceController < ApplicationController
       @race_all.each_with_index do |al,m|
         al.each_with_index do |a,i|
             if  i == 3
+              p "eeee"
+              p a.inner_text.gsub(/\s/, '')
+              if Uma.find_by(code:a.children.children.children.children.at_css('a')[:href][44..53]) == nil
+                u = Uma.new
+                u.name = a.inner_text.gsub(/\s/, '')
+                u.code = a.children.children.children.children.at_css('a')[:href][44..53]
+                u.save ? (redirect_to request.referer) : (render :show)
+                return
+              end
+              p "eeee"
               hash = Hash.new{|h,k| h[k] = n}
               hash[:uma_name] = a.inner_text.gsub(/\s/, '')
               hash[:uma_name_a] = a.children.children.children.children.at_css('a')[:href][44..53]
@@ -415,10 +429,12 @@ class RaceController < ApplicationController
       end
 
       @favorite = Favorite.where(user_id: current_user.id)
-      p "----------------"
-      p "----------------"
-      p @raceall
-      p "----------------"
+      @couse_parameter = CouseParameter.where(user_id: current_user.id)
+      # p "----------------"
+      # p "----------------"
+      # p @favorite[0]
+      # p @raceall[0][:uma_id]
+      # p "----------------"
 
     end
 

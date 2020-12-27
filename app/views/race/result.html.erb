@@ -1,3 +1,4 @@
+<div><a href="<%=race_run_path(name:@code)%>">出走馬</a></div>
 <div class="col-12 col-md-6 col-sm-12 prof"> 
 <%=@couse.couse_name%>
   <table class="race_prof table">
@@ -15,47 +16,117 @@
 </div>
 
 <span class="table-responsive-sm md lg main">
-  <table class="uma_race_info table">
+  <table class="uma_race_info table" style = "font-size: 14px;" >
     <thead>
-      <tr class ="col-xs-3 col-ms-3 col-md-4 col-lg-6">
-        <th class ="col-xs-1">着順</th>
-        <th class ="col-xs-1">枠</th>
-        <th class ="col-xs-1">馬番</th>
-        <th class ="col-xs-1">馬名</th>
-        <th class ="col-xs-1">性・歳</th>
-        <th class ="col-xs-1">負荷</th>
-        <th class ="col-xs-1">騎手</th>
-        <th class ="col-xs-1">馬体重</th>
-        <th class ="col-xs-1">オッズ</th>
-        <th class ="col-xs-1">人気</th>
-        <th class ="col-xs-1">タイム</th>
-        <th class ="col-xs-1">着差</th>
-        <th class ="col-xs-1">３F</th>
-        <th class ="col-xs-1">通過</th>
+      <tr class ="col-xs-3 col-ms-3 col-md-4 col-lg-6" style= "width:400px; overflow-y:scroll; font-size: 14px;">
+        <th style="width: 2%">着順</th>
+        <th style="width: 2%">枠</th>
+        <th style="width: 2%">馬番</th>
+        <th style="width: 14%">馬名</th>
+        <th style="width: 5%">性・歳</th>
+        <th style="width: 5%">負荷</th>
+        <th style="width: 10%">騎手</th>
+        <th style="width: 6%">馬体重</th>
+        <th style="width: 5%">オッズ</th>
+        <th style="width: 6%">人気</th>
+        <th style="width: 6%">タイム</th>
+        <th style="width: 5%">着差</th>
+        <th style="width: 6%">３F</th>
+        <th style="width: 6%">通過</th>
+        <th style="width: 6%">馬：<br>スピード</th>
+        <th style="width: 6%">馬：<br>パワー</th>
+        <th style="width: 6%">コース：<br>スピード</th>
+        <th style="width: 6%">コース：<br>パワー</th>
+        <th style="width: 6%">条件<br>パラメーター</th>
+        <th style="width: 6%">合計値</th>
       </tr>
     </thead>
     <tbody>
     <%@raceall.each do |m|%>
       <tr class ="col-xs-3 col-ms-3 col-md-4 col-lg-6">
-          <td><%= m[:rank]%></td>
-          <td><%= m[:box]%></td>
-          <td><%= m[:number]%></td>
-          <td>
-            <a href="/uma_detail/<%= m[:uma_name]%>" name="<%= m[:uma_name]%>">
-              <%= m[:uma_name]%>
-            </a>
+        <td><%= m[:rank]%></td>
+        <td><%= m[:box]%></td>
+        <td><%= m[:number]%></td>
+        <td>
+          <a href="/uma_detail/<%= m[:uma_name]%>" name="<%= m[:uma_name]%>">
+            <%= m[:uma_name]%>
+          </a>
+        </td>
+        <td><%= m[:sex_age]%></td>
+        <td><%= m[:weight]%></td>
+        <td><%= m[:jokey]%></td>
+        <td><%= m[:g]%></td>
+        <td><%= m[:ozz]%></td>
+        <td><%= m[:popular]%></td>
+        <td><%= m[:time]%></td>
+        <td><%= m[:space]%></td>
+        <td><%= m[:f3]%></td>
+        <td><%= m[:middle]%></td>
+          <%# ここから %>
+          <%if @favorite.find {|fa| fa.uma_id == m[:uma_id]}%>
+            <%@favorite.each do |f|%>
+              <span>
+                <td><%=f.speed%></td>
+                <td><%=f.power%></td>
+              </span>
+              <%break%>
+            <%end%>
+          <%else%>
+            <span>
+              <td>1</td>
+              <td>1</td>
+            </span>
+          <%end%>
+          <%if @couse_parameter.find {|co| co.couse_id == @couse.couse_id}%>
+            <%@couse_parameter.each do |c|%>
+              <span>
+                <td>× <%=c.speed%></td>
+                <td>× <%=c.power%></td>
+              </span>
+            <%break%>
+            <%end%>
+          <%else%>
+            <span>
+              <td>× 1</td>
+              <td>× 1</td>
+            </span>
+          <%end%>
+          <span>
+            <td>
+            <label for="speed_select">スピード ×</label>
+              <select name=”speed”>
+                <option value=”1”>1</option>
+                <option value=”0.5”>0.5</option>
+                <option value=”0.6”>0.6</option>
+                <option value=”0.7”>0.7</option>
+                <option value=”0.8”>0.8</option>
+                <option value=”0.9”>0.9</option>
+                <option value=”1.1”>1.1</option>
+                <option value=”1.2”>1.2</option>
+                <option value=”1.3”>1.3</option>
+                <option value=”1.4”>1.4</option>
+                <option value=”1.5”>1.5</option>
+              </select>
+              <br>
+              <label for="power_select"> パワー ×</label>
+                <select name=”power”>
+                <option value=”1”>1</option>
+                <option value=”0.5”>0.5</option>
+                <option value=”0.6”>0.6</option>
+                <option value=”0.7”>0.7</option>
+                <option value=”0.8”>0.8</option>
+                <option value=”0.9”>0.9</option>
+                <option value=”1.1”>1.1</option>
+                <option value=”1.2”>1.2</option>
+                <option value=”1.3”>1.3</option>
+                <option value=”1.4”>1.4</option>
+                <option value=”1.5”>1.5</option>
+            </select>
           </td>
-          <td><%= m[:sex_age]%></td>
-          <td><%= m[:weight]%></td>
-          <td><%= m[:jokey]%></td>
-          <td><%= m[:g]%></td>
-          <td><%= m[:ozz]%></td>
-          <td><%= m[:popular]%></td>
-          <td><%= m[:time]%></td>
-          <td><%= m[:space]%></td>
-          <td><%= m[:f3]%></td>
-          <td><%= m[:middle]%></td>
-            <%# ここから %>
+          </span>
+          <span>
+            <td></td>
+          </span>
 
       </tr>
      <%end%>

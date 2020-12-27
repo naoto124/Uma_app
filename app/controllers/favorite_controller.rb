@@ -18,13 +18,13 @@ class FavoriteController < ApplicationController
     @user = params[:user_id]
     @uma = Uma.find_by(id: params[:uma_id])
     @favorite = Favorite.find_by(user_id: session[:user_id],uma_id:@uma.id)
-    p "---------"
-    p @favorite
-    p @user
-    p @current_user
-    p @uma
-    p session[:user_id]
-    p params[:favorite]
+    # p "---------"
+    # p @favorite
+    # p @user
+    # p @current_user
+    # p @uma
+    # p session[:user_id]
+    # p params[:favorite]
     @favorite.speed = params[:speed]
     @favorite.power = params[:power]
     # if @favorite.update(parameter)

@@ -23,13 +23,13 @@ Rails.application.routes.draw do
   resources:race, params: :name
 
   get '/couse', to:'couse#index', as:'couse_index'
-  resources :couse do
-    # get '/couse_parameter_index', to:'couse_parameter#index'
-    post '/:id/parameter',to:'couse_parameter#create'
-    post '/:id/parameter',to:'couse_parameter#update'
-    put '/:id/parameter',to:'couse_parameter#update'
-    patch '/:id/parameter',to:'couse_parameter#update'
-  end
+    post '/couse',to:'couse#create'
+  # resources :couse do
+  #   # get '/couse_parameter_index', to:'couse_parameter#index'
+  #   post '/parameter/:id',to:'couse_parameter#update'
+  #   put '/parameter/:id',to:'couse_parameter#update'
+  #   patch '/parameter/:id',to:'couse_parameter#update'
+  # end
   
   resources :uma do
     post '/add', to:'favorite#create'
