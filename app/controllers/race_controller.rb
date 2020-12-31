@@ -248,12 +248,21 @@ class RaceController < ApplicationController
       elements .each do |ele|
         @race_title_info << ele.inner_text.to_s
       end
-    @plece = elements_p.inner_text
+    # if elements_p.inner_text
+      @plece = elements_p.inner_text
+    # else
+    #   @place = elements_p.get_attribute('href').[27..42].to_s
+    # end
     t = @race_title_info[0].slice('芝') || ('ダート')
     d = @race_title_info[0].split
     d = d[1].delete('m')
 
-    @couse = Couse.find_by(place: @plece, stage: t, distance: d)
+    # ここ
+    p "ww"
+    # if Race.find_by(code:params[:name])
+      @couse = Couse.find_by(place: @plece, stage: t, distance: d)
+    p @couse
+    p "wwww"
   end
 
   def race_specil(r)
@@ -292,6 +301,14 @@ class RaceController < ApplicationController
   def race_uma(ue)
     agent = Mechanize.new()
     page = agent.get(ue)
+    p "ggggg"
+    p params
+    if !Race.find_by(code:params[:name])
+      r = Race.find_by(code:params[:name])
+      r.code = params[:name]
+      r.save ? (redirect_to request.referer) : (render :show)
+    end
+
     if page
       race_f = page.iframe_with(name: 'racecard').click
 
@@ -320,15 +337,29 @@ class RaceController < ApplicationController
           hash.store(:uma_code,ec[0].get_attribute("href")[44..53])
         else next
         end
-        if Uma.find_by(code: hash[:uma_code]) == nil
-          uma = Uma.new
-          uma.code = hash[:uma_code]
-          uma.name = hash[:uma_name]
-          uma.save ? (redirect_to request.referer) : (render :show)
-          return
-        end
-        @uma_info << hash
+        # if Uma.find_by(code: hash[:uma_code]) == nil
+        #   uma = Uma.new
+        #   uma.code = hash[:uma_code]
+        #   uma.name = hash[:uma_name]
+        #   uma.save ? (redirect_to request.referer) : (render :show)
+        #   return
+          @uma_info << hash
+        # end
       end
+
+      # if @uma_info.find {|um| Uma.find_by(code:um[:uma_code]) == nil}
+      #   uf = @uma_info.find {|um| Uma.find_by(code:um[:uma_code]) == nil}
+      #   uf = @uma_info.find {|um| Uma.find_by(name:um[:uma_code]) == nil}
+      #     uf.each do |u|
+      #     uma = Uma.new
+      #     p "qqqqqqqqqqqq"
+      #     p uma.code = u
+      #     name = 
+      #     p uma.name = 
+      #     # u.save
+      #   end
+      #   redirect_to action: :run
+      # end
 
 
       disassembly(box,:box)
@@ -338,12 +369,23 @@ class RaceController < ApplicationController
       disassembly(jokey,:jokey)
       disassembly(popular,:popular)
 
-      @uma_info.each do |u|
-        u_a = Uma.find_by(name: u[:uma_name])
+      @uma_info.each_with_index do |u,i|
+        u_a = Uma.find_by(code: u[:uma_code])
         if u_a != nil
           u.store(:uma_id,u_a.id)
+            # if @uma_info.length == (i + 1)
+            #   break
+            # end
+        elsif u_a == nil
+          uma = Uma.new
+          uma.name = u[:uma_name]
+          uma.code = u[:uma_code]
+          uma.save
+        redo
+        else redirect_to root_path
         end
       end
+
       # p @uma_info[0][:uma_id]
       @favorite = Favorite.where(user_id: current_user.id)
       @couse_parameter = CouseParameter.where(user_id: current_user.id)
