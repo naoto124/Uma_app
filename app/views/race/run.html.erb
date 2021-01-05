@@ -36,7 +36,7 @@
     </thead>
     <tbody>
     <%@uma_info.each do |m|%>
-      <tr class ="col-xs-3 col-ms-3 col-md-4 col-lg-6">
+      <tr class ="info_wapper col-xs-3 col-ms-3 col-md-4 col-lg-6">
         <td><%= m[:box]%></td>
         <td><%= m[:uma_number]%></td>
         <td>
@@ -52,35 +52,35 @@
           <%if @favorite.find {|fa| fa.uma_id == m[:uma_id]}%>
           <%@favorite.each do |f|%>
             <span>
-              <td><%=f.speed%></td>
-              <td><%=f.power%></td>
+              <td class = "u_speed"><%=f.speed%></td>
+              <td class = "u_power"><%=f.power%></td>
             </span>
           <%break%>
           <%end%>
           <%else%>
               <span>
-                <td>1</td>
-                <td>1</td>
+                <td class = "u_speed">1</td>
+                <td class = "u_power">1</td>
               </span>
           <%end%>
           <%if @couse_parameter.find {|co| co.couse_id == @couse.couse_id}%>
           <%@couse_parameter.each do |c|%>
             <span>
-              <td>× <%=c.speed%></td>
-              <td>× <%=c.power%></td>
+              <td class = "c_speed"><%=c.speed%></td>
+              <td class = "c_power"><%=c.power%></td>
             </span>
           <%break%>
           <%end%>
           <%else%>
             <span>
-              <td>× 1</td>
-              <td>× 1</td>
+              <td class = "c_speed">1</td>
+              <td class = "c_power">1</td>
             </span>
           <%end%>
           <span>
             <td>
             <label for="speed_select">スピード ×</label>
-            <select name=”speed”>
+            <select name=”speed” class = "t_speed">
               <option value=”1”>1</option>
               <option value=”0.5”>0.5</option>
               <option value=”0.6”>0.6</option>
@@ -95,7 +95,7 @@
           </select>
           <br>
           <label for="power_select"> パワー ×</label>
-            <select name=”power”>
+            <select name=”power” class = "t_power">
               <option value=”1”>1</option>
               <option value=”0.5”>0.5</option>
               <option value=”0.6”>0.6</option>
@@ -111,10 +111,22 @@
           </td>
           </span>
           <span>
-            <td></td>
+            <td class = "result"></td>
           </span>
       </tr>
      <%end%>
     </tbody>
   </table>
 </span>
+<p class="aa">jQuery稼働テスト</p>
+<script type="text/javascript">
+    $(function() {
+     var speed = $('.u_speed').each (function(){
+       $(this).text();
+     });
+     console.log(speed);
+     speed.each(function(){
+       $('.result').text($(this).text());
+     })
+    });
+</script>
