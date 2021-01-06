@@ -80,38 +80,40 @@
           <span>
             <td>
             <label for="speed_select">スピード ×</label>
-            <select name=”speed” class = "t_speed">
-              <option value=”1”>1</option>
-              <option value=”0.5”>0.5</option>
-              <option value=”0.6”>0.6</option>
-              <option value=”0.7”>0.7</option>
-              <option value=”0.8”>0.8</option>
-              <option value=”0.9”>0.9</option>
-              <option value=”1.1”>1.1</option>
-              <option value=”1.2”>1.2</option>
-              <option value=”1.3”>1.3</option>
-              <option value=”1.4”>1.4</option>
-              <option value=”1.5”>1.5</option>
+            <select name=”speed”>
+              <option value='1'>1</option>
+              <option value='0.5'>0.5</option>
+              <option value='0.6'>0.6</option>
+              <option value='0.7'>0.7</option>
+              <option value='0.8'>0.8</option>
+              <option value='0.9'>0.9</option>
+              <option value='1.1'>1.1</option>
+              <option value='1.2'>1.2</option>
+              <option value='1.3'>1.3</option>
+              <option value='1.4'>1.4</option>
+              <option value='1.5'>1.5</option>
           </select>
+          <p class = "t_speed">1</p>
           <br>
           <label for="power_select"> パワー ×</label>
-            <select name=”power” class = "t_power">
-              <option value=”1”>1</option>
-              <option value=”0.5”>0.5</option>
-              <option value=”0.6”>0.6</option>
-              <option value=”0.7”>0.7</option>
-              <option value=”0.8”>0.8</option>
-              <option value=”0.9”>0.9</option>
-              <option value=”1.1”>1.1</option>
-              <option value=”1.2”>1.2</option>
-              <option value=”1.3”>1.3</option>
-              <option value=”1.4”>1.4</option>
-              <option value=”1.5”>1.5</option>
+            <select name=”power”>
+              <option value='1'>1</option>
+              <option value='0.5'>0.5</option>
+              <option value='0.6'>0.6</option>
+              <option value='0.7'>0.7</option>
+              <option value='0.8'>0.8</option>
+              <option value='0.9'>0.9</option>
+              <option value='1.1'>1.1</option>
+              <option value='1.2'>1.2</option>
+              <option value='1.3'>1.3</option>
+              <option value='1.4'>1.4</option>
+              <option value='1.5'>1.5</option>
           </select>
+          <p class = "t_power">1</p>
           </td>
           </span>
           <span>
-            <td class = "result"></td>
+            <td class = "result">a</td>
           </span>
       </tr>
      <%end%>
@@ -120,13 +122,72 @@
 </span>
 <p class="aa">jQuery稼働テスト</p>
 <script type="text/javascript">
-    $(function() {
-     var speed = $('.u_speed').each (function(){
-       $(this).text();
+  $(function() {
+
+    $('.info_wapper').each(function(){
+      
+    var u_speed = $(this).find('.u_speed').text();
+    var u_power = $(this).find('.u_power').text();
+    var c_speed = $(this).find('.c_speed').text();
+    var c_power = $(this).find('.c_power').text();
+    var t_speed = $(this).find('.t_speed').text();
+    var t_power = $(this).find('.t_power').text();
+    var speed = u_speed * c_speed * t_speed;
+    speed = speed.toFixed(1);
+    speed = parseFloat(speed);
+    var power = u_power * c_power * t_power;
+    power = power.toFixed(1);
+    power = parseFloat(power);
+  
+
+     var select_s= $(this).find('select')[0];
+     var select_p= $(this).find('select')[1];
+     var s_s = $(this).find('.t_speed');
+     var s_p = $(this).find('.t_power');
+    //  console.log(select_s);
+    //  console.log(val_p);
+
+  result = speed + power
+  var result_tb = $(this).find('.result');
+  result_tb.text(result);
+  // console.log(result);
+  // console.log(power);
+
+
+    function changes(cha,sle,t){
+     $(document).on('change',$(cha),function() {
+        $(cha).each(function() {
+          var val = $(this).val();
+          var val = parseFloat(val);
+          console.log(val);
+          $(sle).text(val);
+          t = val;
+          speed = speed;
+          power = power;
+          result = speed + power;
+          result_tb.text(result);
+        });
+      });
+    };
+    // function changes(cha,sle,t){
+    //   $(cha).change(function() {
+    //     $(cha).each(function() {
+    //       var val = $(this).val();
+    //       var val = parseFloat(val);
+    //       console.log(val);
+    //       $(sle).text(val);
+    //       t = val;
+    //       speed = speed;
+    //       power = power;
+    //       result = speed + power;
+    //       result_tb.text(result);
+    //     });
+    //   });
+    // };
+    changes(select_s,s_s,t_speed);
+    changes(select_p,s_p,t_power);
+
+
      });
-     console.log(speed);
-     speed.each(function(){
-       $('.result').text($(this).text());
-     })
     });
 </script>
