@@ -351,7 +351,8 @@ class RaceController < ApplicationController
         end
       end
 
-      # p @racealls[0][:uma_id]
+      p "mmmm"
+      p @racealls[0].length
       @favorite = Favorite.where(user_id: current_user.id)
       @couse_parameter = CouseParameter.where(user_id: current_user.id)
       # p "pppppp"
@@ -442,6 +443,8 @@ class RaceController < ApplicationController
       # p @favorite[0]
       # p @racealls[0][:uma_id]
       # p "----------------"
+      p "tttt"
+      p @racealls[0].length
 
     end
 

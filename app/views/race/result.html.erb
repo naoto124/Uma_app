@@ -4,159 +4,71 @@
 <span class="table-responsive-sm md lg main">
   <table class="uma_race_info table" style = "font-size: 14px;" >
   <%= render partial: 'race/table_items', collection:{table_items: @table_items}%>
-    <tbody>
-    <%@raceall.each do |m|%>
-      <tr class ="info_wapper col-xs-3 col-ms-3 col-md-4 col-lg-6">
-        <td><%= m[:rank]%></td>
-        <td><%= m[:box]%></td>
-        <td><%= m[:number]%></td>
-        <td>
-          <a href="/uma_detail/<%= m[:uma_name]%>" name="<%= m[:uma_name]%>">
-            <%= m[:uma_name]%>
-          </a>
-        </td>
-        <td><%= m[:sex_age]%></td>
-        <td><%= m[:weight]%></td>
-        <td><%= m[:jokey]%></td>
-        <td><%= m[:g]%></td>
-        <td><%= m[:ozz]%></td>
-        <td><%= m[:popular]%></td>
-        <td><%= m[:time]%></td>
-        <td><%= m[:space]%></td>
-        <td><%= m[:f3]%></td>
-        <td><%= m[:middle]%></td>
-          <%# ここから %>
-          <%if @favorite.find {|fa| fa.uma_id == m[:uma_id]}%>
-          <%@favorite.each do |f|%>
-            <span>
-              <td class = "u_speed"><%=f.speed%></td>
-              <td class = "u_power"><%=f.power%></td>
-            </span>
-          <%break%>
-          <%end%>
-          <%else%>
-              <span>
-                <td class = "u_speed">1</td>
-                <td class = "u_power">1</td>
-              </span>
-          <%end%>
-          <%if @couse_parameter.find {|co| co.couse_id == @couse.couse_id}%>
-          <%@couse_parameter.each do |c|%>
-            <span>
-              <td class = "c_speed"><%=c.speed%></td>
-              <td class = "c_power"><%=c.power%></td>
-            </span>
-          <%break%>
-          <%end%>
-          <%else%>
-            <span>
-              <td class = "c_speed">1</td>
-              <td class = "c_power">1</td>
-            </span>
-          <%end%>
-          <span>
-            <td class="select">
-              <label for="speed_select">スピード ×</label>
-              <select name=”speed”>
-                <option value='1'>1</option>
-                <option value='0.5'>0.5</option>
-                <option value='0.6'>0.6</option>
-                <option value='0.7'>0.7</option>
-                <option value='0.8'>0.8</option>
-                <option value='0.9'>0.9</option>
-                <option value='1.1'>1.1</option>
-                <option value='1.2'>1.2</option>
-                <option value='1.3'>1.3</option>
-                <option value='1.4'>1.4</option>
-                <option value='1.5'>1.5</option>
-              </select>
-              <p class = "t_p t_speed">1</p>
-              <br>
-              <label for="power_select"> パワー ×</label>
-              <select name=”power”>
-                <option value='1'>1</option>
-                <option value='0.5'>0.5</option>
-                <option value='0.6'>0.6</option>
-                <option value='0.7'>0.7</option>
-                <option value='0.8'>0.8</option>
-                <option value='0.9'>0.9</option>
-                <option value='1.1'>1.1</option>
-                <option value='1.2'>1.2</option>
-                <option value='1.3'>1.3</option>
-                <option value='1.4'>1.4</option>
-                <option value='1.5'>1.5</option>
-              </select>
-              <p class = "t_p t_power">1</p>
-            </td>
-          </span>
-          <span>
-            <td class = "result">a</td>
-          </span>
-      </tr>
-     <%end%>
-    </tbody>
+  <tbody>
+    <%= render partial: 'race/raceall',locals:{couse: @couse}, collection: @racealls%>
+  </tbody>
   </table>
 </span>
 <script type="text/javascript">
 
-  $(function() {
-      $('.info_wapper').each(function(){
-      var u_speed = parseFloat($(this).find('.u_speed').text());
-      var u_power = parseFloat($(this).find('.u_power').text());
-      var c_speed = parseFloat($(this).find('.c_speed').text());
-      var c_power = parseFloat($(this).find('.c_power').text());
-      var t_speed = $(this).find('.t_speed').text();
-      var t_power = $(this).find('.t_power').text();
-      var speed = u_speed * c_speed * t_speed;
-      speed = speed.toFixed(1);
-      speed = parseFloat(speed);
-      var power = u_power * c_power * t_power;
-      power = power.toFixed(1);
-      power = parseFloat(power);
-      var result = speed + power;
-      var result_tb = $(this).find('.result');
-      result_tb.text(result);
-        // console.log("tb");
-        // console.log(result_tb.text(result));
+//   $(function() {
+//       $('.info_wapper').each(function(){
+//       var u_speed = parseFloat($(this).find('.u_speed').text());
+//       var u_power = parseFloat($(this).find('.u_power').text());
+//       var c_speed = parseFloat($(this).find('.c_speed').text());
+//       var c_power = parseFloat($(this).find('.c_power').text());
+//       var t_speed = $(this).find('.t_speed').text();
+//       var t_power = $(this).find('.t_power').text();
+//       var speed = u_speed * c_speed * t_speed;
+//       speed = speed.toFixed(1);
+//       speed = parseFloat(speed);
+//       var power = u_power * c_power * t_power;
+//       power = power.toFixed(1);
+//       power = parseFloat(power);
+//       var result = speed + power;
+//       var result_tb = $(this).find('.result');
+//       result_tb.text(result);
+//         // console.log("tb");
+//         // console.log(result_tb.text(result));
 
-      var select_s= $(this).find('select')[0];
-      var select_p= $(this).find('select')[1];
-      var s_s = $(this).find('.t_speed');
-      var s_p = $(this).find('.t_power');
+//       var select_s= $(this).find('select')[0];
+//       var select_p= $(this).find('select')[1];
+//       var s_s = $(this).find('.t_speed');
+//       var s_p = $(this).find('.t_power');
 
-      function changes(cha,sle){
-        $(cha).change(function() {
-          $(cha).each(function() {
-            var val = $(this).val();
-            var val = parseFloat(val);
-          if (cha == select_s){
-          t_speed = val
-          } else { t_power = val }
-          $(sle).text(val);
+//       function changes(cha,sle){
+//         $(cha).change(function() {
+//           $(cha).each(function() {
+//             var val = $(this).val();
+//             var val = parseFloat(val);
+//           if (cha == select_s){
+//           t_speed = val
+//           } else { t_power = val }
+//           $(sle).text(val);
 
-          $(document).on('change',$(this).find('.t_p'),function(){
-            var change_speed = u_speed * c_speed * t_speed;
-            change_speed = change_speed.toFixed(1);
-            change_speed = parseFloat(change_speed);
-            var change_power = u_power * c_power * t_power;
-            change_power = change_power.toFixed(1);
-            change_power = parseFloat(change_power);
-            change_result = change_speed + change_power;
-            change_result = change_result.toFixed(1);
+//           $(document).on('change',$(this).find('.t_p'),function(){
+//             var change_speed = u_speed * c_speed * t_speed;
+//             change_speed = change_speed.toFixed(1);
+//             change_speed = parseFloat(change_speed);
+//             var change_power = u_power * c_power * t_power;
+//             change_power = change_power.toFixed(1);
+//             change_power = parseFloat(change_power);
+//             change_result = change_speed + change_power;
+//             change_result = change_result.toFixed(1);
 
-            result_tb.text(change_result);
-            console.log("aaa");
-            console.log(result_tb.text(change_result));
-          });
+//             result_tb.text(change_result);
+//             console.log("aaa");
+//             console.log(result_tb.text(change_result));
+//           });
 
-          });
-        });
-      };
-      changes(select_s,s_s);
-      changes(select_p,s_p);
+//           });
+//         });
+//       };
+//       changes(select_s,s_s);
+//       changes(select_p,s_p);
 
-    });
+//     });
 
 
-    });
-</script>
+//     });
+// </script>
