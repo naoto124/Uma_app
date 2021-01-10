@@ -1,46 +1,9 @@
 <div><a href="<%=race_run_path(name:@code)%>">出走馬</a></div>
-<div class="col-12 col-md-6 col-sm-12 prof"> 
-<%=@couse.couse_name%>
-  <table class="race_prof table">
-    <tbody>
-        <tr class="birthday">
-          <h2><%=@race_title%></h2>
-        </tr>
-        <%@race_title_info.each do |r|%>
-          <tr class="birthday">
-            <td><%=r%></td>
-          </tr>
-        <%end%>
-    </tbody>
-  </table>
-</div>
+<%= render partial: 'race/race_title', locals:{couse: @couse,race_title: @race_title}, collection:{race_title_info: @race_title_info}%>
 
 <span class="table-responsive-sm md lg main">
   <table class="uma_race_info table" style = "font-size: 14px;" >
-    <thead>
-      <tr class ="col-xs-3 col-ms-3 col-md-4 col-lg-6" style= "width:400px; overflow-y:scroll; font-size: 14px;">
-        <th style="width: 1%;">着順</th>
-        <th style="width: 1%;">枠</th>
-        <th style="width: 1%;">馬番</th>
-        <th style="width: 46;%">馬名</th>
-        <th style="width: 3%;">性・歳</th>
-        <th style="width: 3%;">負荷</th>
-        <th style="width: 5%;">騎手</th>
-        <th style="width: 5%;">馬体重</th>
-        <th style="width: 3%;">オッズ</th>
-        <th style="width: 2%;">人気</th>
-        <th style="width: 3%;">タイム</th>
-        <th style="width: 3%;">着差</th>
-        <th style="width: 3%;">３F</th>
-        <th style="width: 3%;">通過</th>
-        <th style="width: 3%;">馬：<br>スピード</th>
-        <th style="width: 3%;">馬：<br>パワー</th>
-        <th style="width: 3%;">コース：<br>スピード</th>
-        <th style="width: 3%;">コース：<br>パワー</th>
-        <th style="width: 3%;">条件<br>パラメーター</th>
-        <th style="width: 3%;">合計値</th>
-      </tr>
-    </thead>
+  <%= render partial: 'race/table_items', collection:{table_items: @table_items}%>
     <tbody>
     <%@raceall.each do |m|%>
       <tr class ="info_wapper col-xs-3 col-ms-3 col-md-4 col-lg-6">

@@ -1,0 +1,82 @@
+     
+      <tr class ="info_wapper col-xs-3 col-ms-3 col-md-4 col-lg-6">
+        <td><%= raceall[:box]%></td>
+        <td><%= raceall[:uma_number]%></td>
+        <td>
+          <a href="/uma_detail/<%= raceall[:uma_name]%>" name="<%= raceall[:uma_name]%>">
+            <%= raceall[:uma_name]%>
+          </a>
+        </td>
+        <td><%= raceall[:sex_age]%></td>
+        <td><%= raceall[:weight]%></td>
+        <td><%= raceall[:jokey]%></td>
+        <td><%= raceall[:popular]%></td>
+          <%# ここから %>
+          <%if @favorite.find {|fa| fa.uma_id == raceall[:uma_id]}%>
+          <%@favorite.each do |f|%>
+            <span>
+              <td class = "u_speed"><%=f.speed%></td>
+              <td class = "u_power"><%=f.power%></td>
+            </span>
+          <%break%>
+          <%end%>
+          <%else%>
+              <span>
+                <td class = "u_speed">1</td>
+                <td class = "u_power">1</td>
+              </span>
+          <%end%>
+          <%if @couse_parameter.find {|co| co.couse_id == couse.couse_id}%>
+          <%@couse_parameter.each do |c|%>
+            <span>
+              <td class = "c_speed"><%=c.speed%></td>
+              <td class = "c_power"><%=c.power%></td>
+            </span>
+          <%break%>
+          <%end%>
+          <%else%>
+            <span>
+              <td class = "c_speed">1</td>
+              <td class = "c_power">1</td>
+            </span>
+          <%end%>
+          <span>
+            <td class="select">
+              <label for="speed_select">スピード ×</label>
+              <select name=”speed”>
+                <option value='1'>1</option>
+                <option value='0.5'>0.5</option>
+                <option value='0.6'>0.6</option>
+                <option value='0.7'>0.7</option>
+                <option value='0.8'>0.8</option>
+                <option value='0.9'>0.9</option>
+                <option value='1.1'>1.1</option>
+                <option value='1.2'>1.2</option>
+                <option value='1.3'>1.3</option>
+                <option value='1.4'>1.4</option>
+                <option value='1.5'>1.5</option>
+              </select>
+              <p class = "t_p t_speed">1</p>
+              <br>
+              <label for="power_select"> パワー ×</label>
+              <select name=”power”>
+                <option value='1'>1</option>
+                <option value='0.5'>0.5</option>
+                <option value='0.6'>0.6</option>
+                <option value='0.7'>0.7</option>
+                <option value='0.8'>0.8</option>
+                <option value='0.9'>0.9</option>
+                <option value='1.1'>1.1</option>
+                <option value='1.2'>1.2</option>
+                <option value='1.3'>1.3</option>
+                <option value='1.4'>1.4</option>
+                <option value='1.5'>1.5</option>
+              </select>
+              <p class = "t_p t_power">1</p>
+            </td>
+          </span>
+          <span>
+            <td class = "result">a</td>
+          </span>
+      </tr>
+

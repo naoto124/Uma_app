@@ -1,0 +1,15 @@
+<div class="col-12 col-md-6 col-sm-12 prof"> 
+<%=@couse.couse_name%>
+  <table class="race_prof table">
+    <tbody>
+        <tr class="birthday">
+          <h2><%=@race_title%></h2>
+        </tr>
+        <%@race_title_info.each do |r|%>
+          <tr class="birthday">
+            <td><%=r%></td>
+          </tr>
+        <%end%>
+    </tbody>
+  </table>
+</div>

@@ -92,6 +92,7 @@ class RaceController < ApplicationController
 
   def run
     @code = params[:name]
+    @table_items = ["枠","馬番","馬名","性・歳","負荷","騎手","人気","馬s","馬p","コースs","コースp","条件値","合計値"]
     if Race.find_by(code: params[:name]) == nil
       race = Race.new
       race.code = params[:name]
@@ -111,15 +112,11 @@ class RaceController < ApplicationController
         return
       else redirect_to action: :info and return
     end
-    # p run_race(params[:name].to_s)
-
-    # renderが２つ発生する処理が走るとエラーが起こるかも
-
-    p "------"
   end
 
   def result
     @code = params[:name]
+    @table_items = ["着順","枠","馬番","馬名","性・歳","負荷","騎手","馬体重","オッズ","人気","タイム","着差","３F","通過","馬s","馬p","コースs","コースp","条件値","合計値"]
     run_result(params[:name].to_s)
   end
 
@@ -313,7 +310,7 @@ class RaceController < ApplicationController
       jokey = race_f.search ('/html/body/div/form/table/tr/td/table/tr/td[8]/a')
       popular = race_f.search ('/html/body/div/form/table/tr/td/table/tr/td[11]')
 
-      @uma_info = []
+      @racealls = []
       elements.each do |ele|
         e = ele.children
         hash = Hash.new{|h,k| h[k] = uu }
@@ -328,7 +325,7 @@ class RaceController < ApplicationController
           hash.store(:uma_code,ec[0].get_attribute("href")[44..53])
         else next
         end
-          @uma_info << hash
+          @racealls << hash
       end
 
 
@@ -340,7 +337,7 @@ class RaceController < ApplicationController
       disassembly(jokey,:jokey)
       disassembly(popular,:popular)
 
-      @uma_info.each_with_index do |u,i|
+      @racealls.each_with_index do |u,i|
         u_a = Uma.find_by(code: u[:uma_code])
         if u_a != nil
           u.store(:uma_id,u_a.id)
@@ -354,7 +351,7 @@ class RaceController < ApplicationController
         end
       end
 
-      # p @uma_info[0][:uma_id]
+      # p @racealls[0][:uma_id]
       @favorite = Favorite.where(user_id: current_user.id)
       @couse_parameter = CouseParameter.where(user_id: current_user.id)
       # p "pppppp"
@@ -364,7 +361,7 @@ class RaceController < ApplicationController
 
   def disassembly(di,dd)
     (di).each_with_index do |d,i|
-      @uma_info[i].store((dd),d.inner_text)
+      @racealls[i].store((dd),d.inner_text)
     end
   end
 
@@ -375,7 +372,7 @@ class RaceController < ApplicationController
       @race_all = page.search('/html/body/div[2]/div[4]/div/div/table[3]/tr/td/div/div/table[1]/tr/td/table/tr/td/table/tr/td').each_slice(19).to_a
 
       # all = ["rank","box","number",:uma_name,"sex_age","weight","jokey","g","ozz","poplar","time","space","f3","middle"]
-      @raceall = []
+      @racealls = []
       @race_all.each_with_index do |al,m|
         al.each_with_index do |a,i|
             if  i == 3
@@ -392,7 +389,7 @@ class RaceController < ApplicationController
               hash = Hash.new{|h,k| h[k] = n}
               hash[:uma_name] = a.inner_text.gsub(/\s/, '')
               hash[:uma_name_a] = a.children.children.children.children.at_css('a')[:href][44..53]
-              @raceall << hash
+              @racealls << hash
             end
           end
         end
@@ -401,37 +398,37 @@ class RaceController < ApplicationController
         al.each_with_index do |a,i|
           case
           when i == 0
-          @raceall[m].store(:rank, a.inner_text)
+          @racealls[m].store(:rank, a.inner_text)
           when i == 1
-          @raceall[m].store(:box, a.inner_text)
+          @racealls[m].store(:box, a.inner_text)
           when i == 2
-          @raceall[m].store(:number, a.inner_text)
+          @racealls[m].store(:number, a.inner_text)
           when i == 4
-          @raceall[m].store(:sex_age, a.inner_text)
+          @racealls[m].store(:sex_age, a.inner_text)
           when i == 5
-          @raceall[m].store(:weight, a.inner_text)
+          @racealls[m].store(:weight, a.inner_text)
           when i == 6
-          @raceall[m].store(:jokey, a.inner_text)
+          @racealls[m].store(:jokey, a.inner_text)
           when i == 9
-          @raceall[m].store(:g, a.inner_text)
+          @racealls[m].store(:g, a.inner_text)
           when i == 10
-          @raceall[m].store(:ozz, a.inner_text)
+          @racealls[m].store(:ozz, a.inner_text)
           when i == 11
-          @raceall[m].store(:popular, a.inner_text)
+          @racealls[m].store(:popular, a.inner_text)
           when i == 13
-          @raceall[m].store(:time, a.inner_text)
+          @racealls[m].store(:time, a.inner_text)
           when i == 14
-          @raceall[m].store(:space, a.inner_text)
+          @racealls[m].store(:space, a.inner_text)
           when i == 15
-          @raceall[m].store(:f3, a.inner_text)
+          @racealls[m].store(:f3, a.inner_text)
           when i == 16
-          @raceall[m].store(:middle, a.inner_text)
+          @racealls[m].store(:middle, a.inner_text)
           else next
           end
         end
       end
 
-      @raceall.each do |u|
+      @racealls.each do |u|
         u_a = Uma.find_by(name: u[:uma_name])
         if u_a != nil
           u.store(:uma_id,u_a.id)
@@ -443,7 +440,7 @@ class RaceController < ApplicationController
       # p "----------------"
       # p "----------------"
       # p @favorite[0]
-      # p @raceall[0][:uma_id]
+      # p @racealls[0][:uma_id]
       # p "----------------"
 
     end
