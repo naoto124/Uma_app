@@ -22,6 +22,10 @@ class UserController < ApplicationController
     @favorite_list = Uma.find(favorites)     # postsテーブルから、お気に入り登録済みのレコードを取得
   end
 
+  def edit
+    @user = User.find(params[:id])
+  end
+
   private
   def user_params
     params.require(:user).permit(:id,:name,:email,:password,:password_confirmation)

@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
   include SessionsHelper
   include HomeHelper
   include UmaHelper
+  include RaceHelper
 
   private
     def logged_in_user
