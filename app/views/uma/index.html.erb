@@ -1,16 +1,18 @@
-<h1>お気に入り馬</h1>
-  <ul>
-    <% @favorite_uma.each do |u| %>
-      <li>
-        <a href="<%=uma_detail_path(name:u[:name])%>" name="<%= u[:name]%>">
-          <%= u[:name]%>
-        </a>
-        <p>スピード : <%=u[:speed]%></p>
-        <p>パワー : <%=u[:power]%></p>
-        </li>
+<div class="container">
+  <h1>お気に入り馬</h1>
+    <ul>
+      <% @favorite_uma.each do |u| %>
+        <li>
+          <a href="<%=uma_detail_path(name:u[:name])%>" name="<%= u[:name]%>">
+            <%= u[:name]%>
+          </a>
+          <p>スピード : <%=u[:speed]%></p>
+          <p>パワー : <%=u[:power]%></p>
+          </li>
 
-    <% end %>
-  </ul>
-<div class="paginate">
-  <%= paginate @favorite_uma %>
+      <% end %>
+    </ul>
+  <div class="paginate">
+    <%= paginate @favorite_uma %>
+  </div>
 </div>

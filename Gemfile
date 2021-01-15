@@ -63,3 +63,5 @@ gem 'jquery-rails'
  gem 'kaminari'
 
  gem 'activesupport'
+
+ gem 'ransack'

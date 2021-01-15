@@ -31,11 +31,15 @@ ul li {
   margin: 0;
   background-color: #cac9c7;
   border-radius :2px;
-  letter-spacing: 6px;
+  letter-spacing: 20px;
   height: 32px;
   font-size: 16px;
-  padding-left: 10px;
 }
+
+.pagination {
+  justify-content: center;
+}
+
 /*ページネーション自体のデザイン*/
 .pagination>li>a {          
   border: none;     /*枠線をなくす*/
@@ -105,4 +109,8 @@ ul li {
 
 .ped_title {
   color: salmon;
+}
+
+.container {
+  // display: none;
 }

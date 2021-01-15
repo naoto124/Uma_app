@@ -1,10 +1,12 @@
 <h1><%= @keyword%>行</h1>
+<div class=container>
   <ul>
     <% @uma.each do |u| %>
       <li><a href="<%=uma_detail_path(name:u.name)%>" name="<%= u.name%>"><%= u.name%></a></li>
 
     <% end %>
   </ul>
-<div class="paginate">
-  <%= paginate @uma %>
+  <div class="paginate">
+    <%= paginate @uma %>
+  </div>
 </div>

@@ -40,5 +40,20 @@ class UmaController < ApplicationController
     # プロフィール用
     detail_item()
   end
+
+  def all_index
+    unless params[:q].blank?
+    @q = Uma.search(params[:q])
+    @uma = Kaminari.paginate_array(@q.result).page(params[:page]).per(5)
+  else
+    @uma = Uma.find(:all, :limit => 5).paginate_array(@q).page(params[:page]).per(5)
+  end
+  end
+
+  def search
+    all_index()
+    render template: 'home/top'
+  end
+
 end
 

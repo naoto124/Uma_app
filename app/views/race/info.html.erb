@@ -1,71 +1,73 @@
-<span>
-  <ul>
-    <% @next.each_with_index do |n,i|%>
-      <li><a href="<%= race_info_path(name:@url[i])%>" name="<%= @url[i]%>"><%= n%></a></li>
-    <%end%>
-    <h2><%= @now%></h2>
-  </ul>
-</span>
-
-<span class="table-responsive-sm md lg main">
-  <table class="race_info table table-bordered">
-  <% if @place[0] == nil %>
-    <thead>
-        <th class ="col-xs-1">レース　特別登録</th>
-        <tr class ="col-xs-3 col-ms-3 col-md-4 col-lg-6 table-primary">
-          <%@ple.each do |pl|%>
-            <th><%=pl%></th>
-          <%end%>
-        </tr>
-    </thead>
-    <tbody>
-      <%@r.each_with_index do |ra,i|%>
-        <tr class ="col-xs-3 col-ms-3 col-md-4 col-lg-6 table-dark">
-          <%ra.each do |r|%>
-              <td>
-              <%if r[:n].empty?%>
-                <p scope="row"></p>
-                <p></p>
-              <%else%>
-                <p scope="row"><%=r[:n]%>R</p>
-                <p><a href="<%=race_run_path(name:r[:race_name_a])%>" name="<%r[:race_name_a]%>">
-                  <%= r[:race_name]%>
-                </a></p>
-              <%end%>
-              </td> 
-          <%end%>
-        </tr>
+<div class="container">
+  <span>
+    <ul>
+      <% @next.each_with_index do |n,i|%>
+        <li><a href="<%= race_info_path(name:@url[i])%>" name="<%= @url[i]%>"><%= n%></a></li>
       <%end%>
-    </tbody>
-      <% elsif @place[0] != nil%>
-    <thead>
-        <tr class ="col-xs-3 col-ms-3 col-md-4 col-lg-6 table-primary">
-          <th></th>
-          <% @place.uniq.each do |pn|%>
-            <th class ="col-xs-1"><%= pn%></th>
-          <%end%>
-        </tr>
-    </thead>
-    <tbody>
-        <%c = 0%>
-          <%@num.each do |pl|%>
-      <tr class ="col-xs-3 col-ms-3 col-md-4 col-lg-6 table-dark">
-        <th scope="row"><%= pl%></th>
-      <%@race_name_a.each do |ra|%>
-            <td>
-              <a href="<%=race_run_path(name:@race_name_a[c])%>" name="<%@race_name_a[c]%>">
-                <%= @race_name[c]%>
-              </a>
-            </td> 
-            <% c += 1%>
-            <%if c % @place.count == 0 %>
-              <% break%>
+      <h2><%= @now%></h2>
+    </ul>
+  </span>
+
+  <span class="table-responsive-sm md lg main">
+    <table class="race_info table table-bordered">
+    <% if @place[0] == nil %>
+      <thead>
+          <th class ="col-xs-1">レース　特別登録</th>
+          <tr class ="col-xs-3 col-ms-3 col-md-4 col-lg-6 table-primary">
+            <%@ple.each do |pl|%>
+              <th><%=pl%></th>
             <%end%>
-          <%end%>
-      </tr>
-      <%end%>
-    </tbody>
+          </tr>
+      </thead>
+      <tbody>
+        <%@r.each_with_index do |ra,i|%>
+          <tr class ="col-xs-3 col-ms-3 col-md-4 col-lg-6 table-dark">
+            <%ra.each do |r|%>
+                <td>
+                <%if r[:n].empty?%>
+                  <p scope="row"></p>
+                  <p></p>
+                <%else%>
+                  <p scope="row"><%=r[:n]%>R</p>
+                  <p><a href="<%=race_run_path(name:r[:race_name_a])%>" name="<%r[:race_name_a]%>">
+                    <%= r[:race_name]%>
+                  </a></p>
+                <%end%>
+                </td> 
+            <%end%>
+          </tr>
+        <%end%>
+      </tbody>
+        <% elsif @place[0] != nil%>
+      <thead>
+          <tr class ="col-xs-3 col-ms-3 col-md-4 col-lg-6 table-primary">
+            <th></th>
+            <% @place.uniq.each do |pn|%>
+              <th class ="col-xs-1"><%= pn%></th>
+            <%end%>
+          </tr>
+      </thead>
+      <tbody>
+          <%c = 0%>
+            <%@num.each do |pl|%>
+        <tr class ="col-xs-3 col-ms-3 col-md-4 col-lg-6 table-dark">
+          <th scope="row"><%= pl%></th>
+        <%@race_name_a.each do |ra|%>
+              <td>
+                <a href="<%=race_run_path(name:@race_name_a[c])%>" name="<%@race_name_a[c]%>">
+                  <%= @race_name[c]%>
+                </a>
+              </td> 
+              <% c += 1%>
+              <%if c % @place.count == 0 %>
+                <% break%>
+              <%end%>
+            <%end%>
+        </tr>
+        <%end%>
+      </tbody>
 
-  <%end%>
-  </table>
-</span>
+    <%end%>
+    </table>
+  </span>
+</div>

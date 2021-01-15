@@ -1,9 +1,11 @@
 Rails.application.routes.draw do
-  
+
+  root "home#top" 
+
   get '/login', to:'sessions#new'
   post '/login', to:'sessions#create'
   delete '/logout', to:'sessions#destroy'
-  get "/signup", to:"user#new", as:"singup"
+  get "/signup", to:"user#new", as:"signup"
   post"/create",to:"user#create",as:"create"
   get "/index", to:"home#index",as:"race_index"
   resources:user
@@ -34,7 +36,10 @@ Rails.application.routes.draw do
     post '/add', to:'favorite#create'
     post'/add/:id' ,to:'favorite#update', as:'favorite_update'
     delete '/add', to:'favorite#destroy'
+    collection do
+      match 'search' => 'uma#search', via: [:get, :post], as: :search
+    end
+
   end
 
-  root "home#top"  
 end
