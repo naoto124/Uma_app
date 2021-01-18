@@ -41,18 +41,47 @@ class UmaController < ApplicationController
     detail_item()
   end
 
-  def all_index
-    unless params[:q].blank?
-    @q = Uma.search(params[:q])
-    @uma = Kaminari.paginate_array(@q.result).page(params[:page]).per(5)
-  else
-    @uma = Uma.find(:all, :limit => 5).paginate_array(@q).page(params[:page]).per(5)
-  end
-  end
+  # def all_index
+  #   unless params[:q].blank?
+  #   @q = Uma.search(params[:q])
+  #   p "uuu"
+  #   p @q.result
+  #   @uma_s = Kaminari.paginate_array(@q.result).page(params[:page]).per(5)
+  #   p @uma_s
+  # else
+
+  # end
+  # end
 
   def search
-    all_index()
-    render template: 'home/top'
+    p "yyy"
+    p params[:key]
+    if params[:q]
+      u = Uma.ransack(params[:q]).result
+      # @q = Uma.ransack(params[:q])
+      # p u.any?{|m| m.name == params[:name_cont] }
+      if u.any?{|m| m.name == params[:q][:name_cont] }
+        p "iiii"
+        redirect_to uma_detail_path(name:params[:q][:name_cont])
+      elsif u.any?{|m| m.name != params[:q][:name_cont] } && u
+        p "ooo"
+        @uma_s = Kaminari.paginate_array(u).page(params[:page]).per(5)
+        redirect_to root_path
+      else 
+        flash[:primary] = "一致する条件がありません"
+        redirect_to root_path
+      end
+    elsif params[:key]
+      p "iiiii"
+      @input = Uma.where('name LIKE(?)', "#{params[:key]}%")
+      @input = @input.select{|i| i[:name].length < 11}
+      p "iiiii"
+      p @input
+      respond_to do |format|
+        format.html
+        format.json {render json: Kaminari.paginate_array(@input).page(params[:page]).per(5)}
+      end
+    end
   end
 
 end

@@ -8,8 +8,13 @@ module UmaHelper
   end
 
     def detail_item
+    # if params[:q]
+    #   p "iiiii"
+    #   p params[:q]
+    # end
     p params[:name]
     @uma = Uma.find_by(name: params[:name])
+    
     @code = @uma.code
 
     agent = Mechanize.new

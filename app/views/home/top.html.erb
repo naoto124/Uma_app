@@ -109,18 +109,18 @@
         <div class="card-body">
           <h5 class="card-title">馬名検索</h5>
             <div class="card-text">
-            <%= search_form_for @q, url: search_uma_index_path, html: { method: :post }  do |f| %>
+            <%= search_form_for @q, url: search_path, html: { method: :get }  do |f| %>
             <%= f.label :name_cont, "馬名"%>
-            <%= f.search_field :name_cont %>
+            <%= f.search_field :name_cont, class: "search-input" %>
             <div class="actions"><%= f.submit "検索" %></div>
           <% end %>
-
-          <% if request.url.match(/commit/)%>
+          <div class="uma-result">
+            <ul class="result-ul">
             <% @uma_s.each do |uma| %>
-              <p><%= uma.id %></p>
-              <p><%= link_to "#{ uma.name}", "uma/detail/#{uma.name}" %></p>
+              <li><%= link_to "#{ uma.name}","/uma_detail/#{uma.name}" %></li>
             <% end %>
-          <% end %>
+            </ul>
+          </div>
         </div>
       </div>
       </div>
@@ -134,3 +134,45 @@
       </div>
 
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script type="text/javascript">
+  $(function() {
+    function appendUma(input) {
+      html = `<li><a href="/uma_detail/${input.name}">${input.name}</a></li>`
+      $(".result-ul").append(html)
+    }
+
+    function appendErrMsgToHTML(msg) {
+       var html = `<div class='name'>${ msg }</div>`
+       $(".result-ul").append(html);
+     }
+
+    $(".search-input").on("keyup", function() {
+      var input = $(this).val();
+      $.ajax({
+        type: 'GET',
+        url: 'uma/search',
+        data: { key: input },
+        dataType: 'json'
+      })
+    .done(function(data) {
+        console.log(data);
+        $(".result-ul").empty();
+        if (data.length !== 0) {
+          data.forEach(function(data){
+            appendUma(data)
+          });
+        }
+        else {
+          appendErrMsgToHTML("一致するツイートがありません")
+        }
+      })
+    .fail(function(data){
+      alert('非同期通信に失敗しました');
+    })
+  });
+
+  });
+</script>
+
+

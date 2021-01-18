@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   get '/uma_index',to:'uma#index',as:'uma_index'
   get '/uma_show/:link',to:'uma#show',as:'uma_show'
   get '/uma_detail/:name',to:'uma#detail',as:'uma_detail'
+  get 'uma/search' => 'uma#search',as:'search'
   resources:uma, params: :name
 
   get '/race_index', to:'race#index', as:'race_index_next'
@@ -36,9 +37,9 @@ Rails.application.routes.draw do
     post '/add', to:'favorite#create'
     post'/add/:id' ,to:'favorite#update', as:'favorite_update'
     delete '/add', to:'favorite#destroy'
-    collection do
-      match 'search' => 'uma#search', via: [:get, :post], as: :search
-    end
+    # collection do
+    #  get 'search'
+    # end
 
   end
 

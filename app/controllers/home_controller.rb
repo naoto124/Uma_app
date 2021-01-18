@@ -4,7 +4,7 @@ class HomeController < ApplicationController
 
   def top
     @q = Uma.ransack(params[:q])
-    @uma_s = @q.result(distinct: true)
+    @uma_s = Kaminari.paginate_array(@q.result).page(params[:page]).per(5)
   end
 
   def index
