@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20201226103110) do
+ActiveRecord::Schema.define(version: 20201222115329) do
 
   create_table "couse_parameters", force: :cascade do |t|
     t.integer "user_id"
@@ -26,13 +26,13 @@ ActiveRecord::Schema.define(version: 20201226103110) do
   create_table "couses", force: :cascade do |t|
     t.integer "couse_id"
     t.string "couse_name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.string "place"
     t.string "stage"
     t.string "distance"
     t.integer "speed", default: 1, null: false
     t.integer "power", default: 1, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "favorites", force: :cascade do |t|
@@ -49,8 +49,6 @@ ActiveRecord::Schema.define(version: 20201226103110) do
   create_table "races", force: :cascade do |t|
     t.string "code"
     t.string "name"
-    t.string "type_distance"
-    t.string "condition"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -58,17 +56,17 @@ ActiveRecord::Schema.define(version: 20201226103110) do
   create_table "umas", force: :cascade do |t|
     t.string "name"
     t.integer "user_id"
+    t.string "code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "code"
   end
 
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "email"
+    t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "password_digest"
   end
 
 end

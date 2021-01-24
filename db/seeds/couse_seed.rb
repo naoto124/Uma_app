@@ -1,5 +1,5 @@
-class Couse  < ApplicationRecord
-  def self.couse_get
+class Couse < ActiveRecord::Base
+  def couse_get
     couses =[
 
     "東京 芝 1400","東京 芝 1600","東京 芝 1800","東京 芝 2000",
@@ -39,20 +39,22 @@ class Couse  < ApplicationRecord
     ]
 
     # id以外
-    couses.each_with_index do |e,i|
+    couses.each do |e|
       r = Couse.new()
+      p e
       r.couse_name = e
+      p "iii"
       r.place = e.split[0]
       r.stage = e.split[1]
       r.distance = e.split[2]
       r.save
     end
 
-    couses.each do |e|
-      r = Couse.find_by(couse_name: e)
-      r.couse_id = r.id
-      r.save
-    end
+#     couses.each do |e|
+#       r = Couse.find_by(couse_name: e)
+#       r.couse_id = r.id
+#       r.save
+#     end
   end
 end
 

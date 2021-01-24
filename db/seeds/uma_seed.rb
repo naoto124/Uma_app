@@ -1,7 +1,7 @@
 require 'mechanize'
 class Uma  < ApplicationRecord
 
-  def self.get_uma(te)
+  def get_uma(te)
     agent = Mechanize.new
     page = agent.get(te)
 
@@ -19,7 +19,7 @@ class Uma  < ApplicationRecord
 
 
 
-  def self.umas_index_link
+  def umas_index_link
     agent = Mechanize.new
     is = (0..9).to_a
     is.each do |i|
