@@ -4,8 +4,13 @@
 
  @import "bootstrap";
 
+
  .jumbotron h1 {
    color: #333;
+ }
+
+ .index {
+   padding-left: 0;
  }
 
 .index a {
@@ -16,6 +21,19 @@
 .index a:hover {
   color: #a7ddd1;
 }
+
+@media screen and (max-width:767px) {
+    /*　画面サイズが767px以下の場合読み込む　*/
+  .uma-resultl {
+    padding-left: 5px;
+  }}
+  @media screen and (min-width:768px){
+  .uma-result {
+    padding-left: 200px;
+  }
+
+}
+
 
 
  body {

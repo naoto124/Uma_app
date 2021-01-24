@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container col-xs-12 col-12">
   <span>
     <ul>
     <% @next.each_with_index do |n,i|%>
@@ -8,12 +8,11 @@
     </ul>
   </span>
 
-  <span class="table-responsive-sm md lg main">
+  <span class="table-responsive-xs sm md lg ">
     <table class="race_info table table-bordered">
     <% if @place[0] == nil %>
       <thead>
-          <th class ="col-xs-1">レース　特別登録</th>
-          <tr class ="col-xs-3 col-ms-3 col-md-4 col-lg-6 table-primary">
+          <tr class ="table-primary col-md-4 col-sm-6 col-xs-12">
             <%@ple.each do |pl|%>
               <th><%=pl%></th>
             <%end%>
@@ -21,7 +20,7 @@
       </thead>
       <tbody>
         <%@r.each_with_index do |ra,i|%>
-          <tr class ="col-xs-3 col-ms-3 col-md-4 col-lg-6 table-dark">
+          <tr class ="table-dark col-md-4 col-sm-6 col-xs-12">
             <%ra.each do |r|%>
                 <td>
                 <%if r[:n].empty?%>
@@ -40,17 +39,17 @@
       </tbody>
         <% elsif @place[0] != nil%>
       <thead>
-          <tr class ="col-xs-3 col-ms-3 col-md-4 col-lg-6 table-primary">
+          <tr class ="table-primary col-md-4 col-sm-6 col-xs-12">
             <th></th>
             <% @place.uniq.each do |pn|%>
-              <th class ="col-xs-1"><%= pn%></th>
+              <th><%= pn%></th>
             <%end%>
           </tr>
       </thead>
       <tbody>
           <%c = 0%>
             <%@num.each do |pl|%>
-        <tr class ="col-xs-3 col-ms-3 col-md-4 col-lg-6 table-dark">
+        <tr class ="table-dark col-md-4 col-sm-6 col-xs-12">
           <th scope="row"><%= pl%></th>
         <%@race_name_a.each do |ra|%>
               <td>

@@ -1,35 +1,5 @@
 require 'mechanize'
-
-  def self.get_uma_white(te)
-    agent = Mechanize.new
-    page = agent.get(te)
-
-    elements = page.search('tr.white a')
-    
-    elements.each do |element|
-      uma = Uma.new
-      uma.name = element.inner_text
-      uma.code = element.get_attribute('href').to_s
-      uma.code = uma.code[44...54].to_s
-      uma.save
-    end
-  end
-
-  def self.get_uma_cream(te)
-    agent = Mechanize.new
-    page = agent.get(te)
-
-    elements = page.search('tr.cream a')
-    
-    elements.each do |element|
-      uma = Uma.new
-      uma.name = element.inner_text
-      uma.code = element.get_attribute('href').to_s
-      uma.code = uma.code[44...54].to_s
-
-      uma.save
-    end
-  end
+class Uma  < ApplicationRecord
 
   def self.get_uma(te)
     agent = Mechanize.new
@@ -71,8 +41,8 @@ require 'mechanize'
         break unless next_url < 35
       end
     end
-
   end
+end
   
 
 u = Uma.new

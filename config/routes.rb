@@ -15,7 +15,13 @@ Rails.application.routes.draw do
   get '/uma_detail/:name',to:'uma#detail',as:'uma_detail'
   get 'uma/search' => 'uma#search',as:'search'
   resources:uma, params: :name
-
+  
+  resources :uma do
+    post '/add', to:'favorite#create'
+    post'/add/:id' ,to:'favorite#update', as:'favorite_update'
+    delete '/add', to:'favorite#destroy'
+  end
+  
   get '/race_index', to:'race#index', as:'race_index_next'
   get '/race_info/:name', to:'race#info', as:'race_info'
   # get 'race_detail/:name',to:'race#detail',as:'race_detail'
@@ -26,21 +32,6 @@ Rails.application.routes.draw do
 
   get '/couse', to:'couse#index', as:'couse_index'
     post '/couse',to:'couse#create'
-  # resources :couse do
-  #   # get '/couse_parameter_index', to:'couse_parameter#index'
-  #   post '/parameter/:id',to:'couse_parameter#update'
-  #   put '/parameter/:id',to:'couse_parameter#update'
-  #   patch '/parameter/:id',to:'couse_parameter#update'
-  # end
   
-  resources :uma do
-    post '/add', to:'favorite#create'
-    post'/add/:id' ,to:'favorite#update', as:'favorite_update'
-    delete '/add', to:'favorite#destroy'
-    # collection do
-    #  get 'search'
-    # end
-
-  end
 
 end

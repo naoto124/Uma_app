@@ -1,49 +1,51 @@
 module RaceHelper
 
+  def mechanize_page(page_url)
+      agent = Mechanize.new()
+      page_url
+  end
+
+  def mechanize_page_get(page_url)
+      agent = Mechanize.new()
+      page = agent.get(page_url)
+  end
+
     # 実行用
   def next_race(d)
-    agent = Mechanize.new()
-      @page_5 = 'https://umanity.jp/racedata/race_5.php?date='
+     @page_5 = mechanize_page('https://umanity.jp/racedata/race_5.php?date=')
       this_day(@page_5 + (d))
 
       next_day(@page_5 + (d))
   end
 
   def judge(j)
-    agent = Mechanize.new()
-      page_8 = 'https://umanity.jp/racedata/race_8.php?code=' + (j)
-      page = agent.get(page_8)
-      @a = page.search('/html/body/div[2]/div[4]/div/div/table[2]/tr/td[1]/table/tr/td[2]/h3/a').empty?
+      page = mechanize_page_get('https://umanity.jp/racedata/race_8.php?code=' + (j))
+      # page = agent.get(page_8)
+      @b = page.search('/html/body/div[2]/div[4]/div/div/table[2]/tr/td[1]/table/tr/td[2]/h3/a').empty?
       p page.search('/html/body/div[2]/div[4]/div/div/table[2]/tr/td[1]/table/tr/td[2]/h3/a').empty?
-      p @a
+      p @b
   end
 
   def judge_result(ju)
-    agent = Mechanize.new()
-      page_21 = 'https://umanity.jp/racedata/race_21.php?code=' + (ju)
-      page = agent.get(page_21)
-      @a = page.search('/html/body/div[2]/div[4]/div/div/table[2]/tr/td[1]/table/tr/td[4]/h3/a').empty?
+      page = mechanize_page_get('https://umanity.jp/racedata/race_21.php?code=' + (ju))
+      a = page.search('/html/body/div[2]/div[4]/div/div/table[2]/tr/td[1]/table/tr/td[4]/h3/a').empty?
       # p page.search('/html/body/div[2]/div[4]/div/div/table[2]/tr/td[1]/table/tr/td[4]/h3/a').empty?
-      # p @a
   end
 
   def show_race(sh)
-    agent = Mechanize.new()
-    @page_7 = 'https://umanity.jp/racedata/race_7.php?code='
+    @page_7 = mechanize_page('https://umanity.jp/racedata/race_7.php?code=')
       race_title(@page_7 + (sh))
       race_specil(@page_7 + (sh))
   end
 
   def run_race(ru)
-    agent = Mechanize.new()
-    @page_8 = 'https://umanity.jp/racedata/race_8.php?code='
+    @page_8 = mechanize_page('https://umanity.jp/racedata/race_8.php?code=')
       race_title(@page_8 + (ru))
       race_uma(@page_8 + (ru))
   end
 
   def run_result(mo)
-    agent = Mechanize.new()
-    @page_21 = 'https://umanity.jp/racedata/race_21.php?code='
+    @page_21 = mechanize_page('https://umanity.jp/racedata/race_21.php?code=')
       race_title(@page_21 + (mo))
       race_result(@page_21 + (mo))
   end
@@ -51,15 +53,13 @@ module RaceHelper
     # 処理メソッド
 
   def this_day(page_u)
-    agent = Mechanize.new()
-    page = agent.get(page_u)
+    page = mechanize_page_get(page_u)
     element = page.at('li.select')
     @now = element.inner_text.to_s
   end
 
   def next_day(page)
-    agent = Mechanize.new()
-    page = agent.get(page)
+    page = mechanize_page_get(page)
 
     # レース日のリンク
     elements = page.search('ul.clearfix li a')
@@ -162,8 +162,7 @@ module RaceHelper
 
 
   def race_title(ra)
-    agent = Mechanize.new()
-    page = agent.get(ra)
+    page = mechanize_page_get(ra)
     # レースtitle
     elements = page.search('div.detail div')
     elements_h = page.at('div.detail h2')
@@ -182,8 +181,7 @@ module RaceHelper
   end
 
   def race_specil(r)
-    agent = Mechanize.new()
-    page = agent.get(r)
+    page = mechanize_page_get(r)
 
     if page
     # レース中身
@@ -193,9 +191,10 @@ module RaceHelper
       @race_text = []
       @race_uma_code = []
 
-      elements = page.search('div.race tbody td a')
       elements.each do |ele|
         if Uma.find_by(code: ele.get_attribute('href')[44..53].to_s == nil)
+          p "wwww"
+          p ele.inner_text
           uma = Uma.new
           uma.code = ele.get_attribute('href')[44..53].to_s
           uma.name = ele.inner_text
@@ -215,8 +214,7 @@ module RaceHelper
   end
 
   def race_uma(ue)
-    agent = Mechanize.new()
-    page = agent.get(ue)
+    page = mechanize_page_get(ue)
     p "ggggg"
     p params
     if !Race.find_by(code:params[:name])
@@ -270,6 +268,8 @@ module RaceHelper
         if u_a != nil
           u.store(:uma_id,u_a.id)
         elsif u_a == nil
+          p "wwww"
+          p u[:uma_name]
           uma = Uma.new
           uma.name = u[:uma_name]
           uma.code = u[:uma_code]
@@ -278,7 +278,6 @@ module RaceHelper
         else redirect_to root_path
         end
       end
-
       p "mmmm"
       p @racealls[0].length
       @favorite = Favorite.where(user_id: current_user.id)
@@ -295,8 +294,7 @@ module RaceHelper
   end
 
       def race_result(me)
-      agent = Mechanize.new()
-      page = agent.get(me)
+      page = mechanize_page_get(me)
 
       @race_all = page.search('/html/body/div[2]/div[4]/div/div/table[3]/tr/td/div/div/table[1]/tr/td/table/tr/td/table/tr/td').each_slice(19).to_a
 
@@ -307,13 +305,13 @@ module RaceHelper
             if  i == 3
               p "eeee"
               p a.inner_text.gsub(/\s/, '')
-              if Uma.find_by(code:a.children.children.children.children.at_css('a')[:href][44..53]) == nil
-                u = Uma.new
-                u.name = a.inner_text.gsub(/\s/, '')
-                u.code = a.children.children.children.children.at_css('a')[:href][44..53]
-                u.save ? (redirect_to request.referer) : (render :show)
-                return
-              end
+              # if Uma.find_by(code:a.children.children.children.children.at_css('a')[:href][44..53]) == nil
+              #   u = Uma.new
+              #   u.name = a.inner_text.gsub(/\s/, '')
+              #   u.code = a.children.children.children.children.at_css('a')[:href][44..53]
+              #   u.save ? (redirect_to request.referer) : (render :show)
+              #   return
+              # end
               p "eeee"
               hash = Hash.new{|h,k| h[k] = n}
               hash[:uma_name] = a.inner_text.gsub(/\s/, '')

@@ -52,6 +52,8 @@ class RaceController < ApplicationController
       race.name = @race_title
       race.save ? (redirect_to request.referer) : (render :race_info_path) and return
     end
+    @a = judge_result(params[:name].to_s)
+    p @a
     p "kkkkkk"
     # if judge_result(params[:name].to_s) == true
       if judge(params[:name].to_s) == false

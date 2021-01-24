@@ -7,6 +7,31 @@ module UmaHelper
     ]
   end
 
+    def my_favorite(user)
+    @favorite = Favorite.where(user_id:user)
+    my_favorite_umas
+  end
+
+  def my_favorite_umas
+    @uma = Uma.all
+    @favorite_uma = []
+    @favorite.each do |f|
+      hash = Hash.new{|h,k| h[k] = uu }
+        if @uma.find {|u| u.id == f.uma_id}
+          u = Uma.find_by(id:f.uma_id)
+          id = f.uma_id
+          hash[:id] = id
+          hash.store(:name,u.name)
+          hash.store(:speed,f.speed)
+          hash.store(:power,f.power)
+        end
+        @favorite_uma << hash
+     end
+    @favorite_uma = Kaminari.paginate_array(@favorite_uma).page(params[:page]).per(30)
+
+  end
+
+
     def detail_item
     # if params[:q]
     #   p "iiiii"

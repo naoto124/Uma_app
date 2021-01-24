@@ -1,5 +1,5 @@
   require 'mechanize'
-
+class Race  < ApplicationRecord
   def self.get_race(te)
     agent = Mechanize.new
     page = agent.get(te)

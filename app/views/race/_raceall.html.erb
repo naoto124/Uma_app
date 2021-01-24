@@ -33,20 +33,19 @@
 
       <%end%>
           <%# ここから %>
-          <%if @favorite.find {|fa| fa.uma_id == raceall[:uma_id]}%>
-          <%@favorite.each do |f|%>
-            <span>
-              <td class = "u_speed"><%=f.speed%></td>
-              <td class = "u_power"><%=f.power%></td>
-            </span>
-          <%break%>
-          <%end%>
-          <%else%>
+          <%f = @favorite.find{|f| f.uma_id == raceall[:uma_id]}%>
+          <%if f%>
               <span>
-                <td class = "u_speed">1</td>
-                <td class = "u_power">1</td>
+                <td class = "u_speed"><%=f.speed%></td>
+                <td class = "u_power"><%=f.power%></td>
               </span>
+            <%else%>
+                <span>
+                  <td class = "u_speed">1</td>
+                  <td class = "u_power">1</td>
+                </span>
           <%end%>
+
           <%if @couse_parameter.find {|co| co.couse_id == couse.couse_id}%>
           <%@couse_parameter.each do |c|%>
             <span>
@@ -61,6 +60,7 @@
               <td class = "c_power">1</td>
             </span>
           <%end%>
+
           <span>
             <td class="select">
               <label for="speed_select">スピード ×</label>
@@ -118,7 +118,7 @@
       power = parseFloat(power);
       var result = speed + power;
       var result_tb = $(this).find('.result');
-      result_tb.text(result);
+      result_tb.text(result.toFixed(1));
         // console.log("tb");
         // console.log(result_tb.text(result));
 
@@ -145,9 +145,9 @@
             change_power = change_power.toFixed(1);
             change_power = parseFloat(change_power);
             change_result = change_speed + change_power;
-            change_result = change_result.toFixed(1);
+            // change_result = change_result.toFixed(1);
 
-            result_tb.text(change_result);
+            result_tb.text(change_result.toFixed(1));
             console.log("aaa");
             console.log(result_tb.text(change_result));
           });

@@ -1,4 +1,5 @@
- def self.couse_get
+class Couse  < ApplicationRecord
+  def self.couse_get
     couses =[
 
     "東京 芝 1400","東京 芝 1600","東京 芝 1800","東京 芝 2000",
@@ -53,6 +54,7 @@
       r.save
     end
   end
+end
 
 c = Couse.new
 c.couse_get

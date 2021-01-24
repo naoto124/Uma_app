@@ -25,18 +25,18 @@
 </div>
 
 <div class="container mt-2 mb-2">
-  <div class="row">
+  <div class="row justify-content-md-center">
 
-      <div class="col-12 col-md-6 col-sm-12 index">
+      <div class="col-12 col-lg-6 col-md-12 col-sm-12 index">
         <table class="table table-secondary">
           <thead>
             <tr>
-              <th scope="col"></th>
-              <th scope="col"></th>
-              <th scope="col"></th>
-              <th scope="col"></th>
-              <th scope="col"></th>
-              <th scope="col"></th>
+              <th scope="col">馬名 :</th>
+              <th scope="col" class="px-0">五</th>
+              <th scope="col" class="px-0">十</th>
+              <th scope="col" class="px-0">音</th>
+              <th scope="col" class="px-0">検</th>
+              <th scope="col" class="px-0">索</th>
             </tr>
           </thead>
           <tbody>
@@ -104,7 +104,7 @@
     </div>
 
 
-      <div class="card text-white bg-dark mb-3 col-12 col-md-6  col-sm-12" style="max-width: 80rem;">
+      <div class="card text-white bg-dark mb-3 col-12 col-lg-6 col-md-12 col-sm-12" style="max-width: 80rem;">
         <div class="card-header">Header</div>
         <div class="card-body">
           <h5 class="card-title">馬名検索</h5>
@@ -117,7 +117,7 @@
           <div class="uma-result">
             <ul class="result-ul">
             <% @uma_s.each do |uma| %>
-              <li><%= link_to "#{ uma.name}","/uma_detail/#{uma.name}" %></li>
+              <li style="text-align:left; padding-left:8px;"><%= link_to "#{ uma.name}","/uma_detail/#{uma.name}" %></li>
             <% end %>
             </ul>
           </div>
@@ -164,7 +164,7 @@
           });
         }
         else {
-          appendErrMsgToHTML("一致するツイートがありません")
+          appendErrMsgToHTML("一致する馬名がありません")
         }
       })
     .fail(function(data){
