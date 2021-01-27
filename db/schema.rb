@@ -55,7 +55,6 @@ ActiveRecord::Schema.define(version: 20201222115329) do
 
   create_table "umas", force: :cascade do |t|
     t.string "name"
-    t.integer "user_id"
     t.string "code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

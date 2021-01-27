@@ -1,6 +1,5 @@
-class Couse < ActiveRecord::Base
-  def couse_get
-    couses =[
+# coding: utf-8
+couses =[
 
     "東京 芝 1400","東京 芝 1600","東京 芝 1800","東京 芝 2000",
             "東京 芝 2300","東京 芝 2400","東京 芝 2500","東京 芝 3400",
@@ -37,26 +36,20 @@ class Couse < ActiveRecord::Base
     "小倉 芝 1200","小倉 芝 1700","小倉 芝 1800","小倉 芝 2000","小倉 芝 2600",
             "小倉 ダート 1000","小倉 ダート 1700","小倉 ダート 2400"
     ]
-
+    p couses
     # id以外
-    couses.each do |e|
-      r = Couse.new()
-      p e
-      r.couse_name = e
-      p "iii"
-      r.place = e.split[0]
-      r.stage = e.split[1]
-      r.distance = e.split[2]
-      r.save
-    end
+#     couses.each do |e|
+# #       r = Couse.new()
+#       Couse.create(
+#       couse_name: e,
+#       place: e.split[0],
+#       stage: e.split[1],
+#       distance: e.split[2],
+#       )
+#         end
 
 #     couses.each do |e|
 #       r = Couse.find_by(couse_name: e)
 #       r.couse_id = r.id
 #       r.save
 #     end
-  end
-end
-
-c = Couse.new
-c.couse_get

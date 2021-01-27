@@ -1,0 +1,2 @@
+class CouseParameterController < ApplicationController
+end
