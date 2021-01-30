@@ -1,0 +1,15 @@
+  <%= f.hidden_field :couse_id, value: @couse_id[i]%>
+  <%= f.hidden_field :user_id, value: current_user.id%>
+  <td>
+    <%= f.label :speed, "speed : #{speed}"%>
+    <%= f.select :speed, [["1",1],["1.1",1.1],["1.2",1.2],["1.3",1.3]],
+    {selected: speed} %>
+    </td>
+    <td>
+    <%= f.label :power,"power : #{power}"%>
+    <%= f.select :power, [["1",1],["1.1",1.1],["1.2",1.2],["1.3",1.3]],
+    {selected: power} %>
+  </td>
+      <%= f.hidden_field :couse_id, value: @couse_id[i]%>
+      <%= f.hidden_field :user_id, value: current_user.id%>
+    

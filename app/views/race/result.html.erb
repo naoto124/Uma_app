@@ -1,5 +1,4 @@
-<div><a href="<%=race_run_path(name:@code)%>">出走馬</a></div>
-<%= render partial: 'race/race_title', locals:{couse: @couse,race_title: @race_title}, collection:{race_title_info: @race_title_info}%>
+<%= render partial: 'race/race_title', locals:{path:race_run_path(name:@code),result:"出走表",couse: @couse,race_title: @race_title}, collection:{race_title_info: @race_title_info}%>
 
 <span class="table-responsive-sm md lg main">
   <table class="uma_race_info table" style = "font-size: 14px;" >

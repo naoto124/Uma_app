@@ -23,27 +23,27 @@ class CouseController < ApplicationController
     @c = Couse.all
     @couse_id = Couse.pluck(:id)
 
-    @ple = []
+    @ples = []
     @type = []
-    @name = []
+    @names = []
     default = Couse.find_by(id:1)
     @default_speed = default.speed
     @default_power = default.power
 
     @c.each do |c|
-      @ple << c.place
+      @ples << c.place
       @type << c.stage
-      @name << c.couse_name
+      @names << c.couse_name
       # @default_speed << c.speed
       # @default_power << c.power
     end
-    @ple = @ple.uniq!
+    @ples = @ples.uniq!
     @type = @type.uniq!
       if logged_in?
         @user = current_user
-        @parameter = CouseParameter.where(user_id:@user.id)
+        @parameters = CouseParameter.where(user_id:@user.id)
         p "ppppppp"
-        p @parameter[10]
+        p @parameters[10]
       end
 
   end

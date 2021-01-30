@@ -4,61 +4,42 @@
     <tr class="birthday">
       <h3>コース種類</h3>
     </tr>
-    <%@ple.each do |pl|%>
-      <tr class ="col-xs-3 col-ms-3 col-md-4 col-lg-6">
-        <th scope="row"><%= pl%></th>
-        <%@name.each_with_index do |n,i|%>
-          <%if !n.include?(pl)%>
-          <%next%>
-          <%else%>
-            <% if logged_in? %>
-              <%# この辺 %>
-              <%# f.fields_for
-              has_many :kids, dependent: :destroy
-              accepts_nested_attributes_for :kids %>
-                <%= form_for :couse do |f| %>
-                <td><%=n%></td>
-                  <%if @parameter.find {|cp| cp.couse_id == @couse_id[i]}%>
-                    <%parameter = @parameter.find {|cp| cp.couse_id == @couse_id[i]}%>
-                      <%= f.hidden_field :couse_id, value: @couse_id[i]%>
-                      <%= f.hidden_field :user_id, value: current_user.id%>
-                      <td>
-                        <%= f.label :speed, "speed : #{parameter.speed}"%>
-                        <%= f.select :speed, [["1",1],["1.1",1.1],["1.2",1.2],["1.3",1.3]],
-                        {selected: parameter.speed} %>
-                        </td>
-                        <td>
-                        <%= f.label :power,"power : #{parameter.power}"%>
-                        <%= f.select :power, [["1",1],["1.1",1.1],["1.2",1.2],["1.3",1.3]],
-                        {selected: parameter.power} %>
-                      </td>
-                  <%elsif @parameter.find {|cp| cp.couse_id != @couse_id[i]} || @parameter == nil%>
-                    <%= f.hidden_field :couse_id, value: @couse_id[i]%>
-                    <%= f.hidden_field :user_id, value: current_user.id%>
-                  <td>
-                      <%= f.label :speed, "speed : 1"%>
-                      <%= f.select :speed, [["1",1],["1.1",1.1],["1.2",1.2],["1.3",1.3]],
-                      {selected: 1}, 
-                      { class: 'form-control' , required: true } %>
-                    </td>
-                    <td>
-                      <%= f.label :power,"power : 1" %>
-                      <%= f.select :power, [["1",1],["1.1",1.1],["1.2",1.2],["1.3",1.3]],
-                      {selected: 1}, 
-                      { class: 'form-control' , required: true } %>
-                  </td>
-                <%end%>
-                    <td><%= f.submit "決定"%> </td>
-              <%end%>
+      <%# この辺 %>
+      <%# f.fields_for
+      has_many :kids, dependent: :destroy
+      accepts_nested_attributes_for :kids %>
+  <%@ples.each do |pl|%>
+    <tr class ="col-xs-3 col-ms-3 col-md-4 col-lg-6">
+    <th scope="row"><%= pl%></th>
+    <%@names.each_with_index do |n,i|%>
+      <%if !n.include?(pl)%>
+      <%next%>
+      <%else%>
+      <% if logged_in? %>
 
-            <%else%>
-              <td><%=n%><p>speed: <%=@default_speed%></p><p>power: <%=@default_power%></p></td>
-            <%end%>
-
-          <%end%>
+      <%= form_for :couse do |f| %>
+        <td><%=n%></td>
+        <%if @parameters.find {|cp| cp.couse_id == @couse_id[i]}%>
+          <%parameter = @parameters.find {|cp| cp.couse_id == @couse_id[i]}%>
+          <%= render partial: 'couse/couse_form', 
+          locals: {speed:parameter.speed,power:parameter.power,f:f,i:i}
+          %>
+        <%elsif @parameters.find {|cp| cp.couse_id != @couse_id[i]} || @parameters == nil%>
+          <%= render partial: 'couse/couse_form', locals: {speed: 1,power:1,f:f,i:i}%>
+        <%else%>
+          <%= render partial: 'couse/couse_form', locals: {speed: 1,power:1,f:f,i:i}%>
         <%end%>
+          <td><%= f.submit "決定"%> </td>
+        <%end%>
+
+        <%else%>
+          <td><%=n%><p>speed: <%=@default_speed%></p><p>power: <%=@default_power%></p></td>
+        <%end%>
+    <%end%>
+    <%end%>
+  <%end%>
+
       </tr>
-     <%end%>
     </tbody>
   </table>
 </span>

@@ -31,78 +31,14 @@
         <%end%>
       <%end%>
     </tr>
-      <tr class="birthday">
-        <th>
-        生年月日
-        </th>
-        <td>
-         <%= @birth%>
-        </td>
-      </tr>
-
-      <tr>
-        <th>
-          性別・歳
-        </th>
-        <td>
-          <%= @sex_age%>
-        </td>
-      </tr>
-      <tr>
-
-        <th>
-          調教師
-        </th>
-        <td>
-          <%= @uma_info[0]%>
-        </td>
-      </tr>
-      <tr>
-
-        <th>
-          馬主
-        </th>
-        <td>
-          <%= @uma_info[1]%>
-        </td>
-      </tr>
-
-      <tr>
-        <th>
-          生産者
-        </th>
-        <td>
-          <%= @uma_info[2]%>
-        </td>
-      </tr>
-
-      <tr>
-        <th>
-          生産地
-        </th>
-        <td>
-          <%= @uma_info[3]%>
-        </td>
-      </tr>
-
-      <tr>
-        <th>
-          成績
-        </th>
-        <td>
-          <%= @uma_info[4]%>
-        </td>
-      </tr>
-
-      <tr>
-        <th>
-          賞金
-        </th>
-        <td>
-          <%= @uma_info[5]%>
-        </td>
-      </tr>
-
+    <%=render partial: "uma/detail_prof" ,locals:{title:"生年月日",item:@birth}%>
+    <%=render partial: "uma/detail_prof" ,locals:{title:"性別・歳",item:@sex_age}%>
+    <%=render partial: "uma/detail_prof" ,locals:{title:"調教師",item:@uma_info[0]}%>
+    <%=render partial: "uma/detail_prof" ,locals:{title:"馬主",item:@uma_info[1]}%>
+    <%=render partial: "uma/detail_prof" ,locals:{title:"生産者",item:@uma_info[2]}%>
+    <%=render partial: "uma/detail_prof" ,locals:{title:"生産地",item:@uma_info[3]}%>
+    <%=render partial: "uma/detail_prof" ,locals:{title:"成績",item:@uma_info[4]}%>
+    <%=render partial: "uma/detail_prof" ,locals:{title:"賞金",item:@uma_info[5]}%>
     </tbody>
   </table>
 </div>

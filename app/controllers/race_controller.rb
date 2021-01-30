@@ -72,6 +72,7 @@ class RaceController < ApplicationController
   def result
     @code = params[:name]
     @table_items = ["着順","枠","馬番","馬名","性・歳","負荷","騎手","馬体重","オッズ","人気","タイム","着差","３F","通過","馬s","馬p","コースs","コースp","条件値","合計値"]
+    @a = judge(params[:name].to_s)  
     run_result(params[:name].to_s)
   end
 

@@ -1,15 +1,29 @@
-<div class="col-12 col-md-6 col-sm-12 prof"> 
-<%=@couse.couse_name%>
-  <table class="race_prof table">
-    <tbody>
-        <tr class="birthday">
-          <h2><%=@race_title%></h2>
-        </tr>
-        <%@race_title_info.each do |r|%>
-          <tr class="birthday">
-            <td><%=r%></td>
-          </tr>
-        <%end%>
-    </tbody>
-  </table>
+<%unless @a%>
+  <div class="change"><a href="<%=path%>"><%=result%></a></div>
+<%end%>
+<div class="container col-12">
+  <div class="row">
+    <span class="col-12 col-lg-5 col-md-12 col-sm-12 title"> 
+      <%=@couse.couse_name%>
+      <table class="race_prof table">
+        <tbody>
+            <tr class="birthday">
+              <h2><%=@race_title%></h2>
+            </tr>
+            <%@race_title_info.each do |r|%>
+              <tr class="birthday">
+                <td><%=r%></td>
+              </tr>
+            <%end%>
+        </tbody>
+      </table>
+    </span>
+    <span class="col-12 col-lg-6 offset-lg-1 col-md-12 col-sm-12 h-50 calculation"> 
+      <h3>合計値</h3>
+      <p>馬s（馬のスピード能力）× コースs（コースに必要なスピード値）× 条件値（馬の状態や馬場の状態を考慮したスピードの割合）<br>
+      +<br>
+      馬p（馬のパワー能力）× コースp（コースに必要なパワー値）× 条件値（馬の状態や馬場の状態を考慮したパワーの割合）
+      </p>
+    </span>
+  </div>
 </div>

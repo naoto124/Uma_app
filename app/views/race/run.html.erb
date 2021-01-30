@@ -1,7 +1,4 @@
-<%unless @a%>
-  <div><a href="<%=race_result_path(name:@code)%>">レース結果</a></div>
-<%end%>
-<%= render partial: 'race/race_title', locals:{couse: @couse,race_title: @race_title}, collection:{race_title_info: @race_title_info}%>
+<%= render partial: 'race/race_title', locals:{path:race_result_path(name:@code),result:"レース結果",couse: @couse,race_title: @race_title}, collection:{race_title_info: @race_title_info}%>
 <span class="table-responsive-sm md lg main">
   <table class="uma_race_info table" style = "font-size: 14px;">
   <%= render partial: 'race/table_items', collection:{table_items: @table_items}%>

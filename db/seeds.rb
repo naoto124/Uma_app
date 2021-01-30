@@ -44,24 +44,33 @@ def couses
       ]
       # p couses
       # id以外
-      couses.each do |e|
+  #     couses.each do |e|
+  # #       r = Couse.new()
+  #       Couse.create(
+  #       couse_name: e,
+  #       place: e.split[0],
+  #       stage: e.split[1],
+  #       distance: e.split[2],
+  #       )
+  #         end
+  
+  #     couses.each do |e|
+  #       r = Couse.find_by(couse_name: e)
+  #       r.couse_id = r.id
+  #       r.save
+  #     end
+      couse_id = Couse.pluck(:couse_id)
+      couse_id.each do |e|
   #       r = Couse.new()
-        Couse.create(
-        couse_name: e,
-        place: e.split[0],
-        stage: e.split[1],
-        distance: e.split[2],
+        CouseParameter.create(
+          c_i = e
+          c_i.save
         )
           end
   
-      couses.each do |e|
-        r = Couse.find_by(couse_name: e)
-        r.couse_id = r.id
-        r.save
-      end
 end
 # 実行メソッド
-# couses()
+couses()
 
 # umaレコード
 class Uma  < ApplicationRecord
@@ -152,40 +161,6 @@ class Race  < ApplicationRecord
 
   end
 
-
-  # def race_parts
-  #   agent = Mechanize.new
-    
-  #   code = Race.pluck(:code)
-  #   code.each do |c|
-  #     if c != nil
-  #       @c = c
-  #       race_link("https://umanity.jp/racedata/race_21.php?code=" + @c)
-  #     end
-  #   end
-
-
-  # end
-
-  # def race_link(te)
-  #   agent = Mechanize.new
-  #   page = agent.get(te)
-  #   elements = page.search('h2.racecard')
-  #   elements.each do |element|
-  #     if element.inner_text.split.length <= 3
-  #       race = Race.find_by(code: @c)
-  #         race.name = element.inner_text.split[1]
-  #         race.save
-  #     elsif element.inner_text.split.length > 3
-  #       race = Race.find_by(code: @c)
-  #           race.name = element.inner_text.split[2]
-  #           race.save
-  #     else next
-        
-  #     end
-  #   end
-    
-  # end
 end
-r = Race.new
-r.uma_race_link
+# r = Race.new
+# r.uma_race_link

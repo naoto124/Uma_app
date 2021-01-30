@@ -1,0 +1,62 @@
+  <span class="table-responsive-xs sm md lg ">
+    <table class="race_info table table-bordered">
+    <% if @place[0] == nil %>
+      <thead>
+          <tr class ="table-primary col-md-4 col-sm-6 col-xs-12">
+            <%@ple.each do |pl|%>
+              <th><%=pl%></th>
+            <%end%>
+          </tr>
+      </thead>
+      <tbody>
+        <%@r.each_with_index do |ra,i|%>
+          <tr class ="table-dark col-md-4 col-sm-6 col-xs-12">
+            <%ra.each do |r|%>
+                <td>
+                <%if r[:n].empty?%>
+                  <p scope="row"></p>
+                  <p></p>
+                <%else%>
+                  <p scope="row"><%=r[:n]%>R</p>
+                  <p><a href="<%=race_run_path(name:r[:race_name_a])%>" name="<%r[:race_name_a]%>">
+                    <%= r[:race_name]%>
+                  </a></p>
+                <%end%>
+                </td> 
+            <%end%>
+          </tr>
+        <%end%>
+      </tbody>
+        <% elsif @place[0] != nil%>
+      <thead>
+          <tr class ="table-primary col-md-4 col-sm-6 col-xs-12">
+            <th></th>
+            <% @place.uniq.each do |pn|%>
+              <th><%= pn%></th>
+            <%end%>
+          </tr>
+      </thead>
+      <tbody>
+          <%c = 0%>
+            <%@num.each do |pl|%>
+        <tr class ="table-dark col-md-4 col-sm-6 col-xs-12">
+          <th scope="row"><%= pl%></th>
+        <%@race_name_a.each do |ra|%>
+              <td>
+                <a href="<%=race_run_path(name:@race_name_a[c])%>" name="<%@race_name_a[c]%>">
+                  <%= @race_name[c]%>
+                </a>
+              </td> 
+              <% c += 1%>
+              <%if c % @place.count == 0 %>
+                <% break%>
+              <%end%>
+            <%end%>
+        </tr>
+        <%end%>
+      </tbody>
+
+    <%end%>
+    </table>
+  </span>
+
