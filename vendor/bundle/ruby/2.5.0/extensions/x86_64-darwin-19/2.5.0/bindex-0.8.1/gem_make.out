@@ -1,0 +1,15 @@
+current directory: /Users/hoshikawanaoto/Library/Mobile Documents/com~apple~CloudDocs/ruby/uma_apuri/vendor/bundle/ruby/2.5.0/gems/bindex-0.8.1/ext/skiptrace
+/Users/hoshikawanaoto/.rbenv/versions/2.5.2/bin/ruby -r ./siteconf20210131-32827-1x0ff39.rb extconf.rb
+creating Makefile
+
+current directory: /Users/hoshikawanaoto/Library/Mobile Documents/com~apple~CloudDocs/ruby/uma_apuri/vendor/bundle/ruby/2.5.0/gems/bindex-0.8.1/ext/skiptrace
+make "DESTDIR=" clean
+
+current directory: /Users/hoshikawanaoto/Library/Mobile Documents/com~apple~CloudDocs/ruby/uma_apuri/vendor/bundle/ruby/2.5.0/gems/bindex-0.8.1/ext/skiptrace
+make "DESTDIR="
+compiling cruby.c
+linking shared-object skiptrace/internal/cruby.bundle
+
+current directory: /Users/hoshikawanaoto/Library/Mobile Documents/com~apple~CloudDocs/ruby/uma_apuri/vendor/bundle/ruby/2.5.0/gems/bindex-0.8.1/ext/skiptrace
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 cruby.bundle ./.gem.20210131-32827-1fn3tzi/skiptrace/internal

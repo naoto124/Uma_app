@@ -12,18 +12,18 @@
 
 ActiveRecord::Schema.define(version: 20201222115329) do
 
-  create_table "couse_parameters", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "couse_id"
-    t.float "speed", default: 1.0, null: false
-    t.float "power", default: 1.0, null: false
+  create_table "couse_parameters", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "user_id"
+    t.bigint "couse_id"
+    t.float "speed", limit: 24, default: 1.0, null: false
+    t.float "power", limit: 24, default: 1.0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["couse_id"], name: "index_couse_parameters_on_couse_id"
     t.index ["user_id"], name: "index_couse_parameters_on_user_id"
   end
 
-  create_table "couses", force: :cascade do |t|
+  create_table "couses", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "couse_id"
     t.string "couse_name"
     t.string "place"
@@ -35,9 +35,9 @@ ActiveRecord::Schema.define(version: 20201222115329) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "favorites", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "uma_id"
+  create_table "favorites", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "user_id"
+    t.bigint "uma_id"
     t.integer "speed", default: 1, null: false
     t.integer "power", default: 1, null: false
     t.datetime "created_at", null: false
@@ -46,21 +46,21 @@ ActiveRecord::Schema.define(version: 20201222115329) do
     t.index ["user_id"], name: "index_favorites_on_user_id"
   end
 
-  create_table "races", force: :cascade do |t|
+  create_table "races", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "code"
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "umas", force: :cascade do |t|
+  create_table "umas", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
     t.string "code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
     t.string "email"
     t.string "password_digest"
@@ -68,4 +68,8 @@ ActiveRecord::Schema.define(version: 20201222115329) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "couse_parameters", "couses"
+  add_foreign_key "couse_parameters", "users"
+  add_foreign_key "favorites", "umas"
+  add_foreign_key "favorites", "users"
 end

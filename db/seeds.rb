@@ -54,23 +54,22 @@ def couses
   #       )
   #         end
   
-  #     couses.each do |e|
-  #       r = Couse.find_by(couse_name: e)
-  #       r.couse_id = r.id
-  #       r.save
-  #     end
+      # couses.each do |e|
+      #   r = Couse.find_by(couse_name: e)
+      #   r.couse_id = r.id
+      #   r.save
+      # end
       couse_id = Couse.pluck(:couse_id)
       couse_id.each do |e|
   #       r = Couse.new()
         CouseParameter.create(
-          c_i = e
-          c_i.save
+          couse_id: e
         )
           end
   
 end
 # 実行メソッド
-couses()
+# couses()
 
 # umaレコード
 class Uma  < ApplicationRecord
@@ -162,5 +161,5 @@ class Race  < ApplicationRecord
   end
 
 end
-# r = Race.new
-# r.uma_race_link
+r = Race.new
+r.uma_race_link
