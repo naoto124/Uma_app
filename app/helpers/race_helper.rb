@@ -22,14 +22,11 @@ module RaceHelper
       page = mechanize_page_get('https://umanity.jp/racedata/race_8.php?code=' + (j))
       # page = agent.get(page_8)
       @b = page.search('/html/body/div[2]/div[4]/div/div/table[2]/tr/td[1]/table/tr/td[2]/h3/a').empty?
-      p page.search('/html/body/div[2]/div[4]/div/div/table[2]/tr/td[1]/table/tr/td[2]/h3/a').empty?
-      p @b
   end
 
   def judge_result(ju)
       page = mechanize_page_get('https://umanity.jp/racedata/race_21.php?code=' + (ju))
       a = page.search('/html/body/div[2]/div[4]/div/div/table[2]/tr/td[1]/table/tr/td[4]/h3/a').empty?
-      # p page.search('/html/body/div[2]/div[4]/div/div/table[2]/tr/td[1]/table/tr/td[4]/h3/a').empty?
   end
 
   def show_race(sh)
@@ -103,8 +100,6 @@ module RaceHelper
         end
       end
       @race_name_a = @race_name_a.uniq
-      p "ooooo"
-      p @place[0]
 
     if @race_name[0] == nil
       @race_ple = page.search('th.th_place')
@@ -121,27 +116,19 @@ module RaceHelper
         hash[:n] = n
         @race_days_info << hash
       end
-      p "eee"
-      p @race_days_info[0]
       @race_ple.each do |r|
         @ple << r.inner_text
       end
-      # p @ple
 
       c = 0
       @race_days_info.each_with_index do |r,i|
-          # p r.inner_text
         if r[:n].empty?
           @race_days_info[i].store(:race_name,"-----")
           @race_days_info[i].store(:race_name_a,"-----")
         else
           inner = @race_names[c].inner_text
-          p "rrrrrr"
-          p inner
           @race_days_info[i].store(:race_name,inner)
           a = @race_names[c].get_attribute('href')
-          p "wwww"
-          p a
           if a.include?('race_21')
           @race_days_info[i].store(:race_name_a,a[27..42].to_s)
           elsif a.include?('race_8')
@@ -172,12 +159,13 @@ module RaceHelper
       elements .each do |ele|
         @race_title_info << ele.inner_text.to_s
       end
-      @plece = elements_p.inner_text
+      @place = elements_p.inner_text
     t = @race_title_info[0].slice('芝') || ('ダート')
     d = @race_title_info[0].split
     d = d[1].delete('m')
 
-      @couse = Couse.find_by(place: @plece, stage: t, distance: d)
+      c = Couse.new
+      @couse = c.couse_pltd(@place,t,d)
   end
 
   def race_specil(r)
@@ -185,43 +173,20 @@ module RaceHelper
 
     if page
     # レース中身
+    elements = page.search('div.race tbody td a')
       @race_text = []
       @race_uma_code = []
-      elements = page.search('div.race tbody td a')
-      @race_text = []
-      @race_uma_code = []
 
-      elements.each do |ele|
-        if Uma.find_by(code: ele.get_attribute('href')[44..53].to_s == nil)
-          p "wwww"
-          p ele.inner_text
-          uma = Uma.new
-          uma.code = ele.get_attribute('href')[44..53].to_s
-          uma.name = ele.inner_text
-          uma.save ? (redirect_to request.referer) : (render :show)
-        end
-        if ele.get_attribute('href').include?('//umanity.jp/racedata/db/horse_top.php?code=')
-          @race_text << ele.inner_text
-          @race_uma_code << ele.get_attribute('href')[44..53].to_s
-        end
-
-      end
-
-      @race_text = @race_text
-      @race_uma_code = @race_uma_code
+      u = Uma.new
+      u.uma_new_save?(elements,@race_text,@race_uma_code)
     end
 
   end
 
   def race_uma(ue)
     page = mechanize_page_get(ue)
-    p "ggggg"
-    p params
-    if !Race.find_by(code:params[:name])
-      r = Race.find_by(code:params[:name])
-      r.code = params[:name]
-      r.save ? (redirect_to request.referer) : (render :show)
-    end
+    params_name = params[:name]
+    Race.race_code_nil?(params_name)
 
     if page
       race_f = page.iframe_with(name: 'racecard').click
@@ -254,8 +219,6 @@ module RaceHelper
           @racealls << hash
       end
 
-
-
       disassembly(box,:box)
       disassembly(uma_number,:uma_number)
       disassembly(sex_age,:sex_age)
@@ -264,7 +227,8 @@ module RaceHelper
       disassembly(popular,:popular)
 
       @racealls.each_with_index do |u,i|
-        u_a = Uma.find_by(code: u[:uma_code])
+        u_c = Uma.new
+        u_a = u_c.uma_find_code(u[:uma_code])
         if u_a != nil
           u.store(:uma_id,u_a.id)
         elsif u_a == nil
@@ -280,8 +244,10 @@ module RaceHelper
       end
       p "mmmm"
       p @racealls[0].length
-      @favorite = Favorite.where(user_id: current_user.id)
-      @couse_parameter = CouseParameter.where(user_id: current_user.id)
+      f = Favorite.new
+      c_p = CouseParameter.new
+      @favorite = f.favorite_user(current_user.id)
+      @couse_parameter = c_p.couse_parameter_user(current_user.id)
       # p "pppppp"
       # p @favorite[0].uma_id
     end
@@ -293,33 +259,23 @@ module RaceHelper
     end
   end
 
-      def race_result(me)
-      page = mechanize_page_get(me)
+  def race_result(me)
+    page = mechanize_page_get(me)
 
-      @race_all = page.search('/html/body/div[2]/div[4]/div/div/table[3]/tr/td/div/div/table[1]/tr/td/table/tr/td/table/tr/td').each_slice(19).to_a
+    @race_all = page.search('/html/body/div[2]/div[4]/div/div/table[3]/tr/td/div/div/table[1]/tr/td/table/tr/td/table/tr/td').each_slice(19).to_a
 
-      # all = ["rank","box","number",:uma_name,"sex_age","weight","jokey","g","ozz","poplar","time","space","f3","middle"]
-      @racealls = []
-      @race_all.each_with_index do |al,m|
-        al.each_with_index do |a,i|
-            if  i == 3
-              p "eeee"
-              p a.inner_text.gsub(/\s/, '')
-              # if Uma.find_by(code:a.children.children.children.children.at_css('a')[:href][44..53]) == nil
-              #   u = Uma.new
-              #   u.name = a.inner_text.gsub(/\s/, '')
-              #   u.code = a.children.children.children.children.at_css('a')[:href][44..53]
-              #   u.save ? (redirect_to request.referer) : (render :show)
-              #   return
-              # end
-              p "eeee"
-              hash = Hash.new{|h,k| h[k] = n}
-              hash[:uma_name] = a.inner_text.gsub(/\s/, '')
-              hash[:uma_name_a] = a.children.children.children.children.at_css('a')[:href][44..53]
-              @racealls << hash
-            end
+    @racealls = []
+    @race_all.each_with_index do |al,m|
+      al.each_with_index do |a,i|
+          if  i == 3
+            p "eeee"
+            hash = Hash.new{|h,k| h[k] = n}
+            hash[:uma_name] = a.inner_text.gsub(/\s/, '')
+            hash[:uma_name_a] = a.children.children.children.children.at_css('a')[:href][44..53]
+            @racealls << hash
           end
         end
+      end
 
       @race_all.each_with_index do |al,m|
         al.each_with_index do |a,i|
@@ -356,21 +312,17 @@ module RaceHelper
       end
 
       @racealls.each do |u|
-        u_a = Uma.find_by(name: u[:uma_name])
+        u_n = Uma.new
+        u_a = u_n.uma_find_name(u[:uma_name])
         if u_a != nil
           u.store(:uma_id,u_a.id)
         end
       end
 
-      @favorite = Favorite.where(user_id: current_user.id)
-      @couse_parameter = CouseParameter.where(user_id: current_user.id)
-      # p "----------------"
-      # p "----------------"
-      # p @favorite[0]
-      # p @racealls[0][:uma_id]
-      # p "----------------"
-      p "tttt"
-      p @racealls[0].length
+      f = Favorite.new
+      c_p = CouseParameter.new
+      @favorite = f.favorite_user(current_user.id)
+      @couse_parameter = c_p.couse_parameter_user(current_user.id)
 
     end
 

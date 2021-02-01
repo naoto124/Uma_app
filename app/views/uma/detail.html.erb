@@ -60,7 +60,9 @@
 
               <% if i == 3 && @n[i][n] != nil && @code_link[n] != nil%>
                 <td>
+                <% if logged_in? %>
                   <a href="<%=race_run_path(name:@code_link[n])%>" name="<%=@code_link[n]%>">
+                <%end%>
                     <%= @n[i][n]%>
                   </a>
                 </td>
