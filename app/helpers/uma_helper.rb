@@ -8,7 +8,8 @@ module UmaHelper
   end
 
     def my_favorite(user)
-    @favorite = Favorite.where(user_id:user)
+    f = Favorite.new
+    @favorite = f.favorite_user(user)
     my_favorite_umas
   end
 
@@ -33,11 +34,8 @@ module UmaHelper
 
 
     def detail_item
-    # if params[:q]
-    #   p "iiiii"
-    #   p params[:q]
-    # end
     p params[:name]
+    
     @uma = Uma.find_by(name: params[:name])
     
     @code = @uma.code

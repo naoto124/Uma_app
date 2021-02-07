@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20201222115329) do
+ActiveRecord::Schema.define(version: 20210207054455) do
 
   create_table "couse_parameters", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "user_id"
@@ -46,6 +46,18 @@ ActiveRecord::Schema.define(version: 20201222115329) do
     t.index ["user_id"], name: "index_favorites_on_user_id"
   end
 
+  create_table "myraces", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "user_id"
+    t.bigint "race_id"
+    t.integer "code"
+    t.float "speed", limit: 24, default: 1.0, null: false
+    t.float "power", limit: 24, default: 1.0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["race_id"], name: "index_myraces_on_race_id"
+    t.index ["user_id"], name: "index_myraces_on_user_id"
+  end
+
   create_table "races", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "code"
     t.string "name"
@@ -72,4 +84,6 @@ ActiveRecord::Schema.define(version: 20201222115329) do
   add_foreign_key "couse_parameters", "users"
   add_foreign_key "favorites", "umas"
   add_foreign_key "favorites", "users"
+  add_foreign_key "myraces", "races"
+  add_foreign_key "myraces", "users"
 end

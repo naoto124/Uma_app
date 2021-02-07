@@ -18,4 +18,8 @@ class User < ApplicationRecord
   has_many :parameters, dependent: :destroy
   has_many :couses, through: :couse_parameters
   has_many :couse_parameter_couses, through: :couse_parameters, source: :couses
+
+  # has_many :myraces, dependent: :destroy
+  # has_many :races, through: :myraces
+  # has_many :couse_parameter_couses, through: :myraces, source: :races
 end

@@ -16,8 +16,9 @@ class UmaController < ApplicationController
 
   def show
     @keyword = params[:link]
-    @uma = Uma.where('name like ?',"#{@keyword}%").page(params[:page]).per(80)
-      
+    # ここ
+    @uma = Uma.where_like(@keyword).page(params[:page]).per(80)
+    # @uma.page(params[:page]).per(80)
   end
 
   def detail
@@ -26,17 +27,6 @@ class UmaController < ApplicationController
     detail_item()
   end
 
-  # def all_index
-  #   unless params[:q].blank?
-  #   @q = Uma.search(params[:q])
-  #   p "uuu"
-  #   p @q.result
-  #   @uma_s = Kaminari.paginate_array(@q.result).page(params[:page]).per(5)
-  #   p @uma_s
-  # else
-
-  # end
-  # end
 
   def search
     p "yyy"
@@ -58,7 +48,7 @@ class UmaController < ApplicationController
       end
     elsif params[:key]
       p "iiiii"
-      @input = Uma.where('name LIKE(?)', "#{params[:key]}%")
+      @input = Uma.where_like(params[:key])
       @input = @input.select{|i| i[:name].length < 11}
       p "iiiii"
       p @input

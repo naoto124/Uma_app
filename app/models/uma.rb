@@ -34,11 +34,16 @@ class Uma < ApplicationRecord
   def uma_find_code(code)
     Uma.find_by(code: code)
   end
-  
   def uma_find_name(name)
     Uma.find_by(name: name)
   end
+  def uma_find_id(id)
+    Uma.find_by(id: id)
+  end
 
+  def self.where_like(name)
+    Uma.where('name like ?',"#{name}%")
+  end
 
 end
 

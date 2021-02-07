@@ -11,17 +11,17 @@
           <td>パラメーターの設定</td>
             <form action="/uma/<%=@favorite.uma_id%>/add/<%=@favorite.id%>" method="post">
             <input type="hidden" name="user_id" value="<%=current_user.id%>">
-              <td>
-                <label for="">speed</label>
+              <td class="w-25">
+                <label for="speed">speed</label><br>
+                <p><%=@favorite.speed%></p>
                 <select name="speed" class="slt">
-                <%# javascriptでやる %>
                 </select>
               </td>
 
-              <td>
-                <label for="">power</label>
+              <td class="select">
+                <label for="power">power</label><br>
+                <p><%=@favorite.power%></p>
                 <select name="power" class="slt">
-                  <%# <option value="1">1</option> %>
                 </select>
               </td><br>
               <td>

@@ -30,6 +30,13 @@ Rails.application.routes.draw do
   get '/race_result/:name', to:'race#result', as:'race_result'
   resources:race, params: :name
 
+  #   resources :race do
+  #   post '/add', to:'myrace#create'
+  #   post'/add/:id' ,to:'myrace#update', as:'myrace_update'
+  #   delete '/add', to:'myrace#destroy'
+  # end
+
+
   get '/couse', to:'couse#index', as:'couse_index'
     post '/couse',to:'couse#create'
   

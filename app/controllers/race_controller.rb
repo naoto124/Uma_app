@@ -26,7 +26,6 @@ class RaceController < ApplicationController
 
 
   def info
-    # @dey_code = params[:name]
     @next = []
     @url = []
     next_race(params[:name].to_s)
@@ -36,17 +35,17 @@ class RaceController < ApplicationController
   def show
     p params[:name]
     @code = params[:name]
-    @race = Race.find_by(code: params[:name])
+    @race = Race.race_find_code(@code)
     p "------"
     p @race
-    # show_race(@race.code)
     show_race(params[:name].to_s)
   end
 
   def run
     @code = params[:name]
     @table_items = ["枠","馬番","馬名","性・歳","負荷","騎手","人気","馬s","馬p","コースs","コースp","条件値","合計値"]
-    if Race.find_by(code: params[:name]) == nil
+    # ここ
+    if Race.race_find_code(@code).blank?
       race = Race.new
       race.code = params[:name]
       race.name = @race_title
