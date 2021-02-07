@@ -34,7 +34,6 @@ module UmaHelper
 
 
     def detail_item
-    p params[:name]
     
     @uma = Uma.find_by(name: params[:name])
     

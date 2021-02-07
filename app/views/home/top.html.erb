@@ -60,7 +60,7 @@
             <div class="card-text">
             <%= search_form_for @q, url: search_path, html: { method: :get }  do |f| %>
             <%= f.label :name_cont, "馬名"%>
-            <%= f.search_field :name_cont, class: "search-input" %>
+            <%= f.search_field :name_cont, class: "search-input"%>
             <div class="actions"><%= f.submit "検索" %></div>
           <% end %>
           <div class="uma-result">
@@ -84,7 +84,7 @@
 
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script type="text/javascript">
+<script charset="utf-8" type="text/javascript">
   $(function() {
     function appendUma(input) {
       html = `<li><a href="/uma_detail/${input.name}">${input.name}</a></li>`

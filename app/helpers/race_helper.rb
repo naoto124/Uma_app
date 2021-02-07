@@ -139,8 +139,6 @@ module RaceHelper
           c += 1
         end
       end
-      p "qqqqqq"
-      p @race_days_info
       @r = @race_days_info.each_slice(@ple.count).to_a
     end
 
@@ -232,8 +230,6 @@ module RaceHelper
         if u_a != nil
           u.store(:uma_id,u_a.id)
         elsif u_a == nil
-          p "wwww"
-          p u[:uma_name]
           uma = Uma.new
           uma.name = u[:uma_name]
           uma.code = u[:uma_code]
@@ -242,14 +238,10 @@ module RaceHelper
         else redirect_to root_path
         end
       end
-      p "mmmm"
-      p @racealls[0].length
       f = Favorite.new
       c_p = CouseParameter.new
       @favorite = f.favorite_user(current_user.id)
       @couse_parameter = c_p.couse_parameter_user(current_user.id)
-      # p "pppppp"
-      # p @favorite[0].uma_id
     end
   end
 

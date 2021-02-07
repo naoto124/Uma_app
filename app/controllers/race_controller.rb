@@ -14,7 +14,6 @@ class RaceController < ApplicationController
     tM = n.month
     tD = n.day
     da = "#{tY}/#{tM}/#{tD}"
-    p da
     @next = []
     @url = []
    next_race(da)
@@ -33,11 +32,8 @@ class RaceController < ApplicationController
 
 
   def show
-    p params[:name]
     @code = params[:name]
     @race = Race.race_find_code(@code)
-    p "------"
-    p @race
     show_race(params[:name].to_s)
   end
 
@@ -52,8 +48,6 @@ class RaceController < ApplicationController
       race.save ? (redirect_to request.referer) : (render :race_info_path) and return
     end
     @a = judge_result(params[:name].to_s)
-    p @a
-    p "kkkkkk"
     # if judge_result(params[:name].to_s) == true
       if judge(params[:name].to_s) == false
         run_race(params[:name].to_s)
