@@ -40,15 +40,11 @@ class RaceController < ApplicationController
   def run
     @code = params[:name]
     @table_items = ["枠","馬番","馬名","性・歳","負荷","騎手","人気","馬s","馬p","コースs","コースp","条件値","合計値"]
-    # ここ
     if Race.race_find_code(@code).blank?
-      race = Race.new
-      race.code = params[:name]
-      race.name = @race_title
+      race = Race.new(code:params[:name],name:@race_title)
       race.save ? (redirect_to request.referer) : (render :race_info_path) and return
     end
     @a = judge_result(params[:name].to_s)
-    # if judge_result(params[:name].to_s) == true
       if judge(params[:name].to_s) == false
         run_race(params[:name].to_s)
         return
@@ -68,6 +64,5 @@ class RaceController < ApplicationController
     @a = judge(params[:name].to_s)  
     run_result(params[:name].to_s)
   end
-
 
 end

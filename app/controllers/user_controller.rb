@@ -37,6 +37,16 @@ class UserController < ApplicationController
     end
   end
 
+  def index
+    @user_id = session[:user_id]
+    @favorite_uma = User.my_favorites(@user_id,params[:page])
+    @favorites = []
+    @favorite_uma.each do |uma|
+      @favorites << User.favorite(@user_id,uma)
+    end
+  end
+
+
   private
   def user_params
     params.require(:user).permit(:id,:name,:email,:password,:password_confirmation)

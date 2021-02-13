@@ -5,29 +5,73 @@
 //  @import "bootstrap";
 
 
+ul {
+  background: #dadada;
+  border-radius :6px;
+  box-shadow :0px 0px 5px silver;
+  padding: 0.5em 0.5em 0.5em 2em;
+  margin-bottom: 1px;
+  text-align:center;
+}
 
 
-// .new_title h2 {
-//   width: 600px;
-//    height: 150px;
-//    margin: 20px 10px;
-//    background-color: ivory;
-//    border-radius: 5%;
-//    margin: auto;
-//    text-align: center;
-//    clear: right;
-//    color: #333;
-//   //  position: relative;
-// }
+ul li {
+  line-height: 1.5;
+  padding: 0.5em 0;
+}
+@media screen and (max-width:767px) {
+    /*　画面サイズが767px以下の場合読み込む　*/
+  ul {
+    display: flex;
+    margin-bottom: 1px;
+    flex-wrap: wrap;
+  }
 
-//   .new_user{
-//   background-color: wheat;
-//   width: 300px;
-//   height: 270px;
-//   border: 1px solid wheat;
-//   border-radius: 5%;
-//   text-align: center;
-//   color: #333;
-//   // position: absolute;
-//   top:200px; left: 100px;
-//   }
+  li {
+    margin: 6px;
+    width: 100%;
+  }}
+  @media screen and (min-width:768px){
+  ul {
+    display: -ms-flexbox;  
+    display: -webkit-flex; 
+    display: flex;
+    -webkit-flex-flow: wrap column; 
+    flex-flow: wrap column;
+    max-height: 680px;
+  }
+
+}
+
+
+
+.paginate {
+  margin: 0;
+  background-color: #cac9c7;
+  border-radius :2px;
+  letter-spacing: 20px;
+  height: 32px;
+  font-size: 16px;
+}
+
+.pagination {
+  justify-content: center;
+}
+
+/*ページネーション自体のデザイン*/
+.pagination>li>a {          
+  border: none;     /*枠線をなくす*/
+  color: #e9e3e3;   /*文字の色を変える*/
+}
+
+/* 表示しているページ番号のデザイン */
+.pagination>.active>a {     
+  background: #ddf1ef;     /*背景の色を変える*/
+  border-radius: 1%;     /*角を丸くする*/
+}
+
+/*ホバー時のデザイン*/
+.pagination>li>a:hover {        
+  border-radius: 15px;    /*角を丸くする*/
+}
+

@@ -19,7 +19,19 @@ class User < ApplicationRecord
   has_many :couses, through: :couse_parameters
   has_many :couse_parameter_couses, through: :couse_parameters, source: :couses
 
-  # has_many :myraces, dependent: :destroy
-  # has_many :races, through: :myraces
-  # has_many :couse_parameter_couses, through: :myraces, source: :races
+
+  def self.my_favorites(user,param)
+    u = User.find_by(id:user)
+    users = u.favorites
+    @uma = []
+    users.each do |u|
+      @uma << u.uma
+    end
+    Kaminari.paginate_array(@uma).page(param).per(30)
+  end
+
+  def self.favorite(user,uma)
+    Favorite.find_by(user_id:user,uma_id:uma)
+  end
+
 end

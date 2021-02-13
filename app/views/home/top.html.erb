@@ -1,16 +1,12 @@
 <%if logged_in?%>
 <div class="jumbotron">
     <div class="row">
-    <div class="col-md">
+    <div class="col-12">
         <div class="display-4">
-          <h1><%= @current_user.name %><h1>
-        <div class="row">
-            <ul class="col-md-4">
-              <li>
-                <a  href="<%=uma_index_path%>">お気に入り馬</a>
-              </li>
-            </ul>
-          </div>
+          <h1><%= @current_user.name %></h1>
+          <span class="row">
+            <h3 class="w-100 m-3"><a href="<%=favorite_index_path(@current_user.id)%>">お気に入り馬</a></h3>
+          </span>
           </div>
         </div>
       </div>

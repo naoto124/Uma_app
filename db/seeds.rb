@@ -42,26 +42,24 @@ def couses
       "小倉 芝 1200","小倉 芝 1700","小倉 芝 1800","小倉 芝 2000","小倉 芝 2600",
               "小倉 ダート 1000","小倉 ダート 1700","小倉 ダート 2400"
       ]
-      # p couses
-      # id以外
-  #     couses.each do |e|
-  # #       r = Couse.new()
-  #       Couse.create(
-  #       couse_name: e,
-  #       place: e.split[0],
-  #       stage: e.split[1],
-  #       distance: e.split[2],
-  #       )
-  #         end
+      p couses
+      id以外
+      couses.each do |e|
+        Couse.create(
+        couse_name: e,
+        place: e.split[0],
+        stage: e.split[1],
+        distance: e.split[2],
+        )
+          end
   
-      # couses.each do |e|
-      #   r = Couse.find_by(couse_name: e)
-      #   r.couse_id = r.id
-      #   r.save
-      # end
+      couses.each do |e|
+        r = Couse.find_by(couse_name: e)
+        r.couse_id = r.id
+        r.save
+      end
       couse_id = Couse.pluck(:couse_id)
       couse_id.each do |e|
-  #       r = Couse.new()
         CouseParameter.create(
           couse_id: e
         )
@@ -69,7 +67,7 @@ def couses
   
 end
 # 実行メソッド
-# couses()
+couses()
 
 # umaレコード
 class Uma  < ApplicationRecord
@@ -161,5 +159,5 @@ class Race  < ApplicationRecord
   end
 
 end
-r = Race.new
-r.uma_race_link
+# r = Race.new
+# r.uma_race_link

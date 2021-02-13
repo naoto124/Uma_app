@@ -3,10 +3,6 @@ require 'mechanize'
 class UmaController < ApplicationController
   include UmaHelper
 
-  def index
-    @user_id = session[:user_id]
-    my_favorite(@user_id)
-  end
 
   def create
   end
@@ -26,7 +22,7 @@ class UmaController < ApplicationController
 
   def search
     if params[:q]
-      u = Uma.ransack(params[:q].tr('ぁ-ん','ァ-ン')).result
+      u = Uma.ransack(params[:q]).result
       if u.any?{|m| m.name == params[:q][:name_cont] }
         redirect_to uma_detail_path(name:params[:q][:name_cont])
       elsif u.any?{|m| m.name != params[:q][:name_cont] } && u

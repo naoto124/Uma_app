@@ -1,24 +1,22 @@
 class FavoriteController < ApplicationController
   def create
     @user = current_user
-    if Favorite.favorite_create(params[:uma_id],@user.id)
-      uma = Uma.new
-      @uma = uma.uma_find_id(params[:uma_id])
+    if Favorite.favorite_create(@user.id,params[:uma_id])
+      @uma = Favorite.uma_find(@user.id,params[:uma_id])
       redirect_to uma_detail_path(name:@uma.name)
     else
       render root_url
     end
   end
 
+
   def update
     session[:user_id] = params[:user_id]
-    @user = params[:user_id]
-    u = Uma.new
-    @uma = u.uma_find_id(params[:uma_id])
-    @favorite = Favorite.find_favorite(session[:user_id],@uma.id)
+    @favorite = Favorite.find_favorite(session[:user_id],params[:uma_id])
     @favorite.speed = params[:speed]
     @favorite.power = params[:power]
     if @favorite.save
+      @uma = Favorite.uma_find(session[:user_id],params[:uma_id])
       redirect_to uma_detail_path(name:@uma.name)
     else
       render root_url
@@ -27,9 +25,7 @@ class FavoriteController < ApplicationController
 
 
   def destroy
-    @user = current_user
-      uma = Uma.new
-      @uma = uma.uma_find_id(params[:uma_id])
+      @uma = Favorite.uma_find(session[:user_id],params[:uma_id])
     @favorite = Favorite.find_favorite(session[:user_id],@uma.id)
     if @favorite = Favorite.find_favorite(session[:user_id],@uma.id)
       @favorite.delete

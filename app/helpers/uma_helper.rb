@@ -7,35 +7,9 @@ module UmaHelper
     ]
   end
 
-    def my_favorite(user)
-    f = Favorite.new
-    @favorite = f.favorite_user(user)
-    my_favorite_umas
-  end
-
-  def my_favorite_umas
-    @uma = Uma.all
-    @favorite_uma = []
-    @favorite.each do |f|
-      hash = Hash.new{|h,k| h[k] = uu }
-        if @uma.find {|u| u.id == f.uma_id}
-          u = Uma.find_by(id:f.uma_id)
-          id = f.uma_id
-          hash[:id] = id
-          hash.store(:name,u.name)
-          hash.store(:speed,f.speed)
-          hash.store(:power,f.power)
-        end
-        @favorite_uma << hash
-     end
-    @favorite_uma = Kaminari.paginate_array(@favorite_uma).page(params[:page]).per(30)
-
-  end
-
-
     def detail_item
     
-    @uma = Uma.find_by(name: params[:name])
+    @uma = Uma.find_name(params[:name])
     
     @code = @uma.code
 
@@ -50,7 +24,6 @@ module UmaHelper
 
     @uma_info = []
     @profs = page.search('table.race_prof_table td')
-    # @uma_info << elements_disassemble(@profs)
     @profs.each do |prof|
       @uma_info << prof.inner_text
     end
@@ -84,11 +57,16 @@ module UmaHelper
 
       @n = @new_race_info.transpose
 
+      @uma_prof = {
+        @birth => "生年月日",@sex_age => "性別・歳",@uma_info[0] => "調教師",@uma_info[1] => "馬主",
+        @uma_info[2] => "生産者",@uma_info[3] => "生産地",@uma_info[4] => "成績",@uma_info[5] => "賞金"
+      }
+
     # favoriteの変数
 
     if logged_in?
       @user = current_user
-      @favorite = Favorite.find_by(user_id: @user.id,uma_id:@uma.id)
+      @favorite = Uma.favorite(@user.id,@uma.id)
     end
 
   end

@@ -1,3 +1,3 @@
-json.array! @input do |input|
-  json.name input.name
-end
+# json.array! @input do |input|
+#   json.name input.name
+# end

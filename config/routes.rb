@@ -8,9 +8,9 @@ Rails.application.routes.draw do
   get "/signup", to:"user#new", as:"signup"
   post"/create",to:"user#create",as:"create"
   get "/index", to:"home#index",as:"race_index"
+  get '/favorite/:id',to:'user#index', as:'favorite_index'
   resources:user
 
-  get '/uma_index',to:'uma#index',as:'uma_index'
   get '/uma_show/:link',to:'uma#show',as:'uma_show'
   get '/uma_detail/:name',to:'uma#detail',as:'uma_detail'
   get 'uma/search' => 'uma#search',as:'search'

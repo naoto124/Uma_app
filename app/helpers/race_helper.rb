@@ -1,5 +1,6 @@
 module RaceHelper
 
+
   def mechanize_page(page_url)
       agent = Mechanize.new()
       page_url
@@ -164,6 +165,10 @@ module RaceHelper
 
       c = Couse.new
       @couse = c.couse_pltd(@place,t,d)
+      p @couse.couse_id
+      p "wwwooo"
+      @t_parameters = [1,0.5,0.6,0.7,0.8,0.9,1.1,1.2,1.3,1.4,1.5]
+
   end
 
   def race_specil(r)
@@ -242,6 +247,8 @@ module RaceHelper
       c_p = CouseParameter.new
       @favorite = f.favorite_user(current_user.id)
       @couse_parameter = c_p.couse_parameter_user(current_user.id)
+      p "ewew"
+      p @couse_parameter[0]
     end
   end
 

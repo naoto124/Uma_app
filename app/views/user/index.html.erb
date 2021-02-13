@@ -1,0 +1,19 @@
+<div class="container">
+  <h1>お気に入り馬</h1>
+    <ul class="m-0">
+      <% @favorite_uma.each do |u| %>
+        <li>
+          <a href="<%=uma_detail_path(name:u.name)%>" name="<%= u.name%>">
+            <%= u.name%>
+          </a>
+          <%favorite = @favorites.find {|f| f.uma_id == u.id}%>
+          <p>スピード : <%=favorite.speed%></p>
+          <p>パワー : <%=favorite.power%></p>
+          </li>
+
+      <% end %>
+    </ul>
+  <div class="paginate">
+    <%= paginate @favorite_uma %>
+  </div>
+</div>
