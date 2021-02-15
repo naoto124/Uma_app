@@ -27,9 +27,6 @@ class Uma < ApplicationRecord
     end
   end
 
-  # def self.my_favorites(user)
-  #   Uma.favorites
-  # end
 
   # race helperで使用
   def uma_find_code(code)

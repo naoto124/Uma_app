@@ -83,19 +83,6 @@
   <script type="text/javascript">
 
   $(function() {
-    // var flo = [];
-    // var counts = 5;
-    // for (var i = 0;i < 10;i++){
-    //   flo[i] = counts / 10;
-    //   counts += 1;
-    // }
-    // console.log(flo);
-    // $.each(flo,
-    // function(pr,i){
-    // console.log(pr,i);
-    // console.log($(this).find('.flo'));
-    //   $(this).find('.flo').append(`<option value="${i}">${i}</option>`);
-    // });
 
     $('.info_wapper').each(function(){
       var u_speed = parseFloat($(this).find('.u_speed').text());
@@ -113,8 +100,6 @@
       var result = speed + power;
       var result_tb = $(this).find('.result');
       result_tb.text(result.toFixed(1));
-        // console.log("tb");
-        // console.log(result_tb.text(result));
 
       var select_s= $(this).find('select')[0];
       var select_p= $(this).find('select')[1];
